@@ -1,0 +1,11 @@
+[MASTER]
+ignore=
+    test_fake.py
+
+[MESSAGES CONTROL]
+
+disable=
+    C0103, # Variable doesn't conform to snake_case naming style (invalid-name)
+    E0611, # No name 'BaseModel' in module 'pydantic' (no-name-in-module)
+    W0718, # Catching too general exception Exception (broad-exception-caught)
+    R0903, # Too few public methods (1/2) (too-few-public-methods)
