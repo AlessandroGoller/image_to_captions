@@ -9,6 +9,9 @@ ruff app || goto :error
 echo "Run type checking"
 mypy app --exclude custom_logging.py --exclude main.py|| goto :error
 
+echo "Run pylint"
+pylint app || goto :error
+
 echo "Running tests"
 coverage run --source=app -m pytest || goto :error
 ECHO "Create HTML Coverage report"
