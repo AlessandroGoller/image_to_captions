@@ -9,3 +9,4 @@ disable=
     E0611, # No name 'BaseModel' in module 'pydantic' (no-name-in-module)
     W0718, # Catching too general exception Exception (broad-exception-caught)
     R0903, # Too few public methods (1/2) (too-few-public-methods)
+    E0401, # import-error, this because in the workflow we will have an error on config file
