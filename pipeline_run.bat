@@ -1,10 +1,11 @@
 echo "Installing dev dependencies"
 
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 echo "pip install -r requirements-dev.txt"
 
-echo "ruff"
-ruff app || goto :error
+echo "Running ruff"
+ruff app --fix|| goto :error
 
 echo "Run type checking"
 mypy app --exclude custom_logging.py --exclude main.py|| goto :error
