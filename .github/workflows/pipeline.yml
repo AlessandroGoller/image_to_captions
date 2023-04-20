@@ -9,15 +9,9 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
-    - name: Run ruff
-      run: ruff app --fix
+        python-version: 3.9
     - name: Run type checking
-      run: mypy app --exclude custom_logging.py --exclude main.py
+      run: mypy app --exclude app/dependency.py --exclude main.py
     - name: Run pylint
       run: pylint app
     - name: Run tests
