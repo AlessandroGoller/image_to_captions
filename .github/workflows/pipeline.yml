@@ -1,0 +1,30 @@
+name: PIPELINE
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+    - name: Run ruff
+      run: ruff app --fix
+    - name: Run type checking
+      run: mypy app --exclude custom_logging.py --exclude main.py
+    - name: Run pylint
+      run: pylint app
+    - name: Run tests
+      run: coverage run --source=app -m pytest
+    - name: Create HTML Coverage report
+      run: coverage html
+    - name: Coverage report
+      run: coverage report --show-missing --skip-covered --skip-empty --omit="*test*,*exception*"
+    - name: Check for errors
+      run: exit $(($? > 0))
