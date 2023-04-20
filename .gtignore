@@ -13,7 +13,8 @@ sqlite_db
 *.so
 
 # config files
-*config.py
+*/config.py
+config.py
 
 # Distribution / packaging
 .Python
