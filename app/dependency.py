@@ -4,7 +4,7 @@ Module with the dependency
 
 from functools import lru_cache
 
-from app.config.config import Config
+from app.config.config import Config  # noqa
 
 
 @lru_cache()
