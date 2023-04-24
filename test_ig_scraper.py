@@ -78,7 +78,7 @@ class GetInstagramProfile():
 
 if __name__=="__main__":
     cls = GetInstagramProfile()
-    page = "riccardo.lunelli"
+    page = "dolomistici"
     #cls.download_users_profile_picture("best_gadgets_2030")
     #cls.download_users_posts_with_periods(page)
     with open(page+".csv", 'w', newline='', encoding='utf-8') as file:

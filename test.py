@@ -10,7 +10,6 @@
 import replicate
 import os
 import streamlit as st
-from instascrape import *
 import pickle
 from app.dependency import get_settings
 
