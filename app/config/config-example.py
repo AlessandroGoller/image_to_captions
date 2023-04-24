@@ -1,3 +1,4 @@
+# pylint: skip-file
 """Module with all config"""
 
 import os

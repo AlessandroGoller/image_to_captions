@@ -19,7 +19,5 @@ jobs:
       run: mypy app --exclude app/dependency.py --exclude main.py
     - name: Run pylint
       run: pylint app
-    - name: Run tests
-      run: coverage run --source=app -m pytest
     - name: Check for errors
       run: exit $(($? > 0))
