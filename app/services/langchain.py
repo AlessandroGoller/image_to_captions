@@ -1,6 +1,7 @@
 """ Module for langchain """
 
-from langchain import HuggingFaceHub, LLMChain, PromptTemplate
+from langchain import HuggingFaceHub  #, LLMChain, PromptTemplate
+from langchain.agents import initialize_agent, load_tools
 from langchain.llms import OpenAI
 from loguru import logger
 
@@ -36,6 +37,14 @@ def search_info_of_company(name_to_search:str)->str:
     -------
     str
     """
+    llm = prepare_llm()
+    tools = load_tools(["serpapi"], llm=llm, serpapi_api_key=settings.SERPAPI_API_KEY)
+    agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+    response = agent.run(f"What products or services does {name_to_search} company offer?")
+    return response
+
+    '''
+    OLD
     template = """Company name : {name}
 
     Brief explanation of what the company consists of and what it does: """
@@ -52,3 +61,4 @@ def search_info_of_company(name_to_search:str)->str:
     )
     # ask the user question about NFL 2010
     return str(llm_chain.run(name_to_search))
+    '''
