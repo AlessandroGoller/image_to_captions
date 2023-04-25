@@ -14,4 +14,11 @@ logger.add(f"{log_folder}/{datetime.now().strftime('%Y-%m-%d')}.log", rotation="
 
 
 if __name__ == "__main__":
-    subprocess.call(["streamlit", "run", "app/streamlit_app.py"])
+    streamlit_path = os.path.abspath("app/streamlit_app.py")
+    import sys
+    subprocess.call(
+        f"""{sys.executable} -m streamlit run {streamlit_path} \
+            --server.headless=true --global.developmentMode=false""",
+        shell=True,
+        text=True,
+    )
