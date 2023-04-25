@@ -47,8 +47,8 @@ def search_info_of_company(name_to_search:str)->str:
     # create prompt template > LLM chain
     llm_chain = LLMChain(
         prompt=prompt,
+        verbose=True,
         llm=llm
     )
-
     # ask the user question about NFL 2010
     return str(llm_chain.run(name_to_search))
