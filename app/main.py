@@ -12,8 +12,8 @@ if not os.path.exists(log_folder):
 
 logger.add(f"{log_folder}/{datetime.now().strftime('%Y-%m-%d')}.log", rotation="00:00")
 
-
-if __name__ == "__main__":
+def main()->None:
+    """ Activate Streamlit """
     streamlit_path = os.path.abspath("app/streamlit_app.py")
     import sys
     subprocess.call(
@@ -22,3 +22,6 @@ if __name__ == "__main__":
         shell=True,
         text=True,
     )
+
+if __name__ == "__main__":
+    main()
