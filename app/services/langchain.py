@@ -45,25 +45,3 @@ def search_info_of_company(name_to_search:str)->str:
     agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
     response = agent.run(f"What products or services does {name_to_search} company offer?")
     return str(response)
-
-def useless(name_to_search:str)->str:
-    '''
-    OLD
-    template = """Company name : {name}
-
-    Brief explanation of what the company consists of and what it does: """
-    prompt = PromptTemplate(
-            template=template,
-        input_variables=["name"]
-    )
-    llm = prepare_llm()
-    # create prompt template > LLM chain
-    llm_chain = LLMChain(
-        prompt=prompt,
-        verbose=True,
-        llm=llm
-    )
-    # ask the user question about NFL 2010
-    return str(llm_chain.run(name_to_search))
-    '''
-    return name_to_search
