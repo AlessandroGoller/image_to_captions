@@ -1,9 +1,7 @@
-
 import instaloader
 from datetime import datetime
 from itertools import dropwhile, takewhile
 import csv
-import time
 
 class GetInstagramProfile():
     def __init__(self) -> None:
@@ -74,35 +72,3 @@ class GetInstagramProfile():
                     print("comment text: "+comment.text)
                     print("comment date : "+str(comment.created_at_utc))
                 print("\n\n")
-
-
-if __name__=="__main__":
-    cls = GetInstagramProfile()
-    page = "alessandrogoller"
-    #cls.download_users_profile_picture("best_gadgets_2030")
-    #cls.download_users_posts_with_periods(page)
-    with open(page+".csv", 'w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        posts = instaloader.Profile.from_username(cls.L.context, page).get_posts()
-        for post in posts:
-            time.sleep(5)
-            print("post date: "+str(post.date))
-            print("post profile: "+post.profile)
-            print("post caption: "+post.caption)
-            #print("post location: "+str(post.location))
-            
-            # posturl = "https://www.instagram.com/p/"+post.shortcode
-            # print("post url: "+posturl)
-            writer.writerow(["post",post.mediaid, post.profile, post.caption])
-        
-            # for comment in post.get_comments():
-            #     writer.writerow(["comment",comment.id, comment.owner.username,comment.text,comment.created_at_utc])
-            #     print("comment username: "+comment.owner.username)
-            #     print("comment text: "+comment.text)
-            #     print("comment date : "+str(comment.created_at_utc))
-            writer.writerow("")
-    #cls.download_hastag_posts("gadgets")
-    #cls.get_users_followers("best_gadgets_2030")
-    #cls.get_users_followings("best_gadgets_2030")
-    #cls.get_post_comments("laydline")
-    #cls.get_post_info_csv("coolest.gadget")

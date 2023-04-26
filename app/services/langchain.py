@@ -18,9 +18,12 @@ def prepare_llm()->HuggingFaceHub:
         llm = HuggingFaceHub(repo_id="google/flan-t5-xl",
                             model_kwargs={"temperature":0, "max_length":512},
                             huggingfacehub_api_token = settings.HUGGINGFACEHUB_API_TOKEN)
-    else:
+    elif settings.OPENAI_API_TOKEN is not None:
         logger.info("Using OpenAI as llm")
         llm = OpenAI(model_name="text-davinci-003", openai_api_key=settings.OPENAI_API_TOKEN)
+    else:
+        logger.error("No llm found")
+        raise ValueError("No llm found")
 
     return llm
 
