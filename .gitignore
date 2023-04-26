@@ -13,9 +13,6 @@ sqlite_db
 # C extensions
 *.so
 
-# config files
-*/config.py
-config.py
 
 # Distribution / packaging
 .Python

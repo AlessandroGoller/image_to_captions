@@ -12,13 +12,3 @@ jobs:
       with:
         source: "app/config/config-example.py"
         target: "app/config/config.py"
-    - name: Add and commit changes
-      run: |
-        git config --local user.email "alegoller@gmail.com"
-        git config --local user.name "Alessandro"
-        git add app/config/config.py
-        git commit -m "Add config file"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -292,6 +292,8 @@ python-dateutil==2.8.2
     #   matplotlib
     #   pandas
     #   streamlit
+python-dotenv==1.0.0
+    # via -r requirements.in
 pytz==2023.3
     # via
     #   -r requirements.in

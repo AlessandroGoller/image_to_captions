@@ -99,3 +99,6 @@ urllib3==1.26.15
 validators==0.20.0
 yarl==1.9.2
 zipp==3.15.0
+streamlit_extras
+instaloader
+python-dotenv
