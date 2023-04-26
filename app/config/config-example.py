@@ -20,3 +20,4 @@ class Config(BaseSettings):
     PORT:str = os.getenv("PORT") or "5000"
     HUGGINGFACEHUB_API_TOKEN:Optional[str] = os.getenv("HUGGINGFACEHUB_API_TOKEN") or None
     OPENAI_API_TOKEN:Optional[str] = os.getenv("OPENAI_API_TOKEN") or None
+    SERPAPI_API_KEY:Optional[str] = os.getenv("SERPAPI_API_KEY") or None
