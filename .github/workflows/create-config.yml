@@ -1,0 +1,13 @@
+name: Create Config File
+on:
+  push:
+    branches:
+      - master # o il nome della branch su cui vuoi attivare il workflow
+jobs:
+  create-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create config file
+        run: cp config-example.py config.py

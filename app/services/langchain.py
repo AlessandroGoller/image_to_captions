@@ -41,8 +41,9 @@ def search_info_of_company(name_to_search:str)->str:
     tools = load_tools(["serpapi"], llm=llm, serpapi_api_key=settings.SERPAPI_API_KEY)
     agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
     response = agent.run(f"What products or services does {name_to_search} company offer?")
-    return response
+    return str(response)
 
+def useless(name_to_search:str)->str:
     '''
     OLD
     template = """Company name : {name}
@@ -62,3 +63,4 @@ def search_info_of_company(name_to_search:str)->str:
     # ask the user question about NFL 2010
     return str(llm_chain.run(name_to_search))
     '''
+    return name_to_search

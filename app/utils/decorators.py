@@ -21,7 +21,7 @@ def timeit(f: Callable) -> Callable:
         )
         return result
 
-    return wrapper # type: ignore
+    return wrapper
 
 
 def timed_lru_cache(timeout: int, maxsize: int = 128, typed: bool = False)-> Any:

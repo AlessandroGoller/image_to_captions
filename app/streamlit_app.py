@@ -18,9 +18,9 @@ st.title("Image to Captions")
 name_input = st.text_input("Inserisci il nome dell'azienda:")
 
 if st.button("Find description"):
-    with st.spinner('Wait for it...'):
+    with st.spinner("Wait for it..."):
         test = search_info_of_company(name_input)
-        st.success('Done!')
+        st.success("Done!")
     # Mostrare caption
     st.write(test)
 
