@@ -14,8 +14,8 @@ jobs:
         target: "app/config/config.py"
     - name: Add and commit changes
       run: |
-        git config --local user.email "your@email.com"
-        git config --local user.name "Your name"
+        git config --local user.email "alegoller@gmail.com"
+        git config --local user.name "Alessandro"
         git add app/config/config.py
         git commit -m "Add config file"
     - name: Push changes
