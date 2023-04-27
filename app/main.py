@@ -21,7 +21,7 @@ def main()->None:
 
     user.database.metadata.create_all(bind=database_engine)
 
-    """ Activate Streamlit """
+    # Activate Streamlit
     streamlit_path = os.path.abspath("app/streamlit_app.py")
     subprocess.call(
         f"""{sys.executable} -m streamlit run {streamlit_path} \

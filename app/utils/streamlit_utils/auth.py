@@ -1,33 +1,35 @@
 """ Module utils for streamlit auth """
 
-import base64
-import hashlib
+import bcrypt
 
-USERS = {
-    "admin":"admin"
-}
+from app.crud.user import create_user, get_user_by_email
+from app.schema.user import UserCreate
 
-def verify_login(username: str, password: str) -> bool:
+
+def verify_login(email: str, password: str) -> bool:
     """
     Verifica se l'utente con username e password esiste nella lista degli utenti registrati
     e se le credenziali sono corrette.
     """
-    stored_password = USERS.get(username)
-    if stored_password is None:
+    user = get_user_by_email(email=email)
+    if user is None:
         return False
-    return password==stored_password
+    stored_password = user.password
+    return bcrypt.checkpw(password.encode("utf-8"), stored_password.encode("utf-8"))
 
-def register_user(username: str, password: str) -> bool:
+def register_user(email: str, password: str) -> bool:
     """
-    Registra un nuovo utente con username e password.
+    Registra un nuovo utente con email e password.
     Restituisce True se la registrazione è andata a buon fine,
     False se l'username è già stato utilizzato.
     """
-    if username in USERS:
+    user = get_user_by_email(email=email)
+    if user is not None:
         return False
-    hashed_password = base64.b64encode(hashlib.sha256(
-        password.encode("utf-8")).digest()).decode("utf-8")
-    USERS[username] = hashed_password
+    data = UserCreate(name="Noname", email=email, password=password)
+    user = create_user(user=data)
+    if user is None:
+        return False
     return True
 
 def is_logged_in(session:dict[str,bool]) -> bool:

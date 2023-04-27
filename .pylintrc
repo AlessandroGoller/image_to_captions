@@ -2,6 +2,9 @@
 ignore=
     test_fake.py
 
+[FORMAT]
+max-line-length=120
+
 [MESSAGES CONTROL]
 
 disable=
