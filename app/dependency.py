@@ -30,11 +30,9 @@ def get_db() -> Iterator:
 # DB
 database = declarative_base()
 
-# GTODO: #connect_args={"check_same_thread": False} rimuovere se non è sqllite il db
 database_engine = create_engine(
     get_settings().SQLALCHEMY_DATABASE_URI,
     echo=True,
-    connect_args={"check_same_thread": False},
 )
 DBSessionLocal = sessionmaker(
     autocommit=False, autoflush=True, binds={database: database_engine}

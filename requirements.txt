@@ -261,6 +261,8 @@ protobuf==3.20.3
     #   -r requirements.in
     #   streamlit
     #   streamlit-extras
+psycopg2==2.9.6
+    # via -r requirements.in
 pyarrow==11.0.0
     # via
     #   -r requirements.in

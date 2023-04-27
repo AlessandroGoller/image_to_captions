@@ -103,3 +103,4 @@ streamlit_extras
 instaloader
 python-dotenv
 openai
+psycopg2
