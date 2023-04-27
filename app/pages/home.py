@@ -53,7 +53,7 @@ if st.button("Link instagram page"):
                 for post in posts:
                     # Put sleep to avoid too fast requests
                     time.sleep(1)
-                    writer.writerow(["post",str(post.date), post.mediaid, post.profile, post.caption, post.location])
+                    writer.writerow(["post",str(post.date), post.mediaid, post.profile, post.caption, post.location, post.likes, post.comments])
 
 # Aggiungi una sezione per caricare l'immagine
 uploaded_file = st.file_uploader("Carica un'immagine", type=["png", "jpg", "jpeg"])

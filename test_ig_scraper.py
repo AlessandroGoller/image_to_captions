@@ -78,31 +78,25 @@ class GetInstagramProfile():
 
 if __name__=="__main__":
     cls = GetInstagramProfile()
-    page = "alessandrogoller"
+    page = "montura_official"
+    data = dict()
     #cls.download_users_profile_picture("best_gadgets_2030")
     #cls.download_users_posts_with_periods(page)
-    with open(page+".csv", 'w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        posts = instaloader.Profile.from_username(cls.L.context, page).get_posts()
-        for post in posts:
-            time.sleep(5)
-            print("post date: "+str(post.date))
-            print("post profile: "+post.profile)
-            print("post caption: "+post.caption)
-            #print("post location: "+str(post.location))
-            
-            # posturl = "https://www.instagram.com/p/"+post.shortcode
-            # print("post url: "+posturl)
-            writer.writerow(["post",post.mediaid, post.profile, post.caption])
+    posts = instaloader.Profile.from_username(cls.L.context, page).get_posts()
+    for post in posts:
+        time.sleep(1)
+        # print("post date: "+str(post.date))
+        # print("post profile: "+post.profile)
+        # print("post caption: "+post.caption)
+        # print("post location: "+str(post.location))
+        # # Get the url of the post 
+        # print(list(set(post.caption_hashtags)))
+        # print(list(set(post.caption_mentions)))
+        # posturl = "https://www.instagram.com/p/"+post.shortcode
+        # print("post url: "+posturl)
+        # print(post.url)
+        # print(post.mediacount)
+        print(post.mediaid)
+        #data[post.mediaid]
+
         
-            # for comment in post.get_comments():
-            #     writer.writerow(["comment",comment.id, comment.owner.username,comment.text,comment.created_at_utc])
-            #     print("comment username: "+comment.owner.username)
-            #     print("comment text: "+comment.text)
-            #     print("comment date : "+str(comment.created_at_utc))
-            writer.writerow("")
-    #cls.download_hastag_posts("gadgets")
-    #cls.get_users_followers("best_gadgets_2030")
-    #cls.get_users_followings("best_gadgets_2030")
-    #cls.get_post_comments("laydline")
-    #cls.get_post_info_csv("coolest.gadget")
