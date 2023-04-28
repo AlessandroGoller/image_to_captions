@@ -4,13 +4,22 @@ from itertools import dropwhile, takewhile
 import csv
 
 class GetInstagramProfile():
+    '''
+    Class to load a profile and download its data. 
+    '''
     def __init__(self) -> None:
         self.L = instaloader.Instaloader()
 
     def download_users_profile_picture(self,username):
+        '''
+        Download a user's profile picture.
+        '''
         self.L.download_profile(username, profile_pic_only=True)
 
     def download_users_posts_with_periods(self,username):
+        '''
+        Download posts from a user within a specified period of time. 
+        '''
         posts = instaloader.Profile.from_username(self.L.context, username).get_posts()
         SINCE = datetime(2021, 8, 28)
         UNTIL = datetime(2021, 9, 30)
@@ -19,11 +28,17 @@ class GetInstagramProfile():
             self.L.download_post(post, username)
 
     def download_hastag_posts(self, hashtag):
+        '''
+        Download posts that contains a certain hashtag.
+        '''
         for post in instaloader.Hashtag.from_name(self.L.context, hashtag).get_posts():
             self.L.download_post(post, target='#'+hashtag)
 
     def get_users_followers(self,user_name):
-        '''Note: login required to get a profile's followers.'''
+        '''
+        Function to get a profile's followers.
+        Note: login required to get a profile's followers.
+        '''
         self.L.login(input("input your username: "), input("input your password: ") ) 
         profile = instaloader.Profile.from_username(self.L.context, user_name)
         file = open("follower_names.txt","a+")
@@ -33,7 +48,10 @@ class GetInstagramProfile():
             print(username)
 
     def get_users_followings(self,user_name):
-        '''Note: login required to get a profile's followings.'''
+        '''
+        Function to get a profile's followings.
+        Note: login required to get a profile's followings.
+        '''
         self.L.login(input("input your username: "), input("input your password: ") ) 
         profile = instaloader.Profile.from_username(self.L.context, user_name)
         file = open("following_names.txt","a+")
@@ -43,6 +61,9 @@ class GetInstagramProfile():
             print(username)
 
     def get_post_comments(self,username):
+        '''
+        Function to get a post's comments and print them at screen.
+        '''
         posts = instaloader.Profile.from_username(self.L.context, username).get_posts()
         for post in posts:
             for comment in post.get_comments():
@@ -53,6 +74,9 @@ class GetInstagramProfile():
                 print("************************************************")
 
     def get_post_info_csv(self,username):
+        '''
+        Function to get info from every post of a user and store them in a csv file.
+        '''
         with open(username+'.csv', 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             posts = instaloader.Profile.from_username(self.L.context, username).get_posts()

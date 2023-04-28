@@ -40,8 +40,13 @@ if st.button("Link instagram page"):
     # Check if the page is already in the archive
     if(instagram_input+".csv" in os.listdir(ARCHIVE_PATH)):
         # Load the data 
-        pass
-        # TODO
+        all_captions = []
+        with open(ARCHIVE_PATH+"/"+instagram_input+".csv", 'r', newline='', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            # Get the captions of all the posts TODO: do it with a json file instead of csv
+            for row in reader:
+                pieces = row.split(",")
+                all_captions.append(pieces[4])
     else:
         # Scraping 
         # TODO decide if to scrape here or throw a message to invite the scraping
