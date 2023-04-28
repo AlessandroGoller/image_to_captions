@@ -102,3 +102,6 @@ zipp==3.15.0
 streamlit_extras
 instaloader
 python-dotenv
+openai
+psycopg2
+bcrypt

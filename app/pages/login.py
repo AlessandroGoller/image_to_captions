@@ -10,35 +10,35 @@ from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_l
 def show_login_page()->None:
     """ show_login_page """
     st.header("Login")
-    username = st.text_input("Username")
+    email = st.text_input("Email")
     password = st.text_input("Password", type="password")
     login_button = st.button("Log in")
     if login_button:
-        if verify_login(username, password):
+        if verify_login(email=email, password=password):
             st.success("Logged in successfully.")
             session_state["is_logged_in"] = True
-            session_state["username"] = username
+            session_state["email"] = email
             st.experimental_rerun() # reload the page
         else:
-            st.error("Invalid username or password.")
+            st.error("Invalid email or password.")
 
 def show_register_page()->None:
     """ show_register_page """
     st.header("Register")
-    username = st.text_input("Username")
+    email = st.text_input("Email")
     password = st.text_input("Password", type="password")
     confirm_password = st.text_input("Confirm password", type="password")
     register_button = st.button("Register")
     if register_button:
         if password != confirm_password:
             st.error("Passwords do not match.")
-        elif register_user(username, password):
+        elif register_user(email=email, password=password):
             st.success("Registered successfully.")
             session_state["is_logged_in"] = True
-            session_state["username"] = username
+            session_state["email"] = email
             st.experimental_rerun() # reload the page
         else:
-            st.error("Username already taken.")
+            st.error("Email already taken.")
 
 def show_auth_page()->None:
     """ show_auth_page """
