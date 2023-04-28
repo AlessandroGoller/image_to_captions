@@ -15,7 +15,10 @@ def verify_login(email: str, password: str) -> bool:
     if user is None:
         return False
     stored_password = user.password
-    return bcrypt.checkpw(password.encode("utf-8"), stored_password.encode("utf-8"))
+    return bool(
+        bcrypt.checkpw(password.encode("utf-8"), stored_password.encode("utf-8"))
+    )
+
 
 def register_user(email: str, password: str) -> bool:
     """
@@ -32,7 +35,8 @@ def register_user(email: str, password: str) -> bool:
         return False
     return True
 
-def is_logged_in(session:dict[str,bool]) -> bool:
+
+def is_logged_in(session: dict[str, bool]) -> bool:
     """
     Verifica se l'utente è già loggato o meno.
     """

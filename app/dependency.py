@@ -14,12 +14,13 @@ from app.config.config import Config  # noqa type: ignore
 
 @lru_cache()
 def get_settings():  # type: ignore
-    """ Return the config"""
+    """Return the config"""
     return Config()
+
 
 # Dependency
 def get_db() -> Iterator:
-    """ Return an iterator to the db """
+    """Return an iterator to the db"""
     db = DBSessionLocal()
     try:
         yield db

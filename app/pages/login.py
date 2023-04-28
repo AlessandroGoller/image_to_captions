@@ -7,8 +7,8 @@ from streamlit_extras.switch_page_button import switch_page
 from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_login
 
 
-def show_login_page()->None:
-    """ show_login_page """
+def show_login_page() -> None:
+    """show_login_page"""
     st.header("Login")
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
@@ -18,12 +18,13 @@ def show_login_page()->None:
             st.success("Logged in successfully.")
             session_state["is_logged_in"] = True
             session_state["email"] = email
-            st.experimental_rerun() # reload the page
+            st.experimental_rerun()  # reload the page
         else:
             st.error("Invalid email or password.")
 
-def show_register_page()->None:
-    """ show_register_page """
+
+def show_register_page() -> None:
+    """show_register_page"""
     st.header("Register")
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
@@ -36,12 +37,13 @@ def show_register_page()->None:
             st.success("Registered successfully.")
             session_state["is_logged_in"] = True
             session_state["email"] = email
-            st.experimental_rerun() # reload the page
+            st.experimental_rerun()  # reload the page
         else:
             st.error("Email already taken.")
 
-def show_auth_page()->None:
-    """ show_auth_page """
+
+def show_auth_page() -> None:
+    """show_auth_page"""
     if is_logged_in(session_state):
         switch_page("home")
     else:
@@ -54,5 +56,5 @@ def show_auth_page()->None:
             show_register_page()
 
 
-session_state = st.session_state.setdefault("auth", {}) # retrieve the session state
+session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 show_auth_page()

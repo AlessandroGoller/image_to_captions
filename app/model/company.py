@@ -5,7 +5,8 @@ from app.dependency import database
 
 
 class Company(database):
-    """ Class for Company Model """
+    """Class for Company Model"""
+
     __tablename__ = "t_company"
 
     id_company = Column("id_t_company", Integer, nullable=False, primary_key=True)
@@ -13,4 +14,4 @@ class Company(database):
     id_user = Column(Integer, nullable=False)
     url_instagram = Column(String, nullable=True)
     description = Column(Text, nullable=True)
-    website = Column(String, nullable= True)
+    website = Column(String, nullable=True)

@@ -24,7 +24,7 @@ def timeit(f: Callable) -> Callable:
     return wrapper
 
 
-def timed_lru_cache(timeout: int, maxsize: int = 128, typed: bool = False)-> Any:
+def timed_lru_cache(timeout: int, maxsize: int = 128, typed: bool = False) -> Any:
     """
     Extension of functools lru_cache with a timeout
 
@@ -36,13 +36,14 @@ def timed_lru_cache(timeout: int, maxsize: int = 128, typed: bool = False)-> Any
     Example:
     @timed_lru_cache(maxsize=12, timeout=15)
     """
-    def wrapper_cache(func:Callable)->Any:
+
+    def wrapper_cache(func: Callable) -> Any:
         func = lru_cache(maxsize=maxsize, typed=typed)(func)
         func.delta = timedelta(seconds=timeout)  # type: ignore
         func.expiration = datetime.utcnow() + func.delta  # type: ignore
 
         @wraps(func)
-        def wrapped_func(*args:Any, **kwargs:Any)->Any:
+        def wrapped_func(*args: Any, **kwargs: Any) -> Any:
             if datetime.utcnow() >= func.expiration:  # type: ignore
                 func.cache_clear()  # type: ignore
                 func.expiration = datetime.utcnow() + func.delta  # type: ignore
