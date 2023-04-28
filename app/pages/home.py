@@ -8,7 +8,7 @@ import instaloader
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.services.langchain import search_info_of_company, generate_ig_post
+from app.services.langchain import search_info_of_company, generate_ig_post, generate_img_description
 from app.utils.ig_scraping import GetInstagramProfile
 from app.utils.streamlit_utils.auth import is_logged_in
 
@@ -71,13 +71,10 @@ uploaded_file = st.file_uploader("Carica un'immagine", type=["png", "jpg", "jpeg
 if st.button("Send"):
     # Verifica che sia stata caricata una immagine
     if uploaded_file is not None:
-        # TODO: Processare con blip2 
-        st.write("immagine caricata")
+        st.write("Immagine caricata")
     else:
         # Mostrare un avviso se l'utente non ha caricato un'immagine
         st.warning("Please upload an image.")
-
-description_input = st.text_input("Inserisci una piccola descrizione dell'immagine!")
 
 prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:"
 
@@ -90,15 +87,18 @@ if st.button("Generate description"):
             for row in reader:
                 all_captions.append(row[4])
     for example in all_captions[:20]:
-        # TODO correct the usage of the comma
         prompt += "\""+example + "\","
     prompt = prompt[:-1]
-    # Add the image description
-    prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
-               descrizione dell'immagine è: "+description_input+". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
-               Attieniti al tono di voce dell'azienda."
+
     with st.spinner("Wait for it..."):
         # TODO: add in the prompt the info of the company
+        # Use blip 2 for image description
+        description_image = generate_img_description(uploaded_file)
+        # Add the image description
+        prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
+               descrizione dell'immagine è: "+description_image+". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
+               Attieniti al tono di voce dell'azienda."
+        
         post = generate_ig_post(prompt)
         st.success("Done!")
     # Mostrare post

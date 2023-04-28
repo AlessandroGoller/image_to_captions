@@ -23,3 +23,4 @@ class Config(BaseSettings):
     HUGGINGFACEHUB_API_TOKEN:Optional[str] = os.getenv("HUGGINGFACEHUB_API_TOKEN") or None
     OPENAI_API_TOKEN:Optional[str] = os.getenv("OPENAI_API_TOKEN") or None
     SERPAPI_API_KEY:Optional[str] = os.getenv("SERPAPI_API_KEY") or None
+    REPLICATE_API_KEY:Optional[str] = os.getenv("REPLICATE_API_KEY") or None

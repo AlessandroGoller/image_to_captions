@@ -7,6 +7,8 @@ from loguru import logger
 
 from app.dependency import get_settings
 import openai
+import replicate
+from io import BytesIO
 
 settings = get_settings()
 
@@ -82,3 +84,16 @@ def generate_ig_post(prompt:str)->str:
     messages.append({"role": "assistant", "content": reply})
 
     return reply
+
+
+def generate_img_description(image:BytesIO, model:str="andreasjansson/blip-2:4b32258c42e9efd4288bb9910bc532a69727f9acd26aa08e175713a0a857a608")->str:
+    '''
+    Function to generate a description of an image using blip2
+    '''
+    client = replicate.Client(api_token=settings.REPLICATE_API_KEY)
+
+    output = client.run(
+        model_version=model,
+        input={"image": image}
+    )
+    return output
