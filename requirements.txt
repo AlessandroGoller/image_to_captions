@@ -242,6 +242,7 @@ packaging==23.0
     #   huggingface-hub
     #   marshmallow
     #   matplotlib
+    #   replicate
     #   streamlit
 pandas==1.5.3
     # via
@@ -271,6 +272,7 @@ pydantic==1.10.7
     #   -r requirements.in
     #   langchain
     #   openapi-schema-pydantic
+    #   replicate
 pydeck==0.8.1b0
     # via
     #   -r requirements.in
@@ -322,6 +324,8 @@ pyyaml==6.0
     #   huggingface-hub
     #   langchain
     #   pymdown-extensions
+replicate==0.8.1
+    # via -r requirements.in
 requests==2.29.0
     # via
     #   -r requirements.in
@@ -331,6 +335,7 @@ requests==2.29.0
     #   instaloader
     #   langchain
     #   openai
+    #   replicate
     #   streamlit
 rich==13.3.4
     # via
