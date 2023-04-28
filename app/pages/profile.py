@@ -22,6 +22,7 @@ def company_exist(company:Company)->None:
     company_name = st.text_input("Company Name:",str(company.name))
     description = st.text_input("Company description:",str(company.description) if company.description is not None else "")
     website = st.text_input("Company Website:",str(company.website) if company.website is not None else "")
+    instagram_url = st.text_input("Instagram Name:",str(company.url_instagram) if company.url_instagram is not None else "")
     if st.button("Find NEW description?"):
         with st.spinner("Wait for it..."):
             description = search_info_of_company(company_name)
@@ -29,7 +30,7 @@ def company_exist(company:Company)->None:
         # Mostrare caption
         description = st.text_input("Description, AI generated",description)
     if st.button("Save Info") and company_name is not None and company_name != "":
-        company_created = CompanyInfoBase(name=company_name,description=description,website=website)
+        company_created = CompanyInfoBase(name=company_name,description=description,website=website, url_instagram=instagram_url)
         if update_company(company=company, company_edit=company_created) is None:
             raise Exception ("Error during creation of a Company")
         else:
@@ -40,6 +41,7 @@ def company_not_exist()->None:
     """ Case in which the company NOT exist """
     company_name = st.text_input("Insert Company Name:")
     website = st.text_input("Insert Company website:","")
+    instagram_url = st.text_input("Insert Instagram Name:","")
     description = ""
     if company_name is None or company_name=="":
         st.write("Please Insert the Company Name")
@@ -51,7 +53,7 @@ def company_not_exist()->None:
             # Mostrare caption
             description = st.text_input("Description, AI generated",description)
         if st.button("Save Info"):
-            company_created = CompanyCreate(name=company_name,description=description,website=website,id_user=user.user_id)
+            company_created = CompanyCreate(name=company_name,description=description,website=website, url_instagram=instagram_url ,id_user=user.user_id)
             if create_company(company=company_created) is None:
                 raise Exception ("Error during creation of a Company")
             else:

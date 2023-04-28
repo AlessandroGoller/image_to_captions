@@ -26,7 +26,7 @@ def get_company_by_user_id(user_id: str) -> Optional[Company]:
 def create_company(company: CompanyCreate) -> Optional[Company]:
     """ Creation a user, in input the schema of user create and return the user"""
     db:Session = next(get_db())
-    db_company = Company(name=company.name, id_user=company.id_user, id_instagram=company.id_instagram, website=company.website, description=company.description)
+    db_company = Company(name=company.name, id_user=company.id_user, url_instagram=company.url_instagram, website=company.website, description=company.description)
     db.add(db_company)
     db.commit()
     db.refresh(db_company)

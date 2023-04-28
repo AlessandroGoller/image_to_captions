@@ -11,6 +11,6 @@ class Company(database):
     id_company = Column("id_t_company", Integer, nullable=False, primary_key=True)
     name = Column("name", String, nullable=False, unique=True)
     id_user = Column(Integer, nullable=False)
-    id_instagram = Column(Integer, nullable=True)
+    url_instagram = Column(String, nullable=True)
     description = Column(Text, nullable=True)
     website = Column(String, nullable= True)

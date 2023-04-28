@@ -8,7 +8,7 @@ from pydantic import BaseModel
 class CompanyInfoBase(BaseModel):
     """ Class CompanyInfo """
     name: str
-    id_instagram: Optional[int] = None
+    url_instagram: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None
 
