@@ -1,9 +1,9 @@
 import csv
 from datetime import datetime
 from itertools import dropwhile, takewhile
-
 import instaloader
-
+import json
+from tqdm import tqdm
 
 class GetInstagramProfile():
     '''
@@ -98,3 +98,58 @@ class GetInstagramProfile():
                     print("comment text: "+comment.text)
                     print("comment date : "+str(comment.created_at_utc))
                 print("\n\n")
+
+    def get_post_info_json(self,username,last_n_posts=100):
+        '''
+        Function to get info from every post of a user and store them in a json file (dictionary style).
+        '''
+        data = dict()
+        posts = instaloader.Profile.from_username(self.L.context, username).get_posts()
+        print("Downloading last "+str(last_n_posts)+" posts from "+username+"...")
+        for i in tqdm(range(last_n_posts)):
+            post = posts.__next__()
+            shortcode = post.mediaid_to_shortcode(post.mediaid)
+            data[shortcode] = dict()
+            # Store the post info
+            data[shortcode]["post"] = post.caption
+            data[shortcode]["hashtags"] = post.caption_hashtags
+            data[shortcode]["mentions"] = post.caption_mentions
+            data[shortcode]["tagged_users"] = post.tagged_users
+            data[shortcode]["likes"] = post.likes
+            data[shortcode]["comments"] = post.comments
+            data[shortcode]["date"] = str(post.date)
+            data[shortcode]["location"] = post.location
+            data[shortcode]["typename"] = post.typename
+            data[shortcode]["mediacount"] = post.mediacount
+            data[shortcode]["title"] = post.title
+            data[shortcode]["posturl"] = "https://www.instagram.com/p/"+shortcode
+
+        return data
+
+def load_post_captions_from_json(json_file:str, shortcodes:list=None)->list:
+    '''
+    Function to load post captions from a json file. The post loaded are the one specified by the shortcodes list.
+    This to allow compatibility with eventual search functions on the specific post. 
+    '''
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    captions = []
+    if(shortcodes is None):
+        # Load the complete file
+        shortcodes = list(data.keys())
+        for shortcode in shortcodes:
+            captions.append(data[shortcode]["post"])
+    else:
+        for shortcode in shortcodes:
+            captions.append(data[shortcode]["post"])
+    
+    return captions
+    
+if __name__=="__main__":
+    username = "dulacetduparc"
+    client = GetInstagramProfile()
+    data = client.get_post_info_json(username)
+    # Save as json file
+    with open(username+'.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
