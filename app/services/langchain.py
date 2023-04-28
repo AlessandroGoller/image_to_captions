@@ -54,7 +54,7 @@ def generate_ig_post(prompt:str)->str:
     '''
     openai.api_key = settings.OPENAI_API_TOKEN
     messages = [ {"role": "system", "content": 
-               "Sei un sistema intelligente che aiuta gli utenti a generare dei post per instagram."} ]
+               "Sei un sistema intelligente che genera dei post per instagram"} ]
     
     # TODO: to create the chat
     # while True:

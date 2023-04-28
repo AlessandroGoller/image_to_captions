@@ -79,7 +79,7 @@ if st.button("Send"):
 
 description_input = st.text_input("Inserisci una piccola descrizione dell'immagine!")
 
-prompt = "Potresti fornirmi il testo da utilizzare nel post seguendo il formato degli esempi che fornisco? Gli esempi sono i seguenti, separati da virgole:"
+prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:"
 
 all_captions = []
 # Generation with openai api
@@ -89,13 +89,14 @@ if st.button("Generate description"):
             # Get the captions of all the posts TODO: do it with a json file instead of csv
             for row in reader:
                 all_captions.append(row[4])
-    for example in all_captions[30]:
+    for example in all_captions[:20]:
         # TODO correct the usage of the comma
-        prompt += example + ","
-
+        prompt += "\""+example + "\","
+    prompt = prompt[:-1]
     # Add the image description
-    prompt += "Voglio personalizzare il post in base all'immagine che carico. Voglio che tu crei il post considerando che la\
-               descrizione dell'immagine è: "+description_input
+    prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
+               descrizione dell'immagine è: "+description_input+". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
+               Attieniti al tono di voce dell'azienda."
     with st.spinner("Wait for it..."):
         # TODO: add in the prompt the info of the company
         post = generate_ig_post(prompt)
