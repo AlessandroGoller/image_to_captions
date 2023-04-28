@@ -8,7 +8,7 @@ import instaloader
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.services.langchain import search_info_of_company
+from app.services.langchain import search_info_of_company, generate_ig_post
 from app.utils.ig_scraping import GetInstagramProfile
 from app.utils.streamlit_utils.auth import is_logged_in
 
@@ -36,18 +36,17 @@ site_input = st.text_input("Inserisci il link del sito web:")
 
 # Input per la pagina instagram
 instagram_input = st.text_input("Inserisci il link della tua pagina instagram:")
+all_captions = []
 # Scraping pagina instagram
 if st.button("Link instagram page"):
     # Check if the page is already in the archive
     if(instagram_input+".csv" in os.listdir(ARCHIVE_PATH)):
         # Load the data 
-        all_captions = []
         with open(ARCHIVE_PATH+"/"+instagram_input+".csv", 'r', newline='', encoding='utf-8') as file:
             reader = csv.reader(file)
             # Get the captions of all the posts TODO: do it with a json file instead of csv
             for row in reader:
-                pieces = row.split(",")
-                all_captions.append(pieces[4])
+                all_captions.append(row[4])
     else:
         # Scraping
         # TODO decide if to scrape here or throw a message to invite the scraping
@@ -72,8 +71,34 @@ uploaded_file = st.file_uploader("Carica un'immagine", type=["png", "jpg", "jpeg
 if st.button("Send"):
     # Verifica che sia stata caricata una immagine
     if uploaded_file is not None:
+        # TODO: Processare con blip2 
         st.write("immagine caricata")
     else:
         # Mostrare un avviso se l'utente non ha caricato un'immagine
         st.warning("Please upload an image.")
 
+description_input = st.text_input("Inserisci una piccola descrizione dell'immagine!")
+
+prompt = "Potresti fornirmi il testo da utilizzare nel post seguendo il formato degli esempi che fornisco? Gli esempi sono i seguenti, separati da virgole:"
+
+all_captions = []
+# Generation with openai api
+if st.button("Generate description"):
+    with open(ARCHIVE_PATH+"/"+instagram_input+".csv", 'r', newline='', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            # Get the captions of all the posts TODO: do it with a json file instead of csv
+            for row in reader:
+                all_captions.append(row[4])
+    for example in all_captions[30]:
+        # TODO correct the usage of the comma
+        prompt += example + ","
+
+    # Add the image description
+    prompt += "Voglio personalizzare il post in base all'immagine che carico. Voglio che tu crei il post considerando che la\
+               descrizione dell'immagine è: "+description_input
+    with st.spinner("Wait for it..."):
+        # TODO: add in the prompt the info of the company
+        post = generate_ig_post(prompt)
+        st.success("Done!")
+    # Mostrare post
+    st.write(post)

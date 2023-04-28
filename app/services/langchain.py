@@ -6,6 +6,7 @@ from langchain.llms import OpenAI
 from loguru import logger
 
 from app.dependency import get_settings
+import openai
 
 settings = get_settings()
 
@@ -45,3 +46,39 @@ def search_info_of_company(name_to_search:str)->str:
     agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
     response = agent.run(f"What products or services does {name_to_search} company offer?")
     return str(response)
+
+
+def generate_ig_post(prompt:str)->str:
+    '''
+    Function to generate a post for Instagram using a predefined prompt and chatgpt
+    '''
+    openai.api_key = settings.OPENAI_API_TOKEN
+    messages = [ {"role": "system", "content": 
+               "Sei un sistema intelligente che aiuta gli utenti a generare dei post per instagram."} ]
+    
+    # TODO: to create the chat
+    # while True:
+    #     message = prompt
+    #     if message:
+    #         messages.append(
+    #             {"role": "user", "content": message},
+    #         )
+    #         chat = openai.ChatCompletion.create(
+    #             model="gpt-3.5-turbo", messages=messages
+    #         )
+    #     reply = chat.choices[0].message.content
+    #     print(f"ChatGPT: {reply}")
+    #     messages.append({"role": "assistant", "content": reply})
+
+    message = prompt
+    if message:
+        messages.append(
+            {"role": "user", "content": message},
+        )
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", messages=messages
+        )
+    reply = chat.choices[0].message.content
+    messages.append({"role": "assistant", "content": reply})
+
+    return reply
