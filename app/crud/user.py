@@ -42,7 +42,7 @@ def become_admin(email: str) -> Optional[User]:
     user = get_user_by_email(email=email)
     if user is None:
         return None
-    user.admin = True
+    user.admin = True # type: ignore
     db.commit()
     db.refresh(user)
     return user

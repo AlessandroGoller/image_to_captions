@@ -1,15 +1,10 @@
 """ Home page streamlit """
 
-import csv
-import os
-import time
-
-import instaloader
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.services.langchain import search_info_of_company, generate_ig_post, generate_img_description
-from app.services.ig_scraping import GetInstagramProfile, load_post_captions_from_json
+from app.services.ig_scraping import load_post_captions_from_json
+from app.services.langchain import generate_ig_post, generate_img_description, search_info_of_company
 from app.utils.streamlit_utils.auth import is_logged_in
 
 ARCHIVE_PATH = "archive"
@@ -88,13 +83,16 @@ if st.button("Generate description"):
     with st.spinner("Wait for it..."):
         # TODO: add in the prompt the info of the company
         # Use blip 2 for image description
-        description_image = generate_img_description(uploaded_file)
+        description_image:str = generate_img_description(uploaded_file)
+        description_image = st.text_input("Descrizione dell'immagine da utilizzare:", description_image)
+
+    if st.button("Generate description for the post?"):
         # Add the image description
         prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
                descrizione dell'immagine è: "+description_image+". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
                Attieniti al tono di voce dell'azienda."
-        
+
         post = generate_ig_post(prompt)
         st.success("Done!")
-    # Mostrare post
-    st.write(post)
+        # Mostrare post
+        st.write(post)

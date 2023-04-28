@@ -5,7 +5,8 @@ pip freeze > requirements-dev.in
 pip-compile
 
 ## logging
-from loguru import logger
+from app.utils.logger import configure_logger
+logger = configure_logger()
 
 logger.info("Write here)
 logger.debug

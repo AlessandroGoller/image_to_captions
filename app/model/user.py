@@ -17,5 +17,6 @@ class User(database):
     last_access = Column("last_access",
                         DateTime(timezone=True),
                         onupdate=func.now(),
+                        server_default=func.now(),
                         nullable=True)
     time_created = Column("time_created", DateTime(timezone=True), server_default=func.now(), nullable=True)

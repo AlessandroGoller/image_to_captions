@@ -1,17 +1,19 @@
 """ Module for langchain """
 
+from io import BytesIO
+
+import openai
+import replicate
 from langchain import HuggingFaceHub  #, LLMChain, PromptTemplate
 from langchain.agents import initialize_agent, load_tools
 from langchain.llms import OpenAI
-from loguru import logger
 
 from app.dependency import get_settings
-import openai
-import replicate
-from io import BytesIO
+from app.utils.logger import configure_logger
 
 settings = get_settings()
 
+logger = configure_logger()
 
 def prepare_llm()->HuggingFaceHub:
     """Return the llm"""
@@ -27,7 +29,6 @@ def prepare_llm()->HuggingFaceHub:
     else:
         logger.error("No llm found")
         raise ValueError("No llm found")
-
     return llm
 
 def search_info_of_company(name_to_search:str)->str:
@@ -56,7 +57,7 @@ def generate_ig_post(prompt:str)->str:
     '''
     openai.api_key = settings.OPENAI_API_TOKEN
     messages = [ {"role": "system", "content": 
-               "Sei un sistema intelligente che genera dei post per instagram"} ]
+                "Sei un sistema intelligente che genera dei post per instagram"} ]
     
     # TODO: to create the chat
     # while True:
