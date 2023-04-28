@@ -12,6 +12,7 @@ async-generator==1.10
 async-timeout==4.0.2
 attrs==23.1.0
 backcall==0.2.0
+bcrypt==4.0.1
 beautifulsoup4==4.12.2
 bleach==6.0.0
 blinker==1.6.2
@@ -124,6 +125,7 @@ prometheus-client==0.16.0
 prompt-toolkit==3.0.38
 protobuf==3.20.3
 psutil==5.9.4
+psycopg2==2.9.6
 ptyprocess==0.7.0
 pure-eval==0.2.2
 pyarrow==11.0.0
