@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app package &mdash; Image To Captions 00.00.01 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Image To Captions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">app package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.dependency">app.dependency module</a><ul>
+<li><a class="reference internal" href="#app.dependency.get_db"><code class="docutils literal notranslate"><span class="pre">get_db()</span></code></a></li>
+<li><a class="reference internal" href="#app.dependency.get_settings"><code class="docutils literal notranslate"><span class="pre">get_settings()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.main">app.main module</a><ul>
+<li><a class="reference internal" href="#app.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.streamlit_app">app.streamlit_app module</a><ul>
+<li><a class="reference internal" href="#app.streamlit_app.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Image To Captions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">app package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/app.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="app-package">
+<h1>app package<a class="headerlink" href="#app-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="app.config.html">app.config package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.config.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.config.html#module-app.config.config">app.config.config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.config.html#app.config.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.HUGGINGFACEHUB_API_TOKEN"><code class="docutils literal notranslate"><span class="pre">Config.HUGGINGFACEHUB_API_TOKEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.LANGUAGE"><code class="docutils literal notranslate"><span class="pre">Config.LANGUAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.MODEL_BLIP"><code class="docutils literal notranslate"><span class="pre">Config.MODEL_BLIP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.OPENAI_API_TOKEN"><code class="docutils literal notranslate"><span class="pre">Config.OPENAI_API_TOKEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.PORT"><code class="docutils literal notranslate"><span class="pre">Config.PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.REPLICATE_API_KEY"><code class="docutils literal notranslate"><span class="pre">Config.REPLICATE_API_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.SERPAPI_API_KEY"><code class="docutils literal notranslate"><span class="pre">Config.SERPAPI_API_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.config.html#app.config.config.Config.SQLALCHEMY_DATABASE_URI"><code class="docutils literal notranslate"><span class="pre">Config.SQLALCHEMY_DATABASE_URI</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.config.html#module-app.config">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.crud.html">app.crud package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.crud.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.crud.html#module-app.crud.company">app.crud.company module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.company.create_company"><code class="docutils literal notranslate"><span class="pre">create_company()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.company.delete_company"><code class="docutils literal notranslate"><span class="pre">delete_company()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.company.get_company_by_id"><code class="docutils literal notranslate"><span class="pre">get_company_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.company.get_company_by_name"><code class="docutils literal notranslate"><span class="pre">get_company_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.company.get_company_by_user_id"><code class="docutils literal notranslate"><span class="pre">get_company_by_user_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.company.update_company"><code class="docutils literal notranslate"><span class="pre">update_company()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.crud.html#module-app.crud.instagram">app.crud.instagram module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.instagram.create_instagram"><code class="docutils literal notranslate"><span class="pre">create_instagram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.instagram.delete_instagram"><code class="docutils literal notranslate"><span class="pre">delete_instagram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.instagram.get_instagram_by_company_id"><code class="docutils literal notranslate"><span class="pre">get_instagram_by_company_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.instagram.get_instagram_by_id"><code class="docutils literal notranslate"><span class="pre">get_instagram_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.instagram.get_instagram_by_user_id"><code class="docutils literal notranslate"><span class="pre">get_instagram_by_user_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.instagram.update_instagram"><code class="docutils literal notranslate"><span class="pre">update_instagram()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.crud.html#module-app.crud.user">app.crud.user module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.user.become_admin"><code class="docutils literal notranslate"><span class="pre">become_admin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.user.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.user.get_user_by_email"><code class="docutils literal notranslate"><span class="pre">get_user_by_email()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.user.get_user_by_id"><code class="docutils literal notranslate"><span class="pre">get_user_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.crud.html#app.crud.user.get_users"><code class="docutils literal notranslate"><span class="pre">get_users()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.crud.html#module-app.crud">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.model.html">app.model package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.model.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.model.html#module-app.model.company">app.model.company module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.model.html#app.model.company.Company"><code class="docutils literal notranslate"><span class="pre">Company</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.company.Company.description"><code class="docutils literal notranslate"><span class="pre">Company.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.company.Company.id_company"><code class="docutils literal notranslate"><span class="pre">Company.id_company</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.company.Company.id_user"><code class="docutils literal notranslate"><span class="pre">Company.id_user</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.company.Company.name"><code class="docutils literal notranslate"><span class="pre">Company.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.company.Company.url_instagram"><code class="docutils literal notranslate"><span class="pre">Company.url_instagram</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.company.Company.website"><code class="docutils literal notranslate"><span class="pre">Company.website</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.model.html#module-app.model.instagram">app.model.instagram module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram"><code class="docutils literal notranslate"><span class="pre">Instagram</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.comments"><code class="docutils literal notranslate"><span class="pre">Instagram.comments</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.date"><code class="docutils literal notranslate"><span class="pre">Instagram.date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.hashtags"><code class="docutils literal notranslate"><span class="pre">Instagram.hashtags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.id_company"><code class="docutils literal notranslate"><span class="pre">Instagram.id_company</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.id_instagram"><code class="docutils literal notranslate"><span class="pre">Instagram.id_instagram</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.id_user"><code class="docutils literal notranslate"><span class="pre">Instagram.id_user</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.idx_instagram_unique_cols"><code class="docutils literal notranslate"><span class="pre">Instagram.idx_instagram_unique_cols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.image_description"><code class="docutils literal notranslate"><span class="pre">Instagram.image_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.likes"><code class="docutils literal notranslate"><span class="pre">Instagram.likes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.location"><code class="docutils literal notranslate"><span class="pre">Instagram.location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.mediacount"><code class="docutils literal notranslate"><span class="pre">Instagram.mediacount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.mentions"><code class="docutils literal notranslate"><span class="pre">Instagram.mentions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.post"><code class="docutils literal notranslate"><span class="pre">Instagram.post</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.posturl"><code class="docutils literal notranslate"><span class="pre">Instagram.posturl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.tagged_users"><code class="docutils literal notranslate"><span class="pre">Instagram.tagged_users</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.title"><code class="docutils literal notranslate"><span class="pre">Instagram.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.instagram.Instagram.typename"><code class="docutils literal notranslate"><span class="pre">Instagram.typename</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.model.html#module-app.model.user">app.model.user module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.model.html#app.model.user.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.admin"><code class="docutils literal notranslate"><span class="pre">User.admin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.email"><code class="docutils literal notranslate"><span class="pre">User.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.last_access"><code class="docutils literal notranslate"><span class="pre">User.last_access</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.name"><code class="docutils literal notranslate"><span class="pre">User.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.password"><code class="docutils literal notranslate"><span class="pre">User.password</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.time_created"><code class="docutils literal notranslate"><span class="pre">User.time_created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.model.html#app.model.user.User.user_id"><code class="docutils literal notranslate"><span class="pre">User.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.model.html#module-app.model">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.schema.html">app.schema package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.schema.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.schema.html#module-app.schema.company">app.schema.company module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyCreate"><code class="docutils literal notranslate"><span class="pre">CompanyCreate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyCreate.id_user"><code class="docutils literal notranslate"><span class="pre">CompanyCreate.id_user</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyInfoBase"><code class="docutils literal notranslate"><span class="pre">CompanyInfoBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyInfoBase.description"><code class="docutils literal notranslate"><span class="pre">CompanyInfoBase.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyInfoBase.name"><code class="docutils literal notranslate"><span class="pre">CompanyInfoBase.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyInfoBase.url_instagram"><code class="docutils literal notranslate"><span class="pre">CompanyInfoBase.url_instagram</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.company.CompanyInfoBase.website"><code class="docutils literal notranslate"><span class="pre">CompanyInfoBase.website</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.schema.html#module-app.schema.instagram">app.schema.instagram module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramCreate"><code class="docutils literal notranslate"><span class="pre">InstagramCreate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramCreate.id_company"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.id_company</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramCreate.id_user"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.id_user</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.comments"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.comments</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.date"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.hashtags"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.hashtags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.image_description"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.image_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.likes"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.likes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.location"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.mediacount"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.mediacount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.mentions"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.mentions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.post"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.post</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.posturl"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.posturl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.tagged_users"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.tagged_users</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.title"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.instagram.InstagramInfoBase.typename"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase.typename</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.schema.html#module-app.schema.user">app.schema.user module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.user.UserCreate"><code class="docutils literal notranslate"><span class="pre">UserCreate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserCreate.password"><code class="docutils literal notranslate"><span class="pre">UserCreate.password</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfo"><code class="docutils literal notranslate"><span class="pre">UserInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfo.Config"><code class="docutils literal notranslate"><span class="pre">UserInfo.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfo.user_id"><code class="docutils literal notranslate"><span class="pre">UserInfo.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoAdmin"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoAdmin.Config"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoAdmin.admin"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.admin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoAdmin.user_id"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoBase"><code class="docutils literal notranslate"><span class="pre">UserInfoBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoBase.email"><code class="docutils literal notranslate"><span class="pre">UserInfoBase.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.schema.html#app.schema.user.UserInfoBase.name"><code class="docutils literal notranslate"><span class="pre">UserInfoBase.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.schema.html#module-app.schema">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.services.html">app.services package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.ig_scraping">app.services.ig_scraping module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.download_hastag_posts"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.download_hastag_posts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.download_users_posts_with_periods"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.download_users_posts_with_periods()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.download_users_profile_picture"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.download_users_profile_picture()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.get_post_comments"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.get_post_comments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.get_post_info_csv"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.get_post_info_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.get_post_info_json"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.get_post_info_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.get_users_followers"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.get_users_followers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.services.html#app.services.ig_scraping.GetInstagramProfile.get_users_followings"><code class="docutils literal notranslate"><span class="pre">GetInstagramProfile.get_users_followings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.ig_scraping.load_post_captions_from_json"><code class="docutils literal notranslate"><span class="pre">load_post_captions_from_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.langchain">app.services.langchain module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.langchain.generate_ig_post"><code class="docutils literal notranslate"><span class="pre">generate_ig_post()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.langchain.generate_img_description"><code class="docutils literal notranslate"><span class="pre">generate_img_description()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.langchain.prepare_llm"><code class="docutils literal notranslate"><span class="pre">prepare_llm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.services.html#app.services.langchain.search_info_of_company"><code class="docutils literal notranslate"><span class="pre">search_info_of_company()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.utils.html">app.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.utils.streamlit_utils.html">app.utils.streamlit_utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.utils.streamlit_utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.utils.streamlit_utils.html#module-app.utils.streamlit_utils.auth">app.utils.streamlit_utils.auth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.utils.streamlit_utils.html#module-app.utils.streamlit_utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html#module-app.utils.decorators">app.utils.decorators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.utils.html#app.utils.decorators.timed_lru_cache"><code class="docutils literal notranslate"><span class="pre">timed_lru_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.utils.html#app.utils.decorators.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html#module-app.utils.logger">app.utils.logger module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.utils.html#app.utils.logger.configure_logger"><code class="docutils literal notranslate"><span class="pre">configure_logger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.utils.html#module-app.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-app.dependency">
+<span id="app-dependency-module"></span><h2>app.dependency module<a class="headerlink" href="#module-app.dependency" title="Permalink to this heading"></a></h2>
+<p>Module with the dependency</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.dependency.get_db">
+<span class="sig-prename descclassname"><span class="pre">app.dependency.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span></span></span><a class="reference internal" href="../_modules/app/dependency.html#get_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.dependency.get_db" title="Permalink to this definition"></a></dt>
+<dd><p>Return an iterator to the db</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.dependency.get_settings">
+<span class="sig-prename descclassname"><span class="pre">app.dependency.</span></span><span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/dependency.html#get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.dependency.get_settings" title="Permalink to this definition"></a></dt>
+<dd><p>Return the config</p>
+</dd></dl>
+
+</section>
+<section id="module-app.main">
+<span id="app-main-module"></span><h2>app.main module<a class="headerlink" href="#module-app.main" title="Permalink to this heading"></a></h2>
+<p>Main file</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.main.main">
+<span class="sig-prename descclassname"><span class="pre">app.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/app/main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.main.main" title="Permalink to this definition"></a></dt>
+<dd><p>Prepare DB</p>
+</dd></dl>
+
+</section>
+<section id="module-app.streamlit_app">
+<span id="app-streamlit-app-module"></span><h2>app.streamlit_app module<a class="headerlink" href="#module-app.streamlit_app" title="Permalink to this heading"></a></h2>
+<p>Module for Streamlit</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.streamlit_app.main">
+<span class="sig-prename descclassname"><span class="pre">app.streamlit_app.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/app/streamlit_app.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.streamlit_app.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main streamlit</p>
+</dd></dl>
+
+</section>
+<section id="module-app">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app" title="Permalink to this heading"></a></h2>
+<p>App Init</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alessandro Goller &amp; Riccardo Ricci.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

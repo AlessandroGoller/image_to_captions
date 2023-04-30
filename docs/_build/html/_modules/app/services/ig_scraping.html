@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app.services.ig_scraping &mdash; Image To Captions 00.00.01 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Image To Captions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Image To Captions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">app.services.ig_scraping</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for app.services.ig_scraping</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">dropwhile</span><span class="p">,</span> <span class="n">takewhile</span>
+
+<span class="kn">import</span> <span class="nn">instaloader</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<div class="viewcode-block" id="GetInstagramProfile"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile">[docs]</a><span class="k">class</span> <span class="nc">GetInstagramProfile</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to load a profile and download its data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Instaloader</span><span class="p">()</span>
+
+<div class="viewcode-block" id="GetInstagramProfile.download_users_profile_picture"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.download_users_profile_picture">[docs]</a>    <span class="k">def</span> <span class="nf">download_users_profile_picture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download a user&#39;s profile picture.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">download_profile</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">profile_pic_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.download_users_posts_with_periods"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.download_users_posts_with_periods">[docs]</a>    <span class="k">def</span> <span class="nf">download_users_posts_with_periods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download posts from a user within a specified period of time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">posts</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Profile</span><span class="o">.</span><span class="n">from_username</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">get_posts</span><span class="p">()</span>
+        <span class="n">SINCE</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+        <span class="n">UNTIL</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">takewhile</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">date</span> <span class="o">&gt;</span> <span class="n">SINCE</span><span class="p">,</span> <span class="n">dropwhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">date</span> <span class="o">&gt;</span> <span class="n">UNTIL</span><span class="p">,</span> <span class="n">posts</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">download_post</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.download_hastag_posts"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.download_hastag_posts">[docs]</a>    <span class="k">def</span> <span class="nf">download_hastag_posts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hashtag</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download posts that contains a certain hashtag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Hashtag</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">hashtag</span><span class="p">)</span><span class="o">.</span><span class="n">get_posts</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">download_post</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">hashtag</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.get_users_followers"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.get_users_followers">[docs]</a>    <span class="k">def</span> <span class="nf">get_users_followers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get a profile&#39;s followers.</span>
+<span class="sd">        Note: login required to get a profile&#39;s followers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;input your username: &quot;</span><span class="p">),</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;input your password: &quot;</span><span class="p">))</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Profile</span><span class="o">.</span><span class="n">from_username</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">user_name</span><span class="p">)</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;follower_names.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a+&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">followee</span> <span class="ow">in</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_followers</span><span class="p">():</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="n">followee</span><span class="o">.</span><span class="n">username</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">username</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.get_users_followings"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.get_users_followings">[docs]</a>    <span class="k">def</span> <span class="nf">get_users_followings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get a profile&#39;s followings.</span>
+<span class="sd">        Note: login required to get a profile&#39;s followings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;input your username: &quot;</span><span class="p">),</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;input your password: &quot;</span><span class="p">))</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Profile</span><span class="o">.</span><span class="n">from_username</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">user_name</span><span class="p">)</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;following_names.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a+&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">followee</span> <span class="ow">in</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_followees</span><span class="p">():</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="n">followee</span><span class="o">.</span><span class="n">username</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">username</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.get_post_comments"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.get_post_comments">[docs]</a>    <span class="k">def</span> <span class="nf">get_post_comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get a post&#39;s comments and print them at screen.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">posts</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Profile</span><span class="o">.</span><span class="n">from_username</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">get_posts</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">post</span><span class="o">.</span><span class="n">get_comments</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment.id  : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment.owner.username  : &quot;</span> <span class="o">+</span> <span class="n">comment</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment.text  : &quot;</span> <span class="o">+</span> <span class="n">comment</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment.created_at_utc  : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">created_at_utc</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;************************************************&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.get_post_info_csv"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.get_post_info_csv">[docs]</a>    <span class="k">def</span> <span class="nf">get_post_info_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get info from every post of a user and store them in a csv file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">posts</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Profile</span><span class="o">.</span><span class="n">from_username</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">username</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get_posts</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post date: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post profile: &quot;</span> <span class="o">+</span> <span class="n">post</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post caption: &quot;</span> <span class="o">+</span> <span class="n">post</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post location: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">location</span><span class="p">))</span>
+
+                <span class="n">posturl</span> <span class="o">=</span> <span class="s2">&quot;https://www.instagram.com/p/&quot;</span> <span class="o">+</span> <span class="n">post</span><span class="o">.</span><span class="n">shortcode</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post url: &quot;</span> <span class="o">+</span> <span class="n">posturl</span><span class="p">)</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">mediaid</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">caption</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                        <span class="n">posturl</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">typename</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">mediacount</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">caption_hashtags</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">caption_mentions</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">tagged_users</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">likes</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">comments</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                        <span class="n">post</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">post</span><span class="o">.</span><span class="n">get_comments</span><span class="p">():</span>
+                    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                            <span class="n">comment</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                            <span class="n">comment</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                            <span class="n">comment</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+                            <span class="n">comment</span><span class="o">.</span><span class="n">created_at_utc</span><span class="p">,</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment username: &quot;</span> <span class="o">+</span> <span class="n">comment</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment text: &quot;</span> <span class="o">+</span> <span class="n">comment</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comment date : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">created_at_utc</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GetInstagramProfile.get_post_info_json"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.GetInstagramProfile.get_post_info_json">[docs]</a>    <span class="k">def</span> <span class="nf">get_post_info_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">last_n_posts</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get info from every post of a user and store them in a json file (dictionary style).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">posts</span> <span class="o">=</span> <span class="n">instaloader</span><span class="o">.</span><span class="n">Profile</span><span class="o">.</span><span class="n">from_username</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">get_posts</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;Downloading last &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">last_n_posts</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; posts from &quot;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">last_n_posts</span><span class="p">)):</span>
+            <span class="n">post</span> <span class="o">=</span> <span class="n">posts</span><span class="o">.</span><span class="fm">__next__</span><span class="p">()</span>
+            <span class="n">shortcode</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">mediaid_to_shortcode</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">mediaid</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># Store the post info</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;post&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">caption</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;hashtags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">caption_hashtags</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;mentions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">caption_mentions</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;tagged_users&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">tagged_users</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;likes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">likes</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;comments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">comments</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">location</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;typename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">typename</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;mediacount&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">mediacount</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">title</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;posturl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;https://www.instagram.com/p/&quot;</span> <span class="o">+</span> <span class="n">shortcode</span>
+
+        <span class="k">return</span> <span class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="load_post_captions_from_json"><a class="viewcode-back" href="../../../app.services.html#app.services.ig_scraping.load_post_captions_from_json">[docs]</a><span class="k">def</span> <span class="nf">load_post_captions_from_json</span><span class="p">(</span><span class="n">json_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">shortcodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to load post captions from a json file. The post loaded are the one specified by the shortcodes list.</span>
+<span class="sd">    This to allow compatibility with eventual search functions on the specific post.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">captions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">shortcodes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Load the complete file</span>
+        <span class="n">shortcodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">shortcode</span> <span class="ow">in</span> <span class="n">shortcodes</span><span class="p">:</span>
+            <span class="n">captions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;post&quot;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">shortcode</span> <span class="ow">in</span> <span class="n">shortcodes</span><span class="p">:</span>
+            <span class="n">captions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">shortcode</span><span class="p">][</span><span class="s2">&quot;post&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">captions</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;dulacetduparc&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">GetInstagramProfile</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_post_info_json</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="c1"># Save as json file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alessandro Goller &amp; Riccardo Ricci.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
