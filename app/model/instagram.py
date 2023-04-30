@@ -24,7 +24,7 @@ class Instagram(database):
     typename = Column(String, nullable=True)
     mediacount = Column(Integer, nullable=True)
     title = Column(String, nullable=True)
-    posturl = Column(String, nullable=True)
+    posturl = Column(String, nullable=True, unique=False)
 
     idx_instagram_unique_cols = Index("idx_instagram_unique_cols", id_company, id_user, post, image_description,
         hashtags, mentions, tagged_users, likes, comments, date, location, typename, mediacount, title,

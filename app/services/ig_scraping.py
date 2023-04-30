@@ -162,7 +162,6 @@ class GetInstagramProfile:
 
         return data
 
-
 def load_post_captions_from_json(json_file: str, shortcodes: list = None) -> list:
     """
     Function to load post captions from a json file. The post loaded are the one specified by the shortcodes list.
@@ -185,9 +184,20 @@ def load_post_captions_from_json(json_file: str, shortcodes: list = None) -> lis
 
 
 if __name__ == "__main__":
-    username = "dulacetduparc"
+    username = "montura_official"
     client = GetInstagramProfile()
-    data = client.get_post_info_json(username)
+    data = client.get_post_info_json(username,last_n_posts=2)
+
+    from app.crud.company import get_company_by_user_id
+    from app.crud.instagram import insert_data_to_db
+    from app.crud.user import get_user_by_email
+
+    user_id = get_user_by_email(email="test@gmail.com").user_id
+    company_id = get_company_by_user_id(user_id=user_id).id_company
+    if insert_data_to_db(data=data,user_id=user_id,company_id=company_id):
+        print('Aggiunto correttamente nel db')
+    else:
+        print('Errorr')
     # Save as json file
-    with open(username + ".json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+    #with open(username + ".json", "w", encoding="utf-8") as f:
+    #    json.dump(data, f, ensure_ascii=False, indent=4)

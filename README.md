@@ -6,6 +6,8 @@
 - https://dashboard.render.com/
 - https://console.neon.tech/
 
+## Informazioni generali
+- divisorio utilizzato -> ;
 
 ## Add library
 pip freeze > requirements-dev.in

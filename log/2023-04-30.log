@@ -1,0 +1,18 @@
+2023-04-30 16:38:56.281 | ERROR    | app.crud.instagram:insert_data_to_db:108 - Error during insertion bunch of data inside db Instagram
+error=ValidationError(model='InstagramCreate', errors=[{'loc': ('hashtags',), 'msg': 'str type expected', 'type': 'type_error.str'}, {'loc': ('mentions',), 'msg': 'str type expected', 'type': 'type_error.str'}, {'loc': ('tagged_users',), 'msg': 'str type expected', 'type': 'type_error.str'}])
+2023-04-30 16:42:05.216 | ERROR    | app.crud.instagram:insert_data_to_db:108 - Error during insertion bunch of data inside db Instagram
+error=ValidationError(model='InstagramCreate', errors=[{'loc': ('hashtags',), 'msg': 'str type expected', 'type': 'type_error.str'}, {'loc': ('mentions',), 'msg': 'str type expected', 'type': 'type_error.str'}, {'loc': ('tagged_users',), 'msg': 'str type expected', 'type': 'type_error.str'}])
+2023-04-30 16:45:37.185 | ERROR    | app.crud.instagram:insert_data_to_db:109 - Error during insertion bunch of data inside db Instagram
+error=KeyError(0)
+2023-04-30 16:52:16.719 | ERROR    | app.crud.instagram:insert_data_to_db:108 - Error during insertion bunch of data inside db Instagram
+error=TypeError("Session.refresh() missing 1 required positional argument: 'instance'")
+2023-04-30 16:53:36.848 | ERROR    | app.crud.instagram:insert_data_to_db:108 - Error during insertion bunch of data inside db Instagram
+error=TypeError("Session.refresh() missing 1 required positional argument: 'instance'")
+2023-04-30 16:54:57.859 | ERROR    | app.crud.instagram:insert_data_to_db:108 - Error during insertion bunch of data inside db Instagram
+error=UnmappedInstanceError("Class 'builtins.list' is not mapped")
+2023-04-30 17:04:35.297 | ERROR    | app.crud.instagram:insert_data_to_db:111 - Error during insertion bunch of data inside db Instagram
+error=IntegrityError('(psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "t_instagram_un"\nDETAIL:  Key (posturl, id_company, id_user, post)=(https://www.instagram.com/p/CrlYWjBILdS, 1, 1, With the first place at the La Grande Course and the domination of the triptych Mountain Attack, Sellaronda and Monterosaskialp, a season to remember has just ended for Elena Nicolini \n-\nCon il primo posto alla Grande Course e il dominio del trittico Mountain Attack, Sellaronda e Monterosa Skialp, per Elena Nicolini si è appena conclusa una stagione da ricordare!\n\nMore to come about Elena, stay tuned!\n\n📷: @wisthaler_photography\n\n● • •\n#Montura \n#SearchingForANewWay\n#MonturaPeople \n• • ●) already exists.\n')
+2023-04-30 17:09:35.373 | ERROR    | app.crud.instagram:insert_data_to_db:121 - Error during insertion bunch of data inside db Instagram
+error=UnboundLocalError("local variable 'db_instagrams' referenced before assignment")
+2023-04-30 17:11:59.453 | INFO     | app.crud.instagram:bulk_create_instagram:97 - No new data Inserted
+2023-04-30 17:13:09.996 | INFO     | app.crud.instagram:bulk_create_instagram:98 - No new data Inserted

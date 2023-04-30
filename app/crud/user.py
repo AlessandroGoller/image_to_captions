@@ -10,7 +10,7 @@ from app.model.user import User
 from app.schema.user import UserCreate
 
 
-def get_user_by_email(email: Optional[str]) -> Optional[User]:
+def get_user_by_email(email: str) -> Optional[User]:
     """return user from email"""
     db: Session = next(get_db())
     return db.query(User).filter(User.email == email).first()  # type: ignore
