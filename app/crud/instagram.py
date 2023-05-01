@@ -20,7 +20,6 @@ def get_instagram_by_url(url: int) -> Optional[Instagram]:
     db: Session = next(get_db())
     return db.query(Instagram).filter(Instagram.posturl == url).first()  # type: ignore
 
-
 def get_instagram_by_user_id(user_id: int) -> Optional[list[Instagram]]:
     """Return the list of Instagram from user_id"""
     db: Session = next(get_db())
@@ -59,12 +58,20 @@ def create_instagram(instagram: InstagramCreate) -> Optional[Instagram]:
 def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
     """Bulk creation of instagrams"""
     db: Session = next(get_db())
-    new_data = False
     db_instagrams = []
+
+    # Create a set of unique post URLs
+    unique_urls = {instagram.posturl for instagram in instagrams}
+
+    # Retrieve Instagrams from the database for the unique post URLs
+    existing_instagrams = db.query(Instagram).filter(Instagram.posturl.in_(unique_urls)).all()
+    existing_instagram_urls = {instagram.posturl for instagram in existing_instagrams}
+
+    # Create Instagram objects for any new URLs
     for instagram in instagrams:
         # TODO: it doesn't check if two user or two company use the same account
         # Think about it 
-        if get_instagram_by_url(url=instagram.posturl) is None:
+        if instagram.posturl not in existing_instagram_urls:
             try:
                 db_instagrams.append(
                     Instagram(
@@ -85,10 +92,12 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
                         posturl=instagram.posturl,
                     )
                 )
-                new_data = True
             except Exception as error:
-                logger.error(f"Probably tried to inser an already present data\n{error}")
-    if new_data:
+                logger.error(f"Probably tried to insert an already present data\n{error}")
+                return None
+    logger.info("Finish converted data to instagram schema")
+
+    if db_instagrams:
         db.add_all(db_instagrams)
         db.commit()
 
@@ -97,6 +106,7 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
             db.refresh(db_instagram)
         logger.info(f"New {len(db_instagrams)} data Inserted")
         return None
+
     logger.info("No new data Inserted")
 
 def insert_data_to_db(data:dict,user_id:int,company_id:int)->bool:

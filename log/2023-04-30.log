@@ -16,3 +16,5 @@ error=IntegrityError('(psycopg2.errors.UniqueViolation) duplicate key value viol
 error=UnboundLocalError("local variable 'db_instagrams' referenced before assignment")
 2023-04-30 17:11:59.453 | INFO     | app.crud.instagram:bulk_create_instagram:97 - No new data Inserted
 2023-04-30 17:13:09.996 | INFO     | app.crud.instagram:bulk_create_instagram:98 - No new data Inserted
+2023-04-30 22:52:44.127 | ERROR    | app.crud.instagram:insert_data_to_db:129 - Error during insertion bunch of data inside db Instagram
+error=TimeoutError('QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00')
