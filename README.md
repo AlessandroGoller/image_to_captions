@@ -23,6 +23,13 @@ logger.warn
 logger.error
 logger.fatal
 
+# Technology:
+- sphinx: Documentation
+- Alembic: Migration DB
+- Sqlalchemy: ORM DB
+- Logging: Loguru
+- FE: streamlit (only for demo)
+
 # Structure:
 The repository is structured around the following folders: config, services, test, utils, and log.
 

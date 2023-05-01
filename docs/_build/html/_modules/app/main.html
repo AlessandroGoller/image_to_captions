@@ -70,19 +70,14 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
 
-<span class="c1"># from app.dependency import database_engine</span>
-<span class="c1"># from app.model import user, company, instagram</span>
 <span class="kn">from</span> <span class="nn">app.utils.logger</span> <span class="kn">import</span> <span class="n">configure_logger</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">configure_logger</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../app.html#app.main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/app.html#app.main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare DB&quot;&quot;&quot;</span>
 
-    <span class="c1"># user.database.metadata.create_all(bind=database_engine)</span>
-    <span class="c1"># company.database.metadata.create_all(bind=database_engine)</span>
-    <span class="c1"># instagram.database.metadata.create_all(bind=database_engine)</span>
 
     <span class="c1"># Activate Streamlit</span>
     <span class="n">streamlit_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;app/streamlit_app.py&quot;</span><span class="p">)</span>
