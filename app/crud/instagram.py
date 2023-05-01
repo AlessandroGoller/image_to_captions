@@ -1,4 +1,5 @@
 """ Module for crud for Instagram """
+from datetime import datetime
 from typing import Optional
 
 from sqlalchemy.orm import Session
@@ -29,6 +30,23 @@ def get_instagram_by_company_id(company_id: int) -> Optional[list[Instagram]]:
     """Return the list of Instagram from company_id"""
     db: Session = next(get_db())
     return db.query(Instagram).filter(Instagram.id_company == company_id).all()  # type: ignore
+
+def get_last_n_instagram(company_id: int, number_ig: int) -> Optional[list[Instagram]]:
+    """Return the list of n Instagram from company_id order by date"""
+    db: Session = next(get_db())
+    return db.query(Instagram).filter(  # type: ignore
+        Instagram.id_company == company_id
+        ).limit(number_ig
+        ).order_by(Instagram.date.desc()
+        ).all()
+
+def get_instagram_after_date(company_id: int, date: datetime) -> Optional[list[Instagram]]:
+    """Return the list of Instagram posts from company_id with date after the input date"""
+    db: Session = next(get_db())
+    return db.query(Instagram).filter(  # type: ignore
+        Instagram.id_company == company_id,
+        Instagram.date > date
+    ).all()
 
 def create_instagram(instagram: InstagramCreate) -> Optional[Instagram]:
     """Creation a instagram, in input the schema of instagram create and return the instagram"""
