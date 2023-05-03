@@ -1,0 +1,48 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}app}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}app package}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Subpackages}{1}{subsection.1.1.1}%
+\contentsline {subsubsection}{app.config package}{1}{subsubsection*.3}%
+\contentsline {paragraph}{Submodules}{1}{paragraph*.4}%
+\contentsline {paragraph}{app.config.config module}{1}{paragraph*.5}%
+\contentsline {paragraph}{Module contents}{2}{paragraph*.15}%
+\contentsline {subsubsection}{app.crud package}{2}{subsubsection*.16}%
+\contentsline {paragraph}{Submodules}{2}{paragraph*.17}%
+\contentsline {paragraph}{app.crud.company module}{2}{paragraph*.18}%
+\contentsline {paragraph}{app.crud.instagram module}{2}{paragraph*.25}%
+\contentsline {paragraph}{app.crud.user module}{3}{paragraph*.37}%
+\contentsline {paragraph}{Module contents}{3}{paragraph*.43}%
+\contentsline {subsubsection}{app.model package}{4}{subsubsection*.44}%
+\contentsline {paragraph}{Submodules}{4}{paragraph*.45}%
+\contentsline {paragraph}{app.model.company module}{4}{paragraph*.46}%
+\contentsline {paragraph}{app.model.instagram module}{4}{paragraph*.54}%
+\contentsline {paragraph}{app.model.user module}{5}{paragraph*.73}%
+\contentsline {paragraph}{Module contents}{5}{paragraph*.82}%
+\contentsline {subsubsection}{app.schema package}{5}{subsubsection*.83}%
+\contentsline {paragraph}{Submodules}{5}{paragraph*.84}%
+\contentsline {paragraph}{app.schema.company module}{5}{paragraph*.85}%
+\contentsline {paragraph}{app.schema.instagram module}{6}{paragraph*.93}%
+\contentsline {paragraph}{app.schema.user module}{7}{paragraph*.111}%
+\contentsline {paragraph}{Module contents}{8}{paragraph*.126}%
+\contentsline {subsubsection}{app.services package}{8}{subsubsection*.127}%
+\contentsline {paragraph}{Submodules}{8}{paragraph*.128}%
+\contentsline {paragraph}{app.services.ig\_scraping module}{8}{paragraph*.129}%
+\contentsline {paragraph}{app.services.langchain module}{9}{paragraph*.140}%
+\contentsline {paragraph}{Module contents}{9}{paragraph*.145}%
+\contentsline {subsubsection}{app.utils package}{9}{subsubsection*.146}%
+\contentsline {paragraph}{Subpackages}{9}{paragraph*.147}%
+\contentsline {subparagraph}{app.utils.streamlit\_utils package}{9}{subparagraph*.148}%
+\contentsline {subparagraph}{Submodules}{9}{subparagraph*.149}%
+\contentsline {subparagraph}{app.utils.streamlit\_utils.auth module}{9}{subparagraph*.150}%
+\contentsline {subparagraph}{Module contents}{10}{subparagraph*.154}%
+\contentsline {paragraph}{Submodules}{10}{paragraph*.155}%
+\contentsline {paragraph}{app.utils.decorators module}{10}{paragraph*.156}%
+\contentsline {paragraph}{app.utils.logger module}{10}{paragraph*.159}%
+\contentsline {paragraph}{Module contents}{10}{paragraph*.161}%
+\contentsline {subsection}{\numberline {1.1.2}Submodules}{10}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}app.dependency module}{10}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}app.main module}{11}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}app.streamlit\_app module}{11}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Module contents}{11}{subsection.1.1.6}%
+\contentsline {chapter}{\numberline {2}Indices and tables}{13}{chapter.2}%
+\contentsline {chapter}{Index}{15}{section*.166}%

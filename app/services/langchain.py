@@ -73,7 +73,7 @@ def generate_ig_post(prompt: str) -> str:
         }
     ]
 
-    # TODO: to create the chat
+    # Create the chat
     # while True:
     #     if message:
     #         messages.append(

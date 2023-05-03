@@ -28,4 +28,4 @@ class Instagram(database):
 
     idx_instagram_unique_cols = Index("idx_instagram_unique_cols", id_company, id_user, post, image_description,
         hashtags, mentions, tagged_users, likes, comments, date, location, typename, mediacount, title,
-        posturl, unique=True, postgresql_where=(text("post IS NOT NULL")))
+        posturl, unique=True, postgresql_where=text("post IS NOT NULL"))

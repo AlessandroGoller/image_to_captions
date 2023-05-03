@@ -1,8 +1,11 @@
 [MASTER]
+
 ignore=
-    test_fake.py
+    test_fake.py,
+    *cache*
 
 [FORMAT]
+
 max-line-length=120
 
 [MESSAGES CONTROL]
@@ -13,3 +16,4 @@ disable=
     W0718, # Catching too general exception Exception (broad-exception-caught)
     R0903, # Too few public methods (1/2) (too-few-public-methods)
     E0401, # import-error, this because in the workflow we will have an error on config file
+    E1102, # func.now is not callable (not-callable)

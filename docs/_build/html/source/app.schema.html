@@ -44,7 +44,11 @@
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-app.schema.company">app.schema.company module</a><ul>
 <li><a class="reference internal" href="#app.schema.company.CompanyCreate"><code class="docutils literal notranslate"><span class="pre">CompanyCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.schema.company.CompanyCreate.description"><code class="docutils literal notranslate"><span class="pre">CompanyCreate.description</span></code></a></li>
 <li><a class="reference internal" href="#app.schema.company.CompanyCreate.id_user"><code class="docutils literal notranslate"><span class="pre">CompanyCreate.id_user</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.company.CompanyCreate.name"><code class="docutils literal notranslate"><span class="pre">CompanyCreate.name</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.company.CompanyCreate.url_instagram"><code class="docutils literal notranslate"><span class="pre">CompanyCreate.url_instagram</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.company.CompanyCreate.website"><code class="docutils literal notranslate"><span class="pre">CompanyCreate.website</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#app.schema.company.CompanyInfoBase"><code class="docutils literal notranslate"><span class="pre">CompanyInfoBase</span></code></a><ul>
@@ -58,8 +62,21 @@
 </li>
 <li><a class="reference internal" href="#module-app.schema.instagram">app.schema.instagram module</a><ul>
 <li><a class="reference internal" href="#app.schema.instagram.InstagramCreate"><code class="docutils literal notranslate"><span class="pre">InstagramCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.comments"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.comments</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.date"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.date</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.hashtags"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.hashtags</span></code></a></li>
 <li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.id_company"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.id_company</span></code></a></li>
 <li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.id_user"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.id_user</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.image_description"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.image_description</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.likes"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.likes</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.location"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.location</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.mediacount"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.mediacount</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.mentions"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.mentions</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.post"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.post</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.posturl"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.posturl</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.tagged_users"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.tagged_users</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.title"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.title</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.instagram.InstagramCreate.typename"><code class="docutils literal notranslate"><span class="pre">InstagramCreate.typename</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#app.schema.instagram.InstagramInfoBase"><code class="docutils literal notranslate"><span class="pre">InstagramInfoBase</span></code></a><ul>
@@ -82,6 +99,8 @@
 </li>
 <li><a class="reference internal" href="#module-app.schema.user">app.schema.user module</a><ul>
 <li><a class="reference internal" href="#app.schema.user.UserCreate"><code class="docutils literal notranslate"><span class="pre">UserCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.schema.user.UserCreate.email"><code class="docutils literal notranslate"><span class="pre">UserCreate.email</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.user.UserCreate.name"><code class="docutils literal notranslate"><span class="pre">UserCreate.name</span></code></a></li>
 <li><a class="reference internal" href="#app.schema.user.UserCreate.password"><code class="docutils literal notranslate"><span class="pre">UserCreate.password</span></code></a></li>
 </ul>
 </li>
@@ -90,6 +109,8 @@
 <li><a class="reference internal" href="#app.schema.user.UserInfo.Config.orm_mode"><code class="docutils literal notranslate"><span class="pre">UserInfo.Config.orm_mode</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#app.schema.user.UserInfo.email"><code class="docutils literal notranslate"><span class="pre">UserInfo.email</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.user.UserInfo.name"><code class="docutils literal notranslate"><span class="pre">UserInfo.name</span></code></a></li>
 <li><a class="reference internal" href="#app.schema.user.UserInfo.user_id"><code class="docutils literal notranslate"><span class="pre">UserInfo.user_id</span></code></a></li>
 </ul>
 </li>
@@ -99,6 +120,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#app.schema.user.UserInfoAdmin.admin"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.admin</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.user.UserInfoAdmin.email"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.email</span></code></a></li>
+<li><a class="reference internal" href="#app.schema.user.UserInfoAdmin.name"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.name</span></code></a></li>
 <li><a class="reference internal" href="#app.schema.user.UserInfoAdmin.user_id"><code class="docutils literal notranslate"><span class="pre">UserInfoAdmin.user_id</span></code></a></li>
 </ul>
 </li>
@@ -153,8 +176,28 @@
 <p>Class CompanyCreate
 Use it during creation</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.company.CompanyCreate.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.company.CompanyCreate.description" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="app.schema.company.CompanyCreate.id_user">
 <span class="sig-name descname"><span class="pre">id_user</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#app.schema.company.CompanyCreate.id_user" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.company.CompanyCreate.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.company.CompanyCreate.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.company.CompanyCreate.url_instagram">
+<span class="sig-name descname"><span class="pre">url_instagram</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.company.CompanyCreate.url_instagram" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.company.CompanyCreate.website">
+<span class="sig-name descname"><span class="pre">website</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.company.CompanyCreate.website" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -197,6 +240,21 @@ Use it during creation</p>
 <p>Class InstagramCreate
 Use it during creation</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.comments" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.date">
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.date" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.hashtags">
+<span class="sig-name descname"><span class="pre">hashtags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.hashtags" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.id_company">
 <span class="sig-name descname"><span class="pre">id_company</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.id_company" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -204,6 +262,56 @@ Use it during creation</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.id_user">
 <span class="sig-name descname"><span class="pre">id_user</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.id_user" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.image_description">
+<span class="sig-name descname"><span class="pre">image_description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.image_description" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.likes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.location">
+<span class="sig-name descname"><span class="pre">location</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.location" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.mediacount">
+<span class="sig-name descname"><span class="pre">mediacount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.mediacount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.mentions">
+<span class="sig-name descname"><span class="pre">mentions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.mentions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.post">
+<span class="sig-name descname"><span class="pre">post</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.post" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.posturl">
+<span class="sig-name descname"><span class="pre">posturl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.posturl" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.tagged_users">
+<span class="sig-name descname"><span class="pre">tagged_users</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.tagged_users" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.title" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.instagram.InstagramCreate.typename">
+<span class="sig-name descname"><span class="pre">typename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.schema.instagram.InstagramCreate.typename" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -291,6 +399,16 @@ Use it during creation</p>
 <p>Class UserCreate
 Use it during creation</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.user.UserCreate.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserCreate.email" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.user.UserCreate.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserCreate.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="app.schema.user.UserCreate.password">
 <span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserCreate.password" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -313,6 +431,16 @@ Use it during retrieving information</p>
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.user.UserInfo.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserInfo.email" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.user.UserInfo.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserInfo.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.schema.user.UserInfo.user_id">
@@ -340,6 +468,16 @@ Use it during retrieving information</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.schema.user.UserInfoAdmin.admin">
 <span class="sig-name descname"><span class="pre">admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#app.schema.user.UserInfoAdmin.admin" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.user.UserInfoAdmin.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserInfoAdmin.email" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schema.user.UserInfoAdmin.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.schema.user.UserInfoAdmin.name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

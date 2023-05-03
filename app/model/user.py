@@ -9,7 +9,6 @@ class User(database):
     """Class for User Model"""
 
     __tablename__ = "t_user"
-    # TODO (ale goller): maybe define init to fix error?
     user_id = Column("id_t_user", Integer, nullable=False, primary_key=True)
     email = Column("email", String, nullable=False, unique=True)
     name = Column(String, nullable=True)

@@ -87,7 +87,7 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
 
     # Create Instagram objects for any new URLs
     for instagram in instagrams:
-        # TODO: it doesn't check if two user or two company use the same account
+        # Future Todo: it doesn't check if two user or two company use the same account
         # Think about it
         if instagram.posturl not in existing_instagram_urls:
             try:
@@ -126,6 +126,7 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
         return None
 
     logger.info("No new data Inserted")
+    return None
 
 def insert_data_to_db(data:dict,user_id:int,company_id:int)->bool:
     """ From a dict of data, insert everythin inside Instagram db """
