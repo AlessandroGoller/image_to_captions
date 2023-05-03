@@ -87,7 +87,7 @@ def generate_ig_post(prompt: str) -> str:
     reply = chat.choices[0].message.content
     messages.append({"role": "assistant", "content": reply})
 
-    return reply
+    return str(reply)
 
 
 def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -> str:
@@ -97,4 +97,4 @@ def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -
     client = replicate.Client(api_token=settings.REPLICATE_API_KEY)
 
     output = client.run(model_version=model, input={"image": image})
-    return output
+    return str(output)

@@ -88,7 +88,7 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
     # Create Instagram objects for any new URLs
     for instagram in instagrams:
         # TODO: it doesn't check if two user or two company use the same account
-        # Think about it 
+        # Think about it
         if instagram.posturl not in existing_instagram_urls:
             try:
                 db_instagrams.append(
@@ -136,9 +136,9 @@ def insert_data_to_db(data:dict,user_id:int,company_id:int)->bool:
                 id_user=user_id,
                 id_company=company_id,
                 image_description=post.get("image_description",None),
-                hashtags=';'.join(post.get("hashtags",None)),
-                mentions=';'.join(post.get("mentions",None)),
-                tagged_users=';'.join(post.get("tagged_users",None)),
+                hashtags=";".join(post.get("hashtags",None)),
+                mentions=";".join(post.get("mentions",None)),
+                tagged_users=";".join(post.get("tagged_users",None)),
                 likes=post.get("likes",None),
                 comments=post.get("comments",None),
                 date=post.get("date",None),

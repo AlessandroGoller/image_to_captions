@@ -64,12 +64,13 @@ if st.button("Send"):
         # Mostrare un avviso se l'utente non ha caricato un'immagine
         st.warning("Please upload an image.")
 
-prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+prompt = "Fornisci il testo da utilizzare nel post di instagram, \
+          seguendo il formato degli esempi che fornisco. Gli esempi sono:"
 
 # Generation with openai api
 if st.button("Generate description"):
     all_captions = load_post_captions_from_json(
-        ARCHIVE_PATH + "/" + instagram_input + ".json", None
+        ARCHIVE_PATH + "/" + instagram_input + ".json"
     )
     for example in all_captions[:20]:
         prompt += '"' + example + '",'
