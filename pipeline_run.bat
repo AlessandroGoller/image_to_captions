@@ -1,7 +1,7 @@
 echo "Installing dev dependencies"
 
 pip install -r requirements.txt
-echo "pip install -r requirements-dev.txt"
+pip install -r requirements-dev.txt
 
 echo "Running ruff"
 ruff app --fix|| goto :error
@@ -18,7 +18,7 @@ pylint app || goto :error
 ::coverage html || goto :error
 ::ECHO "Coverage report"
 ::coverage report --show-missing --skip-covered --skip-empty --omit="*test*,*exception*" || goto :error
-::goto :end
+goto :end
 
 :error
 echo Failed with error #%errorlevel%.
