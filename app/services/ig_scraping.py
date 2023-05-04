@@ -2,7 +2,6 @@ import csv
 import json
 from datetime import datetime
 from itertools import dropwhile, takewhile
-from typing import Optional
 
 import instaloader
 from tqdm import tqdm
@@ -164,7 +163,7 @@ class GetInstagramProfile:
 
         return data
 
-def load_post_captions_from_json(json_file: str, shortcodes: Optional[list] = None) -> list:
+def load_post_captions_from_json(json_file: str, shortcodes: list = None) -> list:
     """
     Function to load post captions from a json file. The post loaded are the one specified by the shortcodes list.
     This to allow compatibility with eventual search functions on the specific post.
@@ -194,19 +193,11 @@ if __name__ == "__main__":
     from app.crud.instagram import insert_data_to_db
     from app.crud.user import get_user_by_email
 
-    user = get_user_by_email(email="test@gmail.com")
-    if user is None:
-        print("error no user")
+    user_id = get_user_by_email(email="test@gmail.com").user_id
+    company_id = get_company_by_user_id(user_id=user_id).id_company
+    if insert_data_to_db(data=data,user_id=user_id,company_id=company_id):
+        print("Aggiunto correttamente nel db")
     else:
-        user_id = user.user_id
-        company = get_company_by_user_id(user_id=user_id)
-        if company is None:
-            print("Error, no company id")
-        else:
-            company_id = company.id_company
-            if insert_data_to_db(data=data,user_id=user_id,company_id=company_id):
-                print("Aggiunto correttamente nel db")
-            else:
-                print("Errorr")
-            # Save as json file
-            #with open(username + ".json", "w", encoding="utf-8") as f:
+        print("Errorr")
+    # Save as json file
+    #with open(username + ".json", "w", encoding="utf-8") as f:
