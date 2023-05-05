@@ -17,6 +17,7 @@ logger = configure_logger()
 
 
 def prepare_llm() -> HuggingFaceHub:
+    print("Prova")
     """Return the llm"""
     if settings.HUGGINGFACEHUB_API_TOKEN is not None:
         logger.info("Using Hugging_face as llm")
