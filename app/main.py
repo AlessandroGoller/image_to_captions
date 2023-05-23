@@ -12,7 +12,6 @@ logger = configure_logger()
 def main() -> None:
     """Prepare DB"""
 
-
     # Activate Streamlit
     streamlit_path = os.path.abspath("app/streamlit_app.py")
     call(
