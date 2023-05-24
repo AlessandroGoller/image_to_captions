@@ -15,10 +15,10 @@ session_state = st.session_state.setdefault("auth", {})
 if not is_logged_in(session=session_state):
     switch_page("login")
 
-if not session_state.get("image_caption", False):
+if not session_state.get("post", False):
     switch_page("action")  # to change it in home
 
-st.write(session_state.get("image_caption"))
+st.write(session_state.get("post"))
 
 if st.button("new test?"):
     del session_state["image_cache"]
