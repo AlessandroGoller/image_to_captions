@@ -3,6 +3,7 @@ Module providing functions for scraping information from instagram accounts.
 """
 import csv
 import json
+import time
 from datetime import datetime
 from itertools import dropwhile, takewhile
 from typing import Optional
@@ -165,7 +166,7 @@ class GetInstagramProfile:
             data[shortcode]["mediacount"] = post.mediacount
             data[shortcode]["title"] = post.title
             data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
-
+        time.sleep(1)
         return data
 
 

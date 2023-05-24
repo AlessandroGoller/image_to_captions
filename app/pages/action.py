@@ -7,18 +7,18 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
 from app.crud.company import get_company_by_user_id
-from app.crud.instagram import get_last_n_instagram
+from app.crud.instagram import get_last_n_instagram, insert_data_to_db
 from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
+from app.services.ig_scraping import GetInstagramProfile
 from app.services.langchain import (
-    generate_ig_post,
     generate_img_description,
 )
 from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
 
-ARCHIVE_PATH = "archive"
+LAST_N_POST = 10
 
 logger = configure_logger()
 
@@ -45,19 +45,8 @@ else:
         "image_description", False
     ):
         if st.button("Generate Description?"):
-            prompt = "Fornisci il testo da utilizzare nel post di instagram, \
-                    seguendo il formato degli esempi che fornisco. Gli esempi sono:"
-            all_captions = get_last_n_instagram(
-                company_id=company.id_company, number_ig=20
-            )
-            if all_captions is None:
-                raise ValueError("all_captions is None")
-            for example in all_captions[:20]:
-                prompt += '"' + str(example) + '",'
-            prompt = prompt[:-1]
             with st.spinner("Wait for it..."):
                 # TODO: add in the prompt the info of the company
-                # add useless text
                 # Use blip 2 for image description
                 description_image: str = generate_img_description(
                     session_state["image_cache"]
@@ -66,12 +55,36 @@ else:
                     "Descrizione dell'immagine da utilizzare:", description_image
                 )
                 session_state["image_description"] = description_image
-                session_state["prompt"] = prompt
     if (
         session_state.get("image_cache", False)
         and session_state.get("image_description", False)
         and not session_state.get("image_caption", False)
     ):
+        prompt = "Fornisci il testo da utilizzare nel post di instagram, \
+                    seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+        all_captions = get_last_n_instagram(
+            company_id=company.id_company, number_ig=20
+        )
+
+        if all_captions is None or len(all_captions)<1:
+            with st.spinner("Scraping Instagram Post"):
+                client = GetInstagramProfile()
+                company = get_company_by_user_id(user_id=user.user_id)
+                if company is None:
+                    raise ValueError("No company found, try to insert it")
+                instagram_account:str = company.url_instagram
+                if instagram_account is None or instagram_account=="":
+                    raise ValueError("No instagram account inserted, please insert it")
+                data = client.get_post_info_json(instagram_account,last_n_posts=LAST_N_POST)
+                company_id = company.id_company
+                if not insert_data_to_db(data=data,user_id=user.user_id,company_id=company_id):
+                    raise ValueError("all_captions is None")
+
+        for example in all_captions[:LAST_N_POST]:  # type: ignore
+            prompt += '"' + str(example) + '",'
+        prompt = prompt[:-1]
+        session_state["prompt"] = prompt
+
         if st.button("Generate Prompt?"):
             # Add the image description
             prompt = session_state["prompt"]
@@ -82,7 +95,7 @@ else:
                 + ". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
                 Attieniti al tono di voce dell'azienda."
             )
-            post = generate_ig_post(prompt)
+            post="TEST"
             st.success("Done!")
             session_state["image_caption"] = post
             # Mostrare post
