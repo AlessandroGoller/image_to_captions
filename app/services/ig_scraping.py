@@ -19,13 +19,13 @@ class GetInstagramProfile:
     def __init__(self) -> None:
         self.L = instaloader.Instaloader()
 
-    def download_users_profile_picture(self, username:str) -> None:
+    def download_users_profile_picture(self, username: str) -> None:
         """
         Download a user's profile picture.
         """
         self.L.download_profile(username, profile_pic_only=True)
 
-    def download_users_posts_with_periods(self, username:str) -> None:
+    def download_users_posts_with_periods(self, username: str) -> None:
         """
         Download posts from a user within a specified period of time.
         """
@@ -38,15 +38,14 @@ class GetInstagramProfile:
         ):
             self.L.download_post(post, username)
 
-
-    def download_hastag_posts(self, hashtag:str) -> None:
+    def download_hastag_posts(self, hashtag: str) -> None:
         """
         Download posts that contains a certain hashtag.
         """
         for post in instaloader.Hashtag.from_name(self.L.context, hashtag).get_posts():
             self.L.download_post(post, target="#" + hashtag)
 
-    def get_users_followers(self, user_name:str) -> None:
+    def get_users_followers(self, user_name: str) -> None:
         """
         Function to get a profile's followers.
         Note: login required to get a profile's followers.
@@ -59,7 +58,7 @@ class GetInstagramProfile:
                 file.write(username + "\n")
                 print(username)
 
-    def get_users_followings(self, username:str) -> None:
+    def get_users_followings(self, username: str) -> None:
         """
         Function to get a profile's followings.
         Note: login required to get a profile's followings.
@@ -72,7 +71,7 @@ class GetInstagramProfile:
                 file.write(username + "\n")
                 print(username)
 
-    def get_post_comments(self, username:str) -> None:
+    def get_post_comments(self, username: str) -> None:
         """
         Function to get a post's comments and print them at screen.
         """
@@ -86,7 +85,7 @@ class GetInstagramProfile:
                 print("comment.created_at_utc  : " + str(comment.created_at_utc))
                 print("************************************************")
 
-    def get_post_info_csv(self, username:str) -> None:
+    def get_post_info_csv(self, username: str) -> None:
         """
         Function to get info from every post of a user and store them in a csv file.
         """
@@ -140,7 +139,7 @@ class GetInstagramProfile:
                     print("comment date : " + str(comment.created_at_utc))
                 print("\n\n")
 
-    def get_post_info_json(self, username:str, last_n_posts:int=100) -> dict:
+    def get_post_info_json(self, username: str, last_n_posts: int = 100) -> dict:
         """
         Function to get info from every post of a user and store them in a json file (dictionary style).
         """
@@ -169,13 +168,16 @@ class GetInstagramProfile:
 
         return data
 
-def load_post_captions_from_json(json_file: str, shortcodes: Optional[list] = None) -> list:
+
+def load_post_captions_from_json(
+    json_file: str, shortcodes: Optional[list] = None
+) -> list:
     """
     Function to load post captions from a json file. The post loaded are the one specified by the shortcodes list.
     This to allow compatibility with eventual search functions on the specific post.
     """
     with open(json_file, "r", encoding="utf-8") as f:
-        data:dict[str,dict] = json.load(f)
+        data: dict[str, dict] = json.load(f)
 
     captions = []
     if shortcodes is None:
@@ -197,7 +199,7 @@ if __name__ == "__main__":
 
     username_ = "montura_official"
     client = GetInstagramProfile()
-    data_ = client.get_post_info_json(username_,last_n_posts=2)
+    data_ = client.get_post_info_json(username_, last_n_posts=2)
 
     user = get_user_by_email(email="test@gmail.com")
     if user is not None:
@@ -207,9 +209,9 @@ if __name__ == "__main__":
     if company is not None:
         company_id = company.company_id
 
-    if insert_data_to_db(data=data_,user_id=user_id,company_id=company_id):
+    if insert_data_to_db(data=data_, user_id=user_id, company_id=company_id):
         print("Aggiunto correttamente nel db")
     else:
         print("Errorr")
     # Save as json file
-    #with open(username + ".json", "w", encoding="utf-8") as f:
+    # with open(username + ".json", "w", encoding="utf-8") as f:
