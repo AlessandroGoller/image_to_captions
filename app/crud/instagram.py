@@ -36,8 +36,8 @@ def get_last_n_instagram(company_id: int, number_ig: int) -> Optional[list[Insta
     db: Session = next(get_db())
     return db.query(Instagram).filter(  # type: ignore
         Instagram.id_company == company_id
-        ).limit(number_ig
         ).order_by(Instagram.date.desc()
+        ).limit(number_ig
         ).all()
 
 def get_instagram_after_date(company_id: int, date: datetime) -> Optional[list[Instagram]]:
