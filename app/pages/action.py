@@ -59,6 +59,7 @@ else:
             prompt = prompt[:-1]
             with st.spinner("Wait for it..."):
                 # TODO: add in the prompt the info of the company
+                # add useless text
                 # Use blip 2 for image description
                 description_image: str = generate_img_description(
                     session_state["image_cache"]
