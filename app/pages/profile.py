@@ -57,7 +57,7 @@ def company_exist(company: Company) -> None:
             raise Exception("Error during creation of a Company")
         else:
             st.write("Success Save")
-            switch_page("action")
+            switch_page("home")
 
 
 def company_not_exist(user: User) -> None:
