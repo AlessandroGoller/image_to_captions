@@ -71,6 +71,9 @@ else:
         and session_state.get("image_description", False)
         and not session_state.get("image_caption", False)
     ):
+        session_state["image_description"] = st.text_input(
+            "Descrizione dell'immagine da utilizzare:", session_state["image_description"]
+        )
         if st.button("Generate Prompt?"):
             # Add the image description
             prompt = session_state["prompt"]

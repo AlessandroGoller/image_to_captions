@@ -19,6 +19,9 @@ if not session_state.get("image_caption", False):
     switch_page("action")  # to change it in home
 
 st.write(session_state.get("image_caption"))
+edit_text = st.text_input("Desideri modificare il testo?\nScrivi che tipo di modifica desideri\nEsempi: Fai la descrizione 3 righe più lunga.\n Rendila più amichevole\n...")
+
+prompt = f""" Modifica la seguente descrizione per un post instagram: "{session_state["image_caption"]}" in base a questo input: "{edit_text}" """
 
 if st.button("new test?"):
     del session_state["image_cache"]
