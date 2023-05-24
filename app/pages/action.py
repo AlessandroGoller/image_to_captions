@@ -25,6 +25,7 @@ logger = configure_logger()
 translator = Translator()
 
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
+st.write(session_state)
 
 if not is_logged_in(session=session_state):
     switch_page("login")
@@ -38,60 +39,74 @@ company: Optional[Company] = get_company_by_user_id(user_id=user.user_id)
 if company is None:
     switch_page("profile")
 else:
-    if not session_state.get("image_cache", False):
-        uploaded_file = st.file_uploader(
-            "Carica un'immagine", type=["png", "jpg", "jpeg"]
-        )
+    uploaded_file = st.file_uploader(
+        "Carica un'immagine", type=["png", "jpg", "jpeg"]
+    )
+    if uploaded_file:
         session_state["image_cache"] = uploaded_file
-    if session_state.get("image_cache", False) and not session_state.get(
-        "image_description", False
-    ):
-        if st.button("Generate Description?"):
-            prompt = "Fornisci il testo da utilizzare nel post di instagram, \
-                    seguendo il formato degli esempi che fornisco. Gli esempi sono:"
-            all_captions = get_last_n_instagram(
-                company_id=company.id_company, number_ig=20
-            )
-            if all_captions is None:
-                raise ValueError("all_captions is None")
-            for example in all_captions[:20]:
-                prompt += '"' + str(example) + '",'
-            prompt = prompt[:-1]
+        st.write(session_state)
+        if not session_state.get(
+            "image_description", False
+        ):
+            # Get the image description
             with st.spinner("Wait for it..."):
                 # TODO: add in the prompt the info of the company
-                # add useless text
+                
                 # Use blip 2 for image description
                 description_image: str = generate_img_description(
                     session_state["image_cache"]
                 )
+                # Traduci in italiano con google translate
+                description_image = translator.translate(description_image, src="en", dest="it").text
+                
                 description_image = st.text_input(
                     "Descrizione dell'immagine da utilizzare:", description_image
                 )
                 session_state["image_description"] = description_image
-                session_state["prompt"] = prompt
-    if (
-        session_state.get("image_cache", False)
-        and session_state.get("image_description", False)
-        and not session_state.get("image_caption", False)
-    ):
-        if st.button("Generate Prompt?"):
-            # Add the image description
-            prompt = session_state["prompt"]
-            prompt += (
-                ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
-                descrizione dell'immagine è: "
-                + session_state["image_description"]
-                + ". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
-                Attieniti al tono di voce dell'azienda."
+            
+        if session_state.get("image_description", False):  
+            # Generate the prompt for the post
+            sample_posts = get_last_n_instagram(
+                company_id=company.id_company, number_ig=20
             )
-            post = generate_ig_post(prompt)
-            st.success("Done!")
-            session_state["image_caption"] = post
-            # Mostrare post
-            st.write(post)
-    if (
-        session_state.get("image_cache", False)
-        and session_state.get("image_description", False)
-        and session_state.get("image_caption", False)
-    ):
-        switch_page("refirement")
+            st.write(sample_posts)
+            if sample_posts is None:
+                prompt = "Fornisci il testo da utilizzare nel post di instagram"
+                raise UserWarning("There are no post to learn from, style can not be guaranteed!")
+            else:
+                prompt = "Fornisci il testo da utilizzare nel post di instagram, \
+                    seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+                for example in sample_posts[:20]:
+                    prompt += '"' + str(example) + '",'
+            
+            prompt = prompt[:-1] # Remove the comma 
+
+            session_state["prompt"] = prompt
+            
+        if (session_state.get("image_description", False)
+            and not session_state.get("image_caption", False)
+        ):
+            if st.button("Genera il post!"):
+                # Add the image description
+                prompt = session_state["prompt"]
+                prompt += (
+                    ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
+                    descrizione dell'immagine è: "
+                    + session_state["image_description"]
+                    + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni.\
+                    Attieniti al tono di voce dell'azienda."
+                )
+                post = generate_ig_post(prompt)
+                st.success("Done!")
+                session_state["image_caption"] = post
+                # Mostrare post
+                st.write(post)
+
+                del session_state["prompt"]
+                del session_state["image_description"]
+        if (
+            session_state.get("image_cache", False)
+            and session_state.get("image_description", False)
+            and session_state.get("image_caption", False)
+        ):
+            switch_page("refinement")
