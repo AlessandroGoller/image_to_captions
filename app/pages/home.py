@@ -1,100 +1,127 @@
-""" Home page streamlit """
+"""
+Module streamlit
+"""
+from typing import Optional
 
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.services.ig_scraping import load_post_captions_from_json
+from app.crud.company import get_company_by_user_id
+from app.crud.instagram import get_last_n_instagram
+from app.crud.user import get_user_by_email
+from app.model.company import Company
+from app.model.user import User
 from app.services.langchain import (
     generate_ig_post,
     generate_img_description,
-    search_info_of_company,
 )
+from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
+from googletrans import Translator
 
 ARCHIVE_PATH = "archive"
 
+logger = configure_logger()
+translator = Translator()
+
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
-if not is_logged_in(session_state):
+if not is_logged_in(session=session_state):
     switch_page("login")
-st.success(f"Logged in as {session_state['email']}.")
-st.button("Log out", on_click=lambda: session_state.clear())  # clear the session
 
-# Input per l'azienda
-name_input = st.text_input("Inserisci il nome dell'azienda:")
+user: Optional[User] = get_user_by_email(email=session_state["email"])
+if user is None:
+    logger.error("Profile Page without having an account")
+    raise Exception("Illegal position")
+company: Optional[Company] = get_company_by_user_id(user_id=user.user_id)
 
-if st.button("Find description"):
-    with st.spinner("Wait for it..."):
-        test = search_info_of_company(name_input)
-        st.success("Done!")
-    # Mostrare caption
-    st.write(test)
-
-# Input per il sito web
-site_input = st.text_input("Inserisci il link del sito web:")
-
-# Input per la pagina instagram
-instagram_input = st.text_input("Inserisci il link della tua pagina instagram:")
-# # Scraping pagina instagram
-# if st.button("Link instagram page"):
-#     # Check if the page is already in the archive
-#     if(instagram_input+".csv" in os.listdir(ARCHIVE_PATH)):
-#         # Load the data
-#         with open(ARCHIVE_PATH+"/"+instagram_input+".csv", 'r', newline='', encoding='utf-8') as file:
-#             for row in reader:
-#         # Scraping
-#         # TODO decide if to scrape here or throw a message to invite the scraping
-#         with st.spinner("We are connecting the instagram page..."):
-#             with open(instagram_input+".csv", "w", newline="", encoding="utf-8") as file:
-#                 for post in posts:
-#                     # Put sleep to avoid too fast requests
-#                     writer.writerow(["post",
-#                                     post.profile, post.caption, post.location,
-#                                     post.likes, post.comments]
-
-# Aggiungi una sezione per caricare l'immagine
-uploaded_file = st.file_uploader("Carica un'immagine", type=["png", "jpg", "jpeg"])
-
-# Aggiungi il pulsante 'send'
-if st.button("Send"):
-    # Verifica che sia stata caricata una immagine
-    if uploaded_file is not None:
-        st.write("Immagine caricata")
-    else:
-        # Mostrare un avviso se l'utente non ha caricato un'immagine
-        st.warning("Please upload an image.")
-
-prompt = "Fornisci il testo da utilizzare nel post di instagram, \
-          seguendo il formato degli esempi che fornisco. Gli esempi sono:"
-
-# Generation with openai api
-if st.button("Generate description"):
-    all_captions = load_post_captions_from_json(
-        ARCHIVE_PATH + "/" + instagram_input + ".json"
+if company is None:
+    switch_page("profile")
+else:
+    uploaded_file = st.file_uploader(
+        "Carica un'immagine", type=["png", "jpg", "jpeg"]
     )
-    for example in all_captions[:20]:
-        prompt += '"' + example + '",'
-    prompt = prompt[:-1]
-
-    with st.spinner("Wait for it..."):
-        # TODO: add in the prompt the info of the company
-        # Use blip 2 for image description
-        description_image: str = generate_img_description(uploaded_file)
+    if uploaded_file:
+        # Se non era ancora presente il file
+        if "image_cache" not in session_state:
+            session_state["image_cache"] = uploaded_file
+        # Se il file è diverso da quello che avevo
+        elif uploaded_file != session_state["image_cache"]:
+            session_state["image_cache"] = uploaded_file
+            # Remove old variables
+            if "image_description" in session_state:
+                del session_state["image_description"]
+            if "prompt" in session_state:
+                del session_state["prompt"]
+            if "post" in session_state:
+                del session_state["post"]
+            
+        
+    # If I have the image, but not the description, I can go on generating the description
+    if not session_state.get(
+        "image_description", False
+    ) and session_state.get("image_cache", False):
+        # Get the image description
+        with st.spinner("Sto cercando una descrizione per l'immagine.."):
+            # TODO: add in the prompt the info of the company
+            
+            # Generate image description
+            description_image: str = generate_img_description(
+                session_state["image_cache"]
+            )
+            # Translate to italian
+            description_image = translator.translate(description_image, src="en", dest="it").text
+            
+            # Store it 
+            session_state["image_description"] = description_image
+    
+    if "image_description" in session_state:
+        
         description_image = st.text_input(
-            "Descrizione dell'immagine da utilizzare:", description_image
+                "Modifica la descrizione se non ti soddisfa:", session_state["image_description"], key="description_image"
+            )
+        
+        # Store it 
+        session_state["image_description"] = description_image
+        
+    
+    # If I have the description, I can go on generating the promtp
+    if session_state.get("image_description", False):  
+        # Generate the prompt for the post
+        sample_posts = get_last_n_instagram(
+            company_id=company.id_company, number_ig=20
         )
+        if sample_posts is None:
+            prompt = "Fornisci il testo da utilizzare nel post di instagram"
+            raise UserWarning("There are no post to learn from, style can not be guaranteed!")
+        else:
+            prompt = "Fornisci il testo da utilizzare nel post di instagram, \
+                seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+            for example in sample_posts[:20]:
+                prompt += '"' + str(example.post) + '",'
+        
+        prompt = prompt[:-1] # Remove the comma 
 
-    if st.button("Generate description for the post?"):
-        # Add the image description
-        prompt += (
-            ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
-               descrizione dell'immagine è: "
-            + description_image
-            + ". Inserisci le emoji più opportune. Inserisci gli hasthatgs più opportuni.\
-               Attieniti al tono di voce dell'azienda."
-        )
-
-        post = generate_ig_post(prompt)
-        st.success("Done!")
-        # Mostrare post
-        st.write(post)
+        session_state["prompt"] = prompt
+        
+        if st.button("Genera il post!") and not session_state.get("post", False):
+            with st.spinner("Sto generando il post.."):
+            # Add the image description
+                prompt = session_state["prompt"]
+                prompt += (
+                    ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
+                    descrizione dell'immagine è: "
+                    + session_state["image_description"]
+                    + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni.\
+                    Attieniti al tono di voce dell'azienda."
+                )
+                post = generate_ig_post(prompt)
+                
+                session_state["post"] = post
+    
+    # Mostrare post
+    if session_state.get("post", False):
+        st.text_area(label = "Post", value=session_state["post"], height=300)
+            
+        if st.button("Raffina il tuo post!"):
+            switch_page("refinement")

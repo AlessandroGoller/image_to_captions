@@ -5,6 +5,7 @@ from app.services.ig_scraping import GetInstagramProfile
 import ipaddress
 
 username = "dulacetduparc"
+username = "dulacetduparc"
 client = GetInstagramProfile()
 
 # instagram = get_instagram_by_id(id_instagram=1)
