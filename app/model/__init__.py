@@ -1,2 +1,2 @@
 """ Module Init """
-from app.model import company, instagram, user # noqa
+from app.model import company, instagram, user  # noqa

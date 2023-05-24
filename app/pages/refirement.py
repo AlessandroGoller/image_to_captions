@@ -1,7 +1,6 @@
 """
 Module streamlit
 """
-from typing import Optional
 
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
@@ -17,7 +16,7 @@ if not is_logged_in(session=session_state):
     switch_page("login")
 
 if not session_state.get("image_caption", False):
-    switch_page("action") # to change it in home
+    switch_page("action")  # to change it in home
 
 st.write(session_state.get("image_caption"))
 

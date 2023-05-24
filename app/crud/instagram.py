@@ -11,42 +11,56 @@ from app.utils.logger import configure_logger
 
 logger = configure_logger()
 
+
 def get_instagram_by_id(id_instagram: int) -> Optional[Instagram]:
     """Return the Instagram from id_instagram"""
     db: Session = next(get_db())
     return db.query(Instagram).filter(Instagram.id_instagram == id_instagram).first()  # type: ignore
+
 
 def get_instagram_by_url(url: int) -> Optional[Instagram]:
     """Return the Instagram from url"""
     db: Session = next(get_db())
     return db.query(Instagram).filter(Instagram.posturl == url).first()  # type: ignore
 
+
 def get_instagram_by_user_id(user_id: int) -> Optional[list[Instagram]]:
     """Return the list of Instagram from user_id"""
     db: Session = next(get_db())
     return db.query(Instagram).filter(Instagram.id_user == user_id).all()  # type: ignore
+
 
 def get_instagram_by_company_id(company_id: int) -> Optional[list[Instagram]]:
     """Return the list of Instagram from company_id"""
     db: Session = next(get_db())
     return db.query(Instagram).filter(Instagram.id_company == company_id).all()  # type: ignore
 
+
 def get_last_n_instagram(company_id: int, number_ig: int) -> Optional[list[Instagram]]:
     """Return the list of n Instagram from company_id order by date"""
     db: Session = next(get_db())
-    return db.query(Instagram).filter(  # type: ignore
-        Instagram.id_company == company_id
-        ).order_by(Instagram.date.desc()
-        ).limit(number_ig
-        ).all()
+    return ( # type: ignore
+        db.query(Instagram)
+        .filter(Instagram.id_company == company_id)
+        .order_by(Instagram.date.desc())
+        .limit(number_ig)
+        .all()
+    )
 
-def get_instagram_after_date(company_id: int, date: datetime) -> Optional[list[Instagram]]:
+
+def get_instagram_after_date(
+    company_id: int, date: datetime
+) -> Optional[list[Instagram]]:
     """Return the list of Instagram posts from company_id with date after the input date"""
     db: Session = next(get_db())
-    return db.query(Instagram).filter(  # type: ignore
-        Instagram.id_company == company_id,
-        Instagram.date > date
-    ).all()
+    return ( # type: ignore
+        db.query(Instagram)
+        .filter(
+            Instagram.id_company == company_id, Instagram.date > date
+        )
+        .all()
+    )
+
 
 def create_instagram(instagram: InstagramCreate) -> Optional[Instagram]:
     """Creation a instagram, in input the schema of instagram create and return the instagram"""
@@ -54,24 +68,25 @@ def create_instagram(instagram: InstagramCreate) -> Optional[Instagram]:
     db_instagram = Instagram(
         post=instagram.post,
         id_user=instagram.id_user,
-        id_company = instagram.id_company,
-        image_description = instagram.image_description,
-        hashtags = instagram.hashtags,
-        mentions = instagram.mentions,
-        tagged_users = instagram.tagged_users,
-        likes = instagram.likes,
-        comments = instagram.comments,
-        date = instagram.date,
-        location = instagram.location,
-        typename = instagram.typename,
-        mediacount = instagram.mediacount,
-        title = instagram.title,
-        posturl = instagram.posturl,
+        id_company=instagram.id_company,
+        image_description=instagram.image_description,
+        hashtags=instagram.hashtags,
+        mentions=instagram.mentions,
+        tagged_users=instagram.tagged_users,
+        likes=instagram.likes,
+        comments=instagram.comments,
+        date=instagram.date,
+        location=instagram.location,
+        typename=instagram.typename,
+        mediacount=instagram.mediacount,
+        title=instagram.title,
+        posturl=instagram.posturl,
     )
     db.add(db_instagram)
     db.commit()
     db.refresh(db_instagram)
     return db_instagram
+
 
 def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
     """Bulk creation of instagrams"""
@@ -82,7 +97,9 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
     unique_urls = {instagram.posturl for instagram in instagrams}
 
     # Retrieve Instagrams from the database for the unique post URLs
-    existing_instagrams = db.query(Instagram).filter(Instagram.posturl.in_(unique_urls)).all()
+    existing_instagrams = (
+        db.query(Instagram).filter(Instagram.posturl.in_(unique_urls)).all()
+    )
     existing_instagram_urls = {instagram.posturl for instagram in existing_instagrams}
 
     # Create Instagram objects for any new URLs
@@ -111,7 +128,9 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
                     )
                 )
             except Exception as error:
-                logger.error(f"Probably tried to insert an already present data\n{error}")
+                logger.error(
+                    f"Probably tried to insert an already present data\n{error}"
+                )
                 return None
     logger.info("Finish converted data to instagram schema")
 
@@ -128,26 +147,27 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
     logger.info("No new data Inserted")
     return None
 
-def insert_data_to_db(data:dict,user_id:int,company_id:int)->bool:
-    """ From a dict of data, insert everythin inside Instagram db """
+
+def insert_data_to_db(data: dict, user_id: int, company_id: int) -> bool:
+    """From a dict of data, insert everythin inside Instagram db"""
     try:
         instagrams = [
             InstagramCreate(
                 post=post.get("post"),
                 id_user=user_id,
                 id_company=company_id,
-                image_description=post.get("image_description",None),
-                hashtags=";".join(post.get("hashtags",None)),
-                mentions=";".join(post.get("mentions",None)),
-                tagged_users=";".join(post.get("tagged_users",None)),
-                likes=post.get("likes",None),
-                comments=post.get("comments",None),
-                date=post.get("date",None),
-                location=post.get("location",None),
-                typename=post.get("typename",None),
-                mediacount=post.get("mediacount",None),
-                title=post.get("title",None),
-                posturl=post.get("posturl",None),
+                image_description=post.get("image_description", None),
+                hashtags=";".join(post.get("hashtags", None)),
+                mentions=";".join(post.get("mentions", None)),
+                tagged_users=";".join(post.get("tagged_users", None)),
+                likes=post.get("likes", None),
+                comments=post.get("comments", None),
+                date=post.get("date", None),
+                location=post.get("location", None),
+                typename=post.get("typename", None),
+                mediacount=post.get("mediacount", None),
+                title=post.get("title", None),
+                posturl=post.get("posturl", None),
             )
             for post in data.values()
         ]
@@ -155,8 +175,11 @@ def insert_data_to_db(data:dict,user_id:int,company_id:int)->bool:
         return True
 
     except Exception as error:
-        logger.error(f"Error during insertion bunch of data inside db Instagram\n{error=}")
+        logger.error(
+            f"Error during insertion bunch of data inside db Instagram\n{error=}"
+        )
         return False
+
 
 def update_instagram(
     instagram: Instagram, instagram_edit: InstagramInfoBase
@@ -172,7 +195,7 @@ def update_instagram(
 
 
 def delete_instagram(instagram: Instagram) -> dict[str, bool]:
-    """ Permit to delete a instagram"""
+    """Permit to delete a instagram"""
     db: Session = next(get_db())
     db.delete(instagram)
     db.commit()

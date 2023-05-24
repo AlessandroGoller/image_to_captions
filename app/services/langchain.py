@@ -78,8 +78,8 @@ def generate_ig_post(prompt: str) -> str:
     #     if message:
     #         messages.append(
 
-    message = prompt # a cosa serve?
-    if message: # else?
+    message = prompt  # a cosa serve?
+    if message:  # else?
         messages.append(
             {"role": "user", "content": message},
         )

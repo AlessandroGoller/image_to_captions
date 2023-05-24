@@ -7,11 +7,10 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
 from app.crud.company import get_company_by_user_id
-from app.crud.user import get_user_by_email
 from app.crud.instagram import get_last_n_instagram
+from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
-from app.services.ig_scraping import load_post_captions_from_json
 from app.services.langchain import (
     generate_ig_post,
     generate_img_description,
@@ -37,14 +36,20 @@ company: Optional[Company] = get_company_by_user_id(user_id=user.user_id)
 if company is None:
     switch_page("profile")
 else:
-    if not session_state.get("image_cache",False):
-        uploaded_file = st.file_uploader("Carica un'immagine", type=["png", "jpg", "jpeg"])
+    if not session_state.get("image_cache", False):
+        uploaded_file = st.file_uploader(
+            "Carica un'immagine", type=["png", "jpg", "jpeg"]
+        )
         session_state["image_cache"] = uploaded_file
-    if session_state.get("image_cache",False) and not session_state.get("image_description",False):
+    if session_state.get("image_cache", False) and not session_state.get(
+        "image_description", False
+    ):
         if st.button("Generate Description?"):
             prompt = "Fornisci il testo da utilizzare nel post di instagram, \
                     seguendo il formato degli esempi che fornisco. Gli esempi sono:"
-            all_captions = get_last_n_instagram(company_id=company.id_company, number_ig=20)
+            all_captions = get_last_n_instagram(
+                company_id=company.id_company, number_ig=20
+            )
             if all_captions is None:
                 raise ValueError("all_captions is None")
             for example in all_captions[:20]:
@@ -53,13 +58,19 @@ else:
             with st.spinner("Wait for it..."):
                 # TODO: add in the prompt the info of the company
                 # Use blip 2 for image description
-                description_image: str = generate_img_description(session_state["image_cache"])
+                description_image: str = generate_img_description(
+                    session_state["image_cache"]
+                )
                 description_image = st.text_input(
                     "Descrizione dell'immagine da utilizzare:", description_image
                 )
                 session_state["image_description"] = description_image
-                session_state["prompt"]=prompt
-    if session_state.get("image_cache",False) and session_state.get("image_description",False) and not session_state.get("image_caption",False):
+                session_state["prompt"] = prompt
+    if (
+        session_state.get("image_cache", False)
+        and session_state.get("image_description", False)
+        and not session_state.get("image_caption", False)
+    ):
         if st.button("Generate Prompt?"):
             # Add the image description
             prompt = session_state["prompt"]
@@ -75,5 +86,9 @@ else:
             session_state["image_caption"] = post
             # Mostrare post
             st.write(post)
-    if session_state.get("image_cache",False) and session_state.get("image_description",False) and session_state.get("image_caption",False):
+    if (
+        session_state.get("image_cache", False)
+        and session_state.get("image_description", False)
+        and session_state.get("image_caption", False)
+    ):
         switch_page("refirement")
