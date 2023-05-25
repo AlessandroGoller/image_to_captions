@@ -106,3 +106,4 @@ openai
 psycopg2
 bcrypt
 replicate
+googletrans

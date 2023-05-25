@@ -7,7 +7,7 @@ import time
 
 class GetInstagramProfile():
     def __init__(self) -> None:
-        self.L = instaloader.Instaloader()
+        self.L = instaloader.Instaloader(user_agent="Edg/113.0.1774.50")
 
     def download_users_profile_picture(self,username):
         self.L.download_profile(username, profile_pic_only=True)

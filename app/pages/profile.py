@@ -21,12 +21,24 @@ session_state = st.session_state.setdefault("auth", {})  # retrieve the session 
 
 
 def company_exist(company: Company) -> None:
+    # Update session state for button behavior
+    if "description" not in st.session_state:
+        st.session_state["description"] = company.description
+
     """Case in which the company already exist"""
     company_name = st.text_input("Company Name:", str(company.name))
     description = st.text_input(
         "Company description:",
         str(company.description) if company.description is not None else "",
     )
+    if "description" not in st.session_state:
+        if st.button("Find company description?"):
+            with st.spinner("Wait for it..."):
+                description = search_info_of_company(company_name)
+                st.session_state["description"] = description
+                st.success("Done!")
+            # Mostrare caption
+            _ = st.text_input("Description, AI generated", description)
     website = st.text_input(
         "Company Website:", str(company.website) if company.website is not None else ""
     )
@@ -34,16 +46,10 @@ def company_exist(company: Company) -> None:
         "Instagram Name:",
         str(company.url_instagram) if company.url_instagram is not None else "",
     )
-    if st.button("Find NEW description?"):
-        with st.spinner("Wait for it..."):
-            description = search_info_of_company(company_name)
-            st.success("Done!")
-        # Mostrare caption
-        description = st.text_input("Description, AI generated", description)
     if st.button("Save Info") and company_name is not None and company_name != "":
         company_created = CompanyInfoBase(
             name=company_name,
-            description=description,
+            description=st.session_state["description"],
             website=website,
             url_instagram=instagram_url,
         )
