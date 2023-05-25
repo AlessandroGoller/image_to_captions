@@ -57,7 +57,7 @@ def company_exist(company: Company) -> None:
             raise Exception("Error during creation of a Company")
         else:
             st.write("Success Save")
-            switch_page("home")
+            switch_page("action")
 
 
 def company_not_exist(user: User) -> None:
@@ -87,7 +87,7 @@ def company_not_exist(user: User) -> None:
                 raise Exception("Error during creation of a Company")
             else:
                 st.write("Success Save")
-                switch_page("home")
+                switch_page("action")
 
 
 if not is_logged_in(session=session_state):
