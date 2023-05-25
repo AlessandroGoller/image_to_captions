@@ -1,0 +1,39 @@
+name: Pull Request Labeler
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  extract_labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Extract labels
+        id: label-extractor
+        uses: actions/labeler@v2
+        with:
+          configuration-path: .github/labeler.yml
+
+      - name: Apply labels
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const labels = ${{ toJson(steps.label-extractor.outputs.labels) }};
+            if (labels.length > 0) {
+              const issueNumber = context.issue.number;
+              const repo = context.repo.repo;
+              const owner = context.repo.owner;
+              const extractedLabel = labels[0].split('/')[0];
+              await github.issues.addLabels({
+                owner: owner,
+                repo: repo,
+                issue_number: issueNumber,
+                labels: [extractedLabel]
+              });
+            }
