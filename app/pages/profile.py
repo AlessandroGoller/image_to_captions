@@ -25,7 +25,8 @@ def company_exist(company: Company) -> None:
     # Update session state for button behavior
     if "description" not in st.session_state:
         st.session_state["description"] = company.description
-    language = st.text_input("In what language the prompt has to be?\nIf Auto, the AI will decide", str(company.language))
+    language = st.text_input("In what language the prompt has to be?\n\
+                             If Auto, the AI will decide", str(company.language))
     company_name = st.text_input("Company Name:", str(company.name))
     description = st.text_input(
         "Company description:",
