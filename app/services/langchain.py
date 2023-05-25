@@ -18,16 +18,16 @@ logger = configure_logger()
 
 def prepare_llm(provider:str="openai") -> HuggingFaceHub:
     """Return the llm"""
-    if(provider=="openai"):
-        if(settings.OPENAI_API_TOKEN is not None):
+    if provider=="openai":
+        if settings.OPENAI_API_TOKEN is not None:
             logger.info("Using OpenAI as llm")
             llm = OpenAI(
                 model_name="text-davinci-003", openai_api_key=settings.OPENAI_API_TOKEN
             )
-    elif(provider=="huggingfacehub"):
+    elif provider=="huggingfacehub":
         logger.info("Using Hugging_face as llm")
         logger.info("Remember that huggingface might not work for a lot of requests")
-        if(settings.HUGGINGFACEHUB_API_TOKEN is not None):
+        if settings.HUGGINGFACEHUB_API_TOKEN is not None:
             # initialize Hub LLM
             llm = HuggingFaceHub(
                 repo_id="google/flan-t5-xl",
