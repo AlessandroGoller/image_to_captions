@@ -38,8 +38,9 @@ st.markdown(
 
     Se desideri saperne di più su di noi o entrare in contatto, puoi visitare i nostri profili LinkedIn:
 
-    Alessandro -> link Linkedin
-    Riccardo -> link Linkedin
+    [![Linkedin](https://i.stack.imgur.com/gVE0j.png)](https://www.linkedin.com/in/alessandro-goller/) **Alessandro**
+    
+    [![Linkedin](https://i.stack.imgur.com/gVE0j.png)](https://www.linkedin.com/in/ricci-riccardo/) **Riccardo**
 
     ### Prova le nostre altre funzionalità:
     Analisi avanzata delle immagini: Utilizza la nostra AI per ottenere informazioni dettagliate sul contenuto delle tue foto.
@@ -52,4 +53,4 @@ st.markdown(
 )
 
 if st.button("Premi per iniziare"):
-    switch_page("home")
+    switch_page("action")
