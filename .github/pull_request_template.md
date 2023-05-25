@@ -9,7 +9,7 @@
 ## Checklist
 
 - [ ] I have tested the changes
-- [ ] I have updated the documentation (if necessary)
+- [ ] The pipeline works?
 
 ## Related Issues
 
