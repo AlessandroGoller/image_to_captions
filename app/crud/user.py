@@ -4,6 +4,7 @@ from typing import Optional
 
 import bcrypt
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import func
 
 from app.dependency import get_db
 from app.model.user import User
@@ -15,12 +16,10 @@ def get_user_by_email(email: str) -> Optional[User]:
     db: Session = next(get_db())
     return db.query(User).filter(User.email == email).first()  # type: ignore
 
-
 def get_user_by_id(user_id: str) -> Optional[User]:
     """Return the user from user_id"""
     db: Session = next(get_db())
     return db.query(User).filter(User.user_id == user_id).first()  # type: ignore
-
 
 def get_users() -> Optional[list[User]]:
     """Return the list of users"""
@@ -41,7 +40,6 @@ def create_user(user: UserCreate) -> Optional[User]:
     db.refresh(db_user)
     return db_user
 
-
 def become_admin(email: str) -> Optional[User]:
     """Convert a user to admin"""
     db: Session = next(get_db())
@@ -52,3 +50,20 @@ def become_admin(email: str) -> Optional[User]:
     db.commit()
     db.refresh(user)
     return user
+
+def update_last_access(email: str) -> None:
+    """ Update last access """
+    user = get_user_by_email(email)
+    if user is None:
+        raise ValueError(f"Impossible error, user with {email=} should exist")
+    db: Session = next(get_db())
+    user.last_access = func.now()
+    db.merge(user)
+    db.commit()
+
+def delete_user(user: User) -> dict[str, bool]:
+    """ Permit to delete a user"""
+    db: Session = next(get_db())
+    db.delete(user)
+    db.commit()
+    return {"ok": True}
