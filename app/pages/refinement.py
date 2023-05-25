@@ -16,7 +16,7 @@ if not is_logged_in(session=session_state):
     switch_page("login")
 
 if not session_state.get("post", False):
-    switch_page("home")
+    switch_page("action")
 
 st.write(session_state.get("post"))
 
