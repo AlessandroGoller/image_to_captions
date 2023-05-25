@@ -45,7 +45,7 @@ def show_register_page() -> None:
 def show_auth_page() -> None:
     """show_auth_page"""
     if is_logged_in(session_state):
-        switch_page("home")
+        switch_page("action")
     else:
         st.warning("Not logged in.")
         st.write("")
