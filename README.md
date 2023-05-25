@@ -23,6 +23,15 @@ logger.warn
 logger.error
 logger.fatal
 
+## Alembic
+Questo comando crea un nuovo file di migrazione nella directory delle migrazioni specificata nel file di configurazione.
+- alembic revision --autogenerate -m "descrizione della migrazione"
+
+Questo comando esegue tutte le migrazioni non ancora applicate al database, con head si intende tutte le migrazioni fino all'ultima creata.
+- alembic upgrade head
+- alembic downgrade NOME REVISIONE
+- alembic downgrade -1
+
 # Technology:
 - sphinx: Documentation
 - Alembic: Migration DB

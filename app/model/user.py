@@ -14,6 +14,7 @@ class User(database):
     name = Column(String, nullable=True)
     password = Column(String)
     admin = Column(Boolean, default=False)
+    language = Column(String, nullable=True, default= "Italian")
     last_access = Column(
         "last_access",
         DateTime(timezone=True),
