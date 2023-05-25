@@ -107,12 +107,14 @@ else:
                 company_id = company.id_company
                 if not insert_data_to_db(data=data,user_id=user.user_id,company_id=company_id):
                     raise ValueError("all_captions is None")
+                sample_posts = get_last_n_instagram(
+                    company_id=company.id_company, number_ig=20
+                )
 
-        else:
-            prompt = "Fornisci il testo da utilizzare nel post di instagram, \
-                seguendo il formato degli esempi che fornisco. Gli esempi sono:"
-            for example in sample_posts[:LAST_N_POST]:
-                prompt += '"' + str(example.post) + '",'
+        prompt = "Fornisci il testo da utilizzare nel post di instagram, \
+            seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+        for example in sample_posts[:LAST_N_POST]:
+            prompt += '"' + str(example.post) + '",'
 
         prompt = prompt[:-1] # Remove the comma
         session_state["prompt"] = prompt
