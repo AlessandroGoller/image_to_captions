@@ -47,7 +47,6 @@ def get_last_n_instagram(company_id: int, number_ig: int = 20) -> Optional[list[
         .all()
     )
 
-
 def get_instagram_after_date(
     company_id: int, date: datetime
 ) -> Optional[list[Instagram]]:

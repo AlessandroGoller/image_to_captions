@@ -13,5 +13,6 @@ class Company(database):
     name = Column("name", String, nullable=False, unique=True)
     id_user = Column(Integer, nullable=False)
     url_instagram = Column(String, nullable=True)
+    language = Column(String, nullable=True, default= "Auto")
     description = Column(Text, nullable=True)
     website = Column(String, nullable=True)

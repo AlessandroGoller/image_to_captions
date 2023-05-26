@@ -113,7 +113,7 @@ else:
 
         prompt = "Fornisci il testo da utilizzare nel post di instagram, \
             seguendo il formato degli esempi che fornisco. Gli esempi sono:"
-        for example in sample_posts[:LAST_N_POST]:
+        for example in sample_posts[:LAST_N_POST]: # type: ignore
             prompt += '"' + str(example.post) + '",'
 
         prompt = prompt[:-1] # Remove the comma
