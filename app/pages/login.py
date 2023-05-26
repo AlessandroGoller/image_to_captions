@@ -11,7 +11,7 @@ from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_l
 def show_login_page() -> None:
     """show_login_page"""
     st.header("Login")
-    email = st.text_input("Email")
+    email = st.text_input("Email").strip()
     password = st.text_input("Password", type="password")
     login_button = st.button("Log in")
     if login_button:
