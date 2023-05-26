@@ -13,6 +13,8 @@
 
 - [ ] I have tested the changes
 - [ ] The pipeline works?
+- [ ] There is an issue for this solution I am submitting
+- [ ] I tag the issue
 
 ## Related Issues
 
