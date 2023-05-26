@@ -1,12 +1,18 @@
 """
 Module streamlit
 """
-from typing import Optional
 
 import streamlit as st
-from googletrans import Translator
+from app.utils.streamlit_utils.auth import is_logged_in
 from streamlit_extras.switch_page_button import switch_page
+# Maybe to speed up loading?
+session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
+if not is_logged_in(session=session_state):
+    switch_page("login")
+    
+from typing import Optional
+from googletrans import Translator
 from app.crud.company import get_company_by_user_id
 from app.crud.instagram import get_last_n_instagram, insert_data_to_db
 from app.crud.user import get_user_by_email
@@ -18,17 +24,11 @@ from app.services.langchain import (
     generate_img_description,
 )
 from app.utils.logger import configure_logger
-from app.utils.streamlit_utils.auth import is_logged_in
 
 LAST_N_POST = 20
 
 logger = configure_logger()
 translator = Translator()
-
-session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
-
-if not is_logged_in(session=session_state):
-    switch_page("login")
 
 user: Optional[User] = get_user_by_email(email=session_state["email"])
 if user is None:
