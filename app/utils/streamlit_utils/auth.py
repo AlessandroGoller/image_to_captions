@@ -11,6 +11,7 @@ def verify_login(email: str, password: str) -> bool:
     Verifica se l'utente con username e password esiste nella lista degli utenti registrati
     e se le credenziali sono corrette.
     """
+    email = email.strip()
     user = get_user_by_email(email=email)
     if user is None:
         return False
@@ -26,6 +27,7 @@ def register_user(email: str, password: str) -> bool:
     Restituisce True se la registrazione è andata a buon fine,
     False se l'username è già stato utilizzato.
     """
+    email = email.strip()
     user = get_user_by_email(email=email)
     if user is not None:
         return False
