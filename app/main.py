@@ -13,7 +13,7 @@ def main() -> None:
     """Prepare DB"""
 
     # Activate Streamlit
-    streamlit_path = os.path.abspath("app/streamlit_app.py")
+    streamlit_path = os.path.abspath("app/Homepage.py")
     call(
         f"""{sys.executable} -m streamlit run {streamlit_path} \
             --server.headless=true --global.developmentMode=false""",

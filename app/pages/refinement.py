@@ -17,7 +17,7 @@ if not is_logged_in(session=session_state):
     switch_page("login")
 
 if not session_state.get("post", False):
-    switch_page("home")
+    switch_page("action")
 
 def infinite_edit_post(post:str)->None:
     """ Function to continue to edit the post """
