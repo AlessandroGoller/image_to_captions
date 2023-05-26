@@ -64,7 +64,7 @@ def search_info_of_company(name_to_search: str) -> str:
     return str(response)
 
 
-def generate_ig_post(prompt: str) -> str:
+def generate_ig_post(prompt: str = "") -> str: # TODO ADD CONVERSATION HISTORY TO SAVE SOME TOKENS IN THE CHATGPT API, maybe? 
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
     """
@@ -72,25 +72,20 @@ def generate_ig_post(prompt: str) -> str:
     messages = [
         {
             "role": "system",
-            "content": "Sei un sistema intelligente che genera dei post per instagram",
+            "content": "Sei un sistema intelligente che genera ed edita dei post per instagram",
         }
     ]
 
-    # Create the chat
-    # while True:
-    #     if message:
-    #         messages.append(
-
-    message = prompt  # a cosa serve?
-    if message:  # else?
+    if prompt!="":
         messages.append(
-            {"role": "user", "content": message},
+            {"role": "user", "content": prompt},
         )
         chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-    reply = chat.choices[0].message.content
-    messages.append({"role": "assistant", "content": reply})
-
-    return str(reply)
+        reply = chat.choices[0].message.content
+        messages.append({"role": "assistant", "content": reply})
+        return str(reply)
+    else:
+        return "Please specify a prompt"
 
 
 def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -> str:

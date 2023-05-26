@@ -12,7 +12,7 @@ if not is_logged_in(session=session_state):
     switch_page("login")
     
 from typing import Optional
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from app.crud.company import get_company_by_user_id
 from app.crud.instagram import get_last_n_instagram, insert_data_to_db
 from app.crud.user import get_user_by_email
@@ -28,7 +28,7 @@ from app.utils.logger import configure_logger
 LAST_N_POST = 20
 
 logger = configure_logger()
-translator = Translator()
+translator = GoogleTranslator(source='en', target='it')
 
 user: Optional[User] = get_user_by_email(email=session_state["email"])
 if user is None:
@@ -71,7 +71,7 @@ else:
                 session_state["image_cache"]
             )
             # Translate to italian
-            description_image = translator.translate(description_image, src="en", dest="it").text
+            description_image = translator.translate(text=description_image)
 
             # Store it
             session_state["image_description"] = description_image
@@ -111,8 +111,7 @@ else:
                     company_id=company.id_company, number_ig=20
                 )
 
-        prompt = "Fornisci il testo da utilizzare nel post di instagram, \
-            seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+        prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:"
         for example in sample_posts[:LAST_N_POST]:
             prompt += '"' + str(example.post) + '",'
 
@@ -130,12 +129,15 @@ else:
                     + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni.\
                     Attieniti al tono di voce dell'azienda."
                 )
+                # Update the prompt
+                session_state["prompt"] = prompt
                 post = generate_ig_post(prompt)
                 session_state["post"] = post
 
     # Mostrare post
     if session_state.get("post", False):
-        st.text_area(label = "Post", value=session_state["post"], height=300)
+        st.write("Ecco il tuo post")
+        st.write(session_state["post"])
 
-        if st.button("Raffina il tuo post!"):
+        if st.button("Vorrei modificarlo ulteriormente!"):
             switch_page("refinement")
