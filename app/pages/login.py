@@ -4,6 +4,7 @@ Module streamlit for loggin
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
+from app.crud.user import update_last_access
 from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_login
 
 
@@ -16,6 +17,7 @@ def show_login_page() -> None:
     if login_button:
         if verify_login(email=email, password=password):
             st.success("Logged in successfully.")
+            update_last_access(email)
             session_state["is_logged_in"] = True
             session_state["email"] = email
             st.experimental_rerun()  # reload the page

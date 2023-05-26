@@ -21,11 +21,12 @@ session_state = st.session_state.setdefault("auth", {})  # retrieve the session 
 
 
 def company_exist(company: Company) -> None:
+    """Case in which the company already exist"""
     # Update session state for button behavior
     if "description" not in st.session_state:
         st.session_state["description"] = company.description
-
-    """Case in which the company already exist"""
+    language = st.text_input("In what language the prompt has to be?\n\
+                             If Auto, the AI will decide", str(company.language))
     company_name = st.text_input("Company Name:", str(company.name))
     description = st.text_input(
         "Company description:",
@@ -51,6 +52,7 @@ def company_exist(company: Company) -> None:
             name=company_name,
             description=st.session_state["description"],
             website=website,
+            language=language,
             url_instagram=instagram_url,
         )
         if update_company(company=company, company_edit=company_created) is None:
@@ -62,6 +64,7 @@ def company_exist(company: Company) -> None:
 
 def company_not_exist(user: User) -> None:
     """Case in which the company NOT exist"""
+    language = st.text_input("In what language the prompt has to be?\nIf Auto, the AI will decide", "Auto")
     company_name = st.text_input("Insert Company Name:")
     website = st.text_input("Insert Company website:", "")
     instagram_url = st.text_input("Insert Instagram Name:", "")
@@ -81,6 +84,7 @@ def company_not_exist(user: User) -> None:
                 description=description,
                 website=website,
                 url_instagram=instagram_url,
+                language=language,
                 id_user=user.user_id,
             )
             if create_company(company=company_created) is None:

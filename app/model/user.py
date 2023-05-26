@@ -14,11 +14,11 @@ class User(database):
     name = Column(String, nullable=True)
     password = Column(String)
     admin = Column(Boolean, default=False)
+    language = Column(String, nullable=True, default= "Italian")
     last_access = Column(
         "last_access",
         DateTime(timezone=True),
         onupdate=func.now(),
-        server_default=func.now(),
         nullable=True,
     )
     time_created = Column(
@@ -27,3 +27,7 @@ class User(database):
         server_default=func.now(),
         nullable=True,
     )
+
+    def update_last_access(self) -> None:
+        """ Permit to update the last acces """
+        self.last_access = func.now()

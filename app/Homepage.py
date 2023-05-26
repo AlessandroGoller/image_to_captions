@@ -1,4 +1,6 @@
 """ Module for Streamlit """
+# pylint: disable=C0301
+# flake8: noqa
 
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
