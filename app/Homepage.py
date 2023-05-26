@@ -24,7 +24,7 @@ st.markdown(
     2. La nostra AI analizzerà l'immagine e genererà una didascalia intelligente.
     3. Personalizza la didascalia se desideri apportare modifiche o aggiungi il tuo tocco creativo.
     4. Copia la didascalia e usala per la tua
-    
+
     Pubblica la tua foto su Instagram insieme alla didascalia perfetta!
 
     ### Vantaggi dell'Automazione Didascalie:
@@ -39,7 +39,7 @@ st.markdown(
     Se desideri saperne di più su di noi o entrare in contatto, puoi visitare i nostri profili LinkedIn:
 
     [![Linkedin](https://i.stack.imgur.com/gVE0j.png)](https://www.linkedin.com/in/alessandro-goller/) **Alessandro**
-    
+
     [![Linkedin](https://i.stack.imgur.com/gVE0j.png)](https://www.linkedin.com/in/ricci-riccardo/) **Riccardo**
 
     ### Prova le nostre altre funzionalità:

@@ -1,5 +1,5 @@
 ## Fixed issued
-#insert_here_the_issue_number if more add more lines
+This PR fix #insert_here_the_issue_number if more add more lines, always with the word fix before
 
 ## Description
 
@@ -13,6 +13,8 @@
 
 - [ ] I have tested the changes
 - [ ] The pipeline works?
+- [ ] There is an issue for this solution I am submitting
+- [ ] I tag the issue
 
 ## Related Issues
 
