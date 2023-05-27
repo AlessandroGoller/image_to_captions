@@ -1,4 +1,5 @@
 """ Module for crud for Instagram """
+import traceback
 from datetime import datetime
 from typing import Optional
 
@@ -84,6 +85,7 @@ def create_instagram(instagram: InstagramCreate) -> Optional[Instagram]:
     db.add(db_instagram)
     db.commit()
     db.refresh(db_instagram)
+    logger.info(f"Inserted IG post on db, {instagram.posturl=}")
     return db_instagram
 
 
@@ -175,7 +177,7 @@ def insert_data_to_db(data: dict, user_id: int, company_id: int) -> bool:
 
     except Exception as error:
         logger.error(
-            f"Error during insertion bunch of data inside db Instagram\n{error=}"
+            f"Error during insertion bunch of data inside db Instagram\n{error=}\n{traceback}"
         )
         return False
 

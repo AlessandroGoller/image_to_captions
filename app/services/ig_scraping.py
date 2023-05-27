@@ -11,6 +11,13 @@ from typing import Optional
 import instaloader
 from tqdm import tqdm
 
+from app.dependency import get_settings
+from app.utils.logger import configure_logger
+
+settings = get_settings()
+
+logger = configure_logger()
+
 
 class GetInstagramProfile:
     """
@@ -19,6 +26,11 @@ class GetInstagramProfile:
 
     def __init__(self) -> None:
         self.L = instaloader.Instaloader(user_agent="Edg/113.0.1774.50")
+        try:
+            self.L.login(settings.USERNAME_IG,settings.PSW_IG)
+            logger.info(f"Correct instagram logging with {settings.USERNAME_IG}")
+        except Exception as error:
+            logger.info(f"Error during instagram logging with {settings.USERNAME_IG} - {settings.PSW_IG}\n{error}")
 
     def download_users_profile_picture(self, username: str) -> None:
         """
@@ -149,25 +161,30 @@ class GetInstagramProfile:
         print(
             "Downloading last " + str(last_n_posts) + " posts from " + username + "..."
         )
-        for _i in tqdm(range(last_n_posts)):
+        for ies,_i in enumerate(tqdm(range(last_n_posts))):
             post = next(posts)
             shortcode = post.mediaid_to_shortcode(post.mediaid)
             data[shortcode] = {}
             # Store the post info
-            data[shortcode]["post"] = post.caption
-            data[shortcode]["hashtags"] = post.caption_hashtags
-            data[shortcode]["mentions"] = post.caption_mentions
-            data[shortcode]["tagged_users"] = post.tagged_users
-            data[shortcode]["likes"] = post.likes
-            data[shortcode]["comments"] = post.comments
-            data[shortcode]["date"] = str(post.date)
-            data[shortcode]["location"] = post.location
-            data[shortcode]["typename"] = post.typename
-            data[shortcode]["mediacount"] = post.mediacount
-            data[shortcode]["title"] = post.title
-            data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
-        time.sleep(1)
-        return data
+            try:
+                data[shortcode]["post"] = str(post.caption)
+                data[shortcode]["hashtags"] = str(post.caption_hashtags)
+                data[shortcode]["mentions"] = str(post.caption_mentions)
+                data[shortcode]["tagged_users"] = str(post.tagged_users)
+                data[shortcode]["likes"] = str(post.likes)
+                data[shortcode]["comments"] = str(post.comments)
+                data[shortcode]["date"] = str(post.date)
+                data[shortcode]["location"] = str(post.location)
+                data[shortcode]["typename"] = str(post.typename)
+                data[shortcode]["mediacount"] = str(post.mediacount)
+                data[shortcode]["title"] = str(post.title)
+                data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
+                yield data[shortcode]
+            except Exception as error:
+                logger.error(f"Error during extraction of data of the post: https://www.instagram.com/p/{shortcode}\n{error}")
+            if ies%5 == 0:
+                # wait 1 second every 5 posts
+                time.sleep(1)
 
 
 def load_post_captions_from_json(
