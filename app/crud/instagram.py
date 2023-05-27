@@ -1,4 +1,5 @@
 """ Module for crud for Instagram """
+import traceback
 from datetime import datetime
 from typing import Optional
 
@@ -128,7 +129,7 @@ def bulk_create_instagram(instagrams: list[InstagramCreate]) -> None:
                 )
             except Exception as error:
                 logger.error(
-                    f"Probably tried to insert an already present data\n{error}"
+                    f"Probably tried to insert an already present data\n{error}\n{traceback}"
                 )
                 return None
     logger.info("Finish converted data to instagram schema")

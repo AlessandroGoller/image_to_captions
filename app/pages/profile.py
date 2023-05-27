@@ -1,6 +1,7 @@
 """
 Module streamlit for profile settings
 """
+import traceback
 from typing import Optional
 
 import streamlit as st
@@ -11,6 +12,7 @@ from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
 from app.schema.company import CompanyCreate, CompanyInfoBase
+from app.services.ig_scraping import GetInstagramProfile
 from app.services.langchain import search_info_of_company
 from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
@@ -47,9 +49,17 @@ def company_exist(company: Company) -> None:
         "Instagram Name:",
         str(company.url_instagram) if company.url_instagram is not None else "",
     )
-    if st.button("Save Info") and company_name is not None and company_name != "":
+    if instagram_url is not None and instagram_url != "":
+        try:
+            client = GetInstagramProfile()
+            path_pic = client.get_profile_pic(instagram_url)
+            st.image(path_pic, caption="Immagine Instagram")
+        except Exception as error:
+            traceback_msg = traceback.format_exc()
+            logger.warning(f"Impossible showing the profile pic\n{error}\n{traceback_msg}")
+    if st.button("Save Info"):
         company_created = CompanyInfoBase(
-            name=company_name,
+            name=company_name if company_name is not None else "",
             description=st.session_state["description"],
             website=website,
             language=language,

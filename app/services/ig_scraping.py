@@ -5,11 +5,18 @@ import csv
 import json
 import time
 from datetime import datetime
+from io import BytesIO
 from itertools import dropwhile, takewhile
 from typing import Optional
 
 import instaloader
+import requests
+from PIL import Image
 from tqdm import tqdm
+
+from app.utils.logger import configure_logger
+
+logger = configure_logger()
 
 
 class GetInstagramProfile:
@@ -168,6 +175,14 @@ class GetInstagramProfile:
             data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
         time.sleep(1)
         return data
+
+    def get_profile_pic(self, username:str)-> BytesIO:
+        """ Return the profile pic of the user """
+        profilo = instaloader.Profile.from_username(self.L.context, username)
+        path_pic = str(profilo.profile_pic_url)
+        response = requests.get(path_pic, timeout=10)
+        url_immagine = Image.open(BytesIO(response.content))
+        return url_immagine # type: ignore
 
 
 def load_post_captions_from_json(
