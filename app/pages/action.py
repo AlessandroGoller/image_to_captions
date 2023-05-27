@@ -2,10 +2,10 @@
 Module streamlit
 """
 from typing import Optional
-from stqdm import stqdm
 
 import streamlit as st
 from deep_translator import GoogleTranslator
+from stqdm import stqdm
 from streamlit_extras.switch_page_button import switch_page
 
 from app.crud.company import get_company_by_user_id
