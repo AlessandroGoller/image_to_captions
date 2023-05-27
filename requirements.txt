@@ -4,18 +4,36 @@
 #
 #    pip-compile
 #
+aiohttp==3.8.4
+    # via
+    #   -r requirements.in
+    #   langchain
+    #   openai
+aiosignal==1.3.1
+    # via
+    #   -r requirements.in
+    #   aiohttp
 altair==4.2.2
     # via
     #   -r requirements.in
     #   streamlit
+async-timeout==4.0.2
+    # via
+    #   -r requirements.in
+    #   aiohttp
+    #   langchain
 attrs==23.1.0
     # via
     #   -r requirements.in
+    #   aiohttp
     #   jsonschema
+bcrypt==4.0.1
+    # via -r requirements.in
 beautifulsoup4==4.12.2
     # via
     #   -r requirements.in
     #   deep-translator
+    #   favicon
 blinker==1.6.2
     # via
     #   -r requirements.in
@@ -35,12 +53,25 @@ certifi==2023.5.7
 charset-normalizer==3.1.0
     # via
     #   -r requirements.in
+    #   aiohttp
     #   requests
 click==8.1.3
     # via
     #   -r requirements.in
     #   pip-tools
     #   streamlit
+contourpy==1.0.7
+    # via
+    #   -r requirements.in
+    #   matplotlib
+cycler==0.11.0
+    # via
+    #   -r requirements.in
+    #   matplotlib
+dataclasses-json==0.5.7
+    # via
+    #   -r requirements.in
+    #   langchain
 decorator==5.1.1
     # via
     #   -r requirements.in
@@ -51,6 +82,23 @@ entrypoints==0.4
     # via
     #   -r requirements.in
     #   altair
+faker==18.9.0
+    # via
+    #   -r requirements.in
+    #   streamlit-faker
+favicon==0.7.0
+    # via
+    #   -r requirements.in
+    #   markdownlit
+fonttools==4.39.4
+    # via
+    #   -r requirements.in
+    #   matplotlib
+frozenlist==1.3.3
+    # via
+    #   -r requirements.in
+    #   aiohttp
+    #   aiosignal
 gitdb==4.0.10
     # via
     #   -r requirements.in
@@ -59,49 +107,123 @@ gitpython==3.1.31
     # via
     #   -r requirements.in
     #   streamlit
+htbuilder==0.6.1
+    # via
+    #   -r requirements.in
+    #   markdownlit
+    #   st-annotated-text
+    #   streamlit-extras
 idna==3.4
     # via
     #   -r requirements.in
     #   requests
+    #   yarl
 importlib-metadata==6.6.0
     # via
     #   -r requirements.in
     #   streamlit
+instaloader==4.9.6
+    # via -r requirements.in
 jinja2==3.1.2
     # via
     #   -r requirements.in
     #   altair
     #   pydeck
+    #   streamlit-camera-input-live
+    #   streamlit-image-coordinates
+    #   streamlit-keyup
 jsonschema==4.17.3
     # via
     #   -r requirements.in
     #   altair
+kiwisolver==1.4.4
+    # via
+    #   -r requirements.in
+    #   matplotlib
+langchain==0.0.181
+    # via -r requirements.in
 loguru==0.7.0
     # via -r requirements.in
+lxml==4.9.2
+    # via
+    #   -r requirements.in
+    #   markdownlit
+markdown==3.4.3
+    # via
+    #   -r requirements.in
+    #   markdownlit
+    #   pymdown-extensions
 markdown-it-py==2.2.0
     # via
     #   -r requirements.in
     #   rich
+markdownlit==0.0.7
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
 markupsafe==2.1.2
     # via
     #   -r requirements.in
     #   jinja2
+marshmallow==3.19.0
+    # via
+    #   -r requirements.in
+    #   dataclasses-json
+    #   marshmallow-enum
+marshmallow-enum==1.5.1
+    # via
+    #   -r requirements.in
+    #   dataclasses-json
+matplotlib==3.7.1
+    # via
+    #   -r requirements.in
+    #   streamlit-faker
 mdurl==0.1.2
     # via
     #   -r requirements.in
     #   markdown-it-py
+more-itertools==9.1.0
+    # via
+    #   -r requirements.in
+    #   htbuilder
+multidict==6.0.4
+    # via
+    #   -r requirements.in
+    #   aiohttp
+    #   yarl
+mypy-extensions==1.0.0
+    # via
+    #   -r requirements.in
+    #   typing-inspect
+numexpr==2.8.4
+    # via
+    #   -r requirements.in
+    #   langchain
 numpy==1.24.3
     # via
     #   -r requirements.in
     #   altair
+    #   contourpy
+    #   langchain
+    #   matplotlib
+    #   numexpr
     #   pandas
     #   pyarrow
     #   pydeck
     #   streamlit
+openai==0.27.7
+    # via -r requirements.in
+openapi-schema-pydantic==1.2.4
+    # via
+    #   -r requirements.in
+    #   langchain
 packaging==23.1
     # via
     #   -r requirements.in
     #   build
+    #   marshmallow
+    #   matplotlib
+    #   replicate
     #   streamlit
 pandas==2.0.1
     # via
@@ -111,6 +233,7 @@ pandas==2.0.1
 pillow==9.5.0
     # via
     #   -r requirements.in
+    #   matplotlib
     #   streamlit
 pip-tools==6.13.0
     # via -r requirements.in
@@ -118,10 +241,19 @@ protobuf==3.20.3
     # via
     #   -r requirements.in
     #   streamlit
+    #   streamlit-extras
+psycopg2==2.9.6
+    # via -r requirements.in
 pyarrow==12.0.0
     # via
     #   -r requirements.in
     #   streamlit
+pydantic==1.10.8
+    # via
+    #   -r requirements.in
+    #   langchain
+    #   openapi-schema-pydantic
+    #   replicate
 pydeck==0.8.1b0
     # via
     #   -r requirements.in
@@ -130,10 +262,18 @@ pygments==2.15.1
     # via
     #   -r requirements.in
     #   rich
+pymdown-extensions==10.0.1
+    # via
+    #   -r requirements.in
+    #   markdownlit
 pympler==1.0.1
     # via
     #   -r requirements.in
     #   streamlit
+pyparsing==3.0.9
+    # via
+    #   -r requirements.in
+    #   matplotlib
 pyproject-hooks==1.0.0
     # via
     #   -r requirements.in
@@ -145,16 +285,32 @@ pyrsistent==0.19.3
 python-dateutil==2.8.2
     # via
     #   -r requirements.in
+    #   faker
+    #   matplotlib
     #   pandas
     #   streamlit
+python-dotenv==1.0.0
+    # via -r requirements.in
 pytz==2023.3
     # via
     #   -r requirements.in
     #   pandas
+pyyaml==6.0
+    # via
+    #   -r requirements.in
+    #   langchain
+    #   pymdown-extensions
+replicate==0.8.3
+    # via -r requirements.in
 requests==2.31.0
     # via
     #   -r requirements.in
     #   deep-translator
+    #   favicon
+    #   instaloader
+    #   langchain
+    #   openai
+    #   replicate
     #   streamlit
 rich==13.3.5
     # via
@@ -172,15 +328,71 @@ soupsieve==2.4.1
     # via
     #   -r requirements.in
     #   beautifulsoup4
+sqlalchemy==2.0.15
+    # via
+    #   -r requirements.in
+    #   langchain
+st-annotated-text==4.0.0
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
 stqdm==0.0.5
     # via -r requirements.in
 streamlit==1.22.0
     # via
     #   -r requirements.in
+    #   markdownlit
     #   stqdm
+    #   streamlit-camera-input-live
+    #   streamlit-card
+    #   streamlit-embedcode
+    #   streamlit-extras
+    #   streamlit-faker
+    #   streamlit-image-coordinates
+    #   streamlit-keyup
+    #   streamlit-toggle-switch
+    #   streamlit-vertical-slider
+streamlit-camera-input-live==0.2.0
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-card==0.0.4
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-embedcode==0.1.2
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-extras==0.2.7
+    # via
+    #   -r requirements.in
+    #   markdownlit
+    #   streamlit-faker
+streamlit-faker==0.0.2
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-image-coordinates==0.1.3
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-keyup==0.2.0
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-toggle-switch==1.0.2
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
+streamlit-vertical-slider==1.0.2
+    # via
+    #   -r requirements.in
+    #   streamlit-extras
 tenacity==8.2.2
     # via
     #   -r requirements.in
+    #   langchain
     #   streamlit
 toml==0.10.2
     # via
@@ -202,11 +414,19 @@ tornado==6.3.2
 tqdm==4.65.0
     # via
     #   -r requirements.in
+    #   openai
     #   stqdm
 typing-extensions==4.6.2
     # via
     #   -r requirements.in
+    #   pydantic
+    #   sqlalchemy
     #   streamlit
+    #   typing-inspect
+typing-inspect==0.9.0
+    # via
+    #   -r requirements.in
+    #   dataclasses-json
 tzdata==2023.3
     # via
     #   -r requirements.in
@@ -225,6 +445,10 @@ validators==0.20.0
     #   streamlit
 wheel==0.40.0
     # via pip-tools
+yarl==1.9.2
+    # via
+    #   -r requirements.in
+    #   aiohttp
 zipp==3.15.0
     # via
     #   -r requirements.in
