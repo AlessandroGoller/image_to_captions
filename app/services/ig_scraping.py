@@ -6,10 +6,17 @@ import json
 import time
 from datetime import datetime
 from itertools import dropwhile, takewhile
-from typing import Optional
+from typing import Iterator, Optional
 
 import instaloader
 from tqdm import tqdm
+
+from app.dependency import get_settings
+from app.utils.logger import configure_logger
+
+settings = get_settings()
+
+logger = configure_logger()
 
 
 class GetInstagramProfile:
@@ -19,6 +26,11 @@ class GetInstagramProfile:
 
     def __init__(self) -> None:
         self.L = instaloader.Instaloader(user_agent="Edg/113.0.1774.50")
+        try:
+            self.L.login(settings.USERNAME_IG,settings.PSW_IG)
+            logger.info(f"Correct instagram logging with {settings.USERNAME_IG}")
+        except Exception as error:
+            logger.info(f"Error during instagram logging with {settings.USERNAME_IG} - {settings.PSW_IG}\n{error}")
 
     def download_users_profile_picture(self, username: str) -> None:
         """
@@ -140,7 +152,7 @@ class GetInstagramProfile:
                     print("comment date : " + str(comment.created_at_utc))
                 print("\n\n")
 
-    def get_post_info_json(self, username: str, last_n_posts: int = 100) -> dict:
+    def get_post_info_json(self, username: str, last_n_posts: int = 100) -> Iterator[dict]:
         """
         Function to get info from every post of a user and store them in a json file (dictionary style).
         """
@@ -149,25 +161,31 @@ class GetInstagramProfile:
         print(
             "Downloading last " + str(last_n_posts) + " posts from " + username + "..."
         )
-        for _i in tqdm(range(last_n_posts)):
-            post = next(posts)
+        for ies,_i in enumerate(tqdm(range(last_n_posts))):
+            post = next(posts) # pylint: disable=R1708
             shortcode = post.mediaid_to_shortcode(post.mediaid)
             data[shortcode] = {}
             # Store the post info
-            data[shortcode]["post"] = post.caption
-            data[shortcode]["hashtags"] = post.caption_hashtags
-            data[shortcode]["mentions"] = post.caption_mentions
-            data[shortcode]["tagged_users"] = post.tagged_users
-            data[shortcode]["likes"] = post.likes
-            data[shortcode]["comments"] = post.comments
-            data[shortcode]["date"] = str(post.date)
-            data[shortcode]["location"] = post.location
-            data[shortcode]["typename"] = post.typename
-            data[shortcode]["mediacount"] = post.mediacount
-            data[shortcode]["title"] = post.title
-            data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
-        time.sleep(1)
-        return data
+            try:
+                data[shortcode]["post"] = str(post.caption)
+                data[shortcode]["hashtags"] = str(post.caption_hashtags)
+                data[shortcode]["mentions"] = str(post.caption_mentions)
+                data[shortcode]["tagged_users"] = str(post.tagged_users)
+                data[shortcode]["likes"] = str(post.likes)
+                data[shortcode]["comments"] = str(post.comments)
+                data[shortcode]["date"] = str(post.date)
+                data[shortcode]["location"] = str(post.location)
+                data[shortcode]["typename"] = str(post.typename)
+                data[shortcode]["mediacount"] = str(post.mediacount)
+                data[shortcode]["title"] = str(post.title)
+                data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
+                yield data[shortcode]
+            except Exception as error:
+                logger.error(f"Error during extraction of data of the post:\
+                            https://www.instagram.com/p/{shortcode}\n{error}")
+            if ies%5 == 0:
+                # wait 1 second every 5 posts
+                time.sleep(1)
 
 
 def load_post_captions_from_json(
@@ -191,28 +209,3 @@ def load_post_captions_from_json(
             captions.append(data[shortcode]["post"])
 
     return list(captions)
-
-
-if __name__ == "__main__":
-    from app.crud.company import get_company_by_user_id
-    from app.crud.instagram import insert_data_to_db
-    from app.crud.user import get_user_by_email
-
-    username_ = "montura_official"
-    client = GetInstagramProfile()
-    data_ = client.get_post_info_json(username_, last_n_posts=2)
-
-    user = get_user_by_email(email="test@gmail.com")
-    if user is not None:
-        user_id = user.user_id
-
-    company = get_company_by_user_id(user_id=user_id)
-    if company is not None:
-        company_id = company.company_id
-
-    if insert_data_to_db(data=data_, user_id=user_id, company_id=company_id):
-        print("Aggiunto correttamente nel db")
-    else:
-        print("Errorr")
-    # Save as json file
-    # with open(username + ".json", "w", encoding="utf-8") as f:

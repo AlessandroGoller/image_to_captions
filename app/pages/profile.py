@@ -78,20 +78,20 @@ def company_not_exist(user: User) -> None:
                 st.success("Done!")
             # Mostrare caption
             description = st.text_input("Description, AI generated", description)
-        if st.button("Save Info"):
-            company_created = CompanyCreate(
-                name=company_name,
-                description=description,
-                website=website,
-                url_instagram=instagram_url,
-                language=language,
-                id_user=user.user_id,
-            )
-            if create_company(company=company_created) is None:
-                raise Exception("Error during creation of a Company")
-            else:
-                st.write("Success Save")
-                switch_page("action")
+    if st.button("Save Info"):
+        company_created = CompanyCreate(
+            name=company_name,
+            description=description,
+            website=website,
+            url_instagram=instagram_url,
+            language=language,
+            id_user=user.user_id,
+        )
+        if create_company(company=company_created) is None:
+            raise Exception("Error during creation of a Company")
+        else:
+            st.write("Success Save")
+            switch_page("action")
 
 
 if not is_logged_in(session=session_state):
