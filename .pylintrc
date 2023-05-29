@@ -18,3 +18,4 @@ disable=
     E0401, # import-error, this because in the workflow we will have an error on config file
     E1102, # func.now is not callable (not-callable)
     W0621, # redefined-outer-name
+    R0801, # Similar lines
