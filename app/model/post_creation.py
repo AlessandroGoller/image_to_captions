@@ -17,7 +17,7 @@ class PostCreation(database):
     prompt = Column("prompt", Text, nullable=True)
     post_created = Column("post_created", Text, nullable=True)
     refinement = Column("refinement", JSON, nullable=True)
-    time_created = Column(
+    time_created = Column( # pylint: disable=R0801
         "time_created",
         DateTime(timezone=True),
         server_default=func.now(),
