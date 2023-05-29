@@ -1,5 +1,6 @@
 """ Module Model User """
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.dependency import database
@@ -27,6 +28,13 @@ class User(database):
         server_default=func.now(),
         nullable=True,
     )
+    email_confirmed = Column(
+        "email_confirmed",
+        Boolean,
+        default=False
+    )
+
+    posts_creation = relationship("PostCreation", back_populates="User")
 
     def update_last_access(self) -> None:
         """ Permit to update the last acces """

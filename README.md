@@ -27,6 +27,8 @@ logger.fatal
 Questo comando crea un nuovo file di migrazione nella directory delle migrazioni specificata nel file di configurazione.
 - alembic revision --autogenerate -m "descrizione della migrazione"
 
+Se aggiunto un nuovo modello aggiungerlo nel file init dentro a model!!
+
 Questo comando esegue tutte le migrazioni non ancora applicate al database, con head si intende tutte le migrazioni fino all'ultima creata.
 - alembic upgrade head
 - alembic downgrade NOME REVISIONE
