@@ -1,0 +1,41 @@
+:py:mod:`app.main`
+==================
+
+.. py:module:: app.main
+
+.. autoapi-nested-parse::
+
+   Main file
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.main.main
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   app.main.logger
+
+
+.. py:data:: logger
+
+   
+
+.. py:function:: main() -> None
+
+   Prepare DB
+
+

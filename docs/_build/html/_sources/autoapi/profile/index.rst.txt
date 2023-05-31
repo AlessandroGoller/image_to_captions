@@ -1,0 +1,64 @@
+:py:mod:`profile`
+=================
+
+.. py:module:: profile
+
+.. autoapi-nested-parse::
+
+   Module streamlit for profile settings
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   profile.company_exist
+   profile.company_not_exist
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   profile.logger
+   profile.session_state
+   profile.user
+   profile.company
+
+
+.. py:data:: logger
+
+   
+
+.. py:data:: session_state
+
+   
+
+.. py:function:: company_exist(company: app.model.company.Company) -> None
+
+   Case in which the company already exist
+
+
+.. py:function:: company_not_exist(user: app.model.user.User) -> None
+
+   Case in which the company NOT exist
+
+
+.. py:data:: user
+   :type: Optional[app.model.user.User]
+
+   
+
+.. py:data:: company
+   :type: Optional[app.model.company.Company]
+
+   
+

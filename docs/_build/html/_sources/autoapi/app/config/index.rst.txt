@@ -1,0 +1,20 @@
+:py:mod:`app.config`
+====================
+
+.. py:module:: app.config
+
+.. autoapi-nested-parse::
+
+   app.config Init
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   config/index.rst
+
+

@@ -1,0 +1,73 @@
+:py:mod:`app.model.user`
+========================
+
+.. py:module:: app.model.user
+
+.. autoapi-nested-parse::
+
+   Module Model User
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.model.user.User
+
+
+
+
+.. py:class:: User
+
+   Bases: :py:obj:`app.dependency.database`
+
+   Class for User Model
+
+   .. py:attribute:: __tablename__
+      :value: 't_user'
+
+      
+
+   .. py:attribute:: user_id
+
+      
+
+   .. py:attribute:: email
+
+      
+
+   .. py:attribute:: name
+
+      
+
+   .. py:attribute:: password
+
+      
+
+   .. py:attribute:: admin
+
+      
+
+   .. py:attribute:: language
+
+      
+
+   .. py:attribute:: last_access
+
+      
+
+   .. py:attribute:: time_created
+
+      
+
+   .. py:method:: update_last_access() -> None
+
+      Permit to update the last acces
+
+
+

@@ -1,0 +1,30 @@
+:py:mod:`app.utils`
+===================
+
+.. py:module:: app.utils
+
+.. autoapi-nested-parse::
+
+   app.utils Init
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   streamlit_utils/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   decorators/index.rst
+   logger/index.rst
+
+

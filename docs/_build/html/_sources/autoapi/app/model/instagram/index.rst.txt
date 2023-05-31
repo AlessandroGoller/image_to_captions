@@ -1,0 +1,109 @@
+:py:mod:`app.model.instagram`
+=============================
+
+.. py:module:: app.model.instagram
+
+.. autoapi-nested-parse::
+
+   Module Model Instagram
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.model.instagram.Instagram
+
+
+
+
+.. py:class:: Instagram
+
+   Bases: :py:obj:`app.dependency.database`
+
+   Class for Instagram Model
+
+   .. py:attribute:: __tablename__
+      :value: 't_instagram'
+
+      
+
+   .. py:attribute:: id_instagram
+
+      
+
+   .. py:attribute:: id_company
+
+      
+
+   .. py:attribute:: id_user
+
+      
+
+   .. py:attribute:: post
+
+      
+
+   .. py:attribute:: image_description
+
+      
+
+   .. py:attribute:: hashtags
+
+      
+
+   .. py:attribute:: mentions
+
+      
+
+   .. py:attribute:: tagged_users
+
+      
+
+   .. py:attribute:: likes
+
+      
+
+   .. py:attribute:: comments
+
+      
+
+   .. py:attribute:: date
+
+      
+
+   .. py:attribute:: location
+
+      
+
+   .. py:attribute:: typename
+
+      
+
+   .. py:attribute:: mediacount
+
+      
+
+   .. py:attribute:: title
+
+      
+
+   .. py:attribute:: posturl
+
+      
+
+   .. py:attribute:: idx_instagram_unique_cols
+
+      
+
+   .. py:method:: __str__() -> str
+
+      redefine strng method
+
+
+

@@ -1,0 +1,56 @@
+:py:mod:`refinement`
+====================
+
+.. py:module:: refinement
+
+.. autoapi-nested-parse::
+
+   Module streamlit
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   refinement.infinite_edit_post
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   refinement.session_state
+   refinement.logger
+   refinement.modify_request
+   refinement.option
+
+
+.. py:data:: session_state
+
+   
+
+.. py:data:: logger
+
+   
+
+.. py:function:: infinite_edit_post(post: str, modify_request: str) -> None
+
+   Function to continue to edit the post
+
+
+.. py:data:: modify_request
+
+   
+
+.. py:data:: option
+
+   
+

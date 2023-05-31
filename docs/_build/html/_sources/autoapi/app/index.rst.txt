@@ -1,0 +1,36 @@
+:py:mod:`app`
+=============
+
+.. py:module:: app
+
+.. autoapi-nested-parse::
+
+   App Init
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   config/index.rst
+   crud/index.rst
+   model/index.rst
+   schema/index.rst
+   services/index.rst
+   utils/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   Homepage/index.rst
+   dependency/index.rst
+   main/index.rst
+
+
