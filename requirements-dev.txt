@@ -45,29 +45,23 @@ asttokens==2.2.1
     # via
     #   -r .\requirements-dev.in
     #   stack-data
-async-generator==1.10
-    # via
-    #   -r .\requirements-dev.in
-    #   trio
 async-timeout==4.0.2
     # via
     #   -r .\requirements-dev.in
     #   aiohttp
     #   langchain
-attrs==23.1.0
+attrs==22.2.0
     # via
     #   -r .\requirements-dev.in
     #   aiohttp
     #   jsonschema
-    #   outcome
-    #   trio
 backcall==0.2.0
     # via
     #   -r .\requirements-dev.in
     #   ipython
 bcrypt==4.0.1
     # via -r .\requirements-dev.in
-beautifulsoup4==4.12.2
+beautifulsoup4==4.11.2
     # via
     #   -r .\requirements-dev.in
     #   deep-translator
@@ -102,18 +96,11 @@ cachetools==5.3.0
 certifi==2022.12.7
     # via
     #   -r .\requirements-dev.in
-    #   httpx
     #   requests
-    #   selenium
 cffi==1.15.1
     # via
     #   -r .\requirements-dev.in
     #   argon2-cffi-bindings
-    #   trio
-chardet==3.0.4
-    # via
-    #   -r .\requirements-dev.in
-    #   httpx
 charset-normalizer==3.1.0
     # via
     #   -r .\requirements-dev.in
@@ -131,7 +118,6 @@ click-log==0.4.0
     # via python-semantic-release
 colorama==0.4.6
     # via
-    #   -r .\requirements-dev.in
     #   build
     #   click
     #   ipython
@@ -167,7 +153,7 @@ decorator==5.1.1
     #   -r .\requirements-dev.in
     #   ipython
     #   validators
-deep-translator==1.11.0
+deep-translator==1.11.1
     # via -r .\requirements-dev.in
 defusedxml==0.7.1
     # via
@@ -189,13 +175,11 @@ exceptiongroup==1.1.1
     # via
     #   -r .\requirements-dev.in
     #   pytest
-    #   trio
-    #   trio-websocket
 executing==1.2.0
     # via
     #   -r .\requirements-dev.in
     #   stack-data
-faker==18.5.1
+faker==18.9.0
     # via
     #   -r .\requirements-dev.in
     #   streamlit-faker
@@ -207,13 +191,13 @@ favicon==0.7.0
     # via
     #   -r .\requirements-dev.in
     #   markdownlit
-filelock==3.12.0
+filelock==3.10.0
     # via
     #   -r .\requirements-dev.in
     #   huggingface-hub
     #   torch
     #   transformers
-fonttools==4.39.3
+fonttools==4.39.4
     # via
     #   -r .\requirements-dev.in
     #   matplotlib
@@ -226,10 +210,6 @@ frozenlist==1.3.3
     #   -r .\requirements-dev.in
     #   aiohttp
     #   aiosignal
-fsspec==2023.4.0
-    # via
-    #   -r .\requirements-dev.in
-    #   huggingface-hub
 gitdb==4.0.10
     # via
     #   -r .\requirements-dev.in
@@ -239,59 +219,26 @@ gitpython==3.1.31
     #   -r .\requirements-dev.in
     #   python-semantic-release
     #   streamlit
-google-search-results==2.4.2
-    # via -r .\requirements-dev.in
 greenlet==2.0.2
-    # via
-    #   -r .\requirements-dev.in
-    #   sqlalchemy
-h11==0.9.0
-    # via
-    #   -r .\requirements-dev.in
-    #   httpcore
-    #   wsproto
-h2==3.2.0
-    # via
-    #   -r .\requirements-dev.in
-    #   httpcore
-hpack==3.0.0
-    # via
-    #   -r .\requirements-dev.in
-    #   h2
-hstspreload==2023.1.1
-    # via
-    #   -r .\requirements-dev.in
-    #   httpx
+    # via sqlalchemy
 htbuilder==0.6.1
     # via
     #   -r .\requirements-dev.in
     #   markdownlit
     #   st-annotated-text
     #   streamlit-extras
-httpcore==0.9.1
-    # via
-    #   -r .\requirements-dev.in
-    #   httpx
-httpx==0.13.3
-    # via -r .\requirements-dev.in
-huggingface-hub==0.14.1
+huggingface-hub==0.13.2
     # via
     #   -r .\requirements-dev.in
     #   transformers
-hyperframe==5.2.0
-    # via
-    #   -r .\requirements-dev.in
-    #   h2
-idna==2.10
+idna==3.4
     # via
     #   -r .\requirements-dev.in
     #   anyio
-    #   httpx
     #   jsonschema
     #   requests
-    #   trio
     #   yarl
-importlib-metadata==6.6.0
+importlib-metadata==6.5.0
     # via
     #   -r .\requirements-dev.in
     #   jupyter-client
@@ -301,9 +248,7 @@ importlib-metadata==6.6.0
     #   streamlit
     #   twine
 importlib-resources==5.12.0
-    # via
-    #   -r .\requirements-dev.in
-    #   matplotlib
+    # via matplotlib
 iniconfig==2.0.0
     # via
     #   -r .\requirements-dev.in
@@ -439,7 +384,7 @@ kiwisolver==1.4.4
     # via
     #   -r .\requirements-dev.in
     #   matplotlib
-langchain==0.0.150
+langchain==0.0.145
     # via -r .\requirements-dev.in
 lazy-object-proxy==1.9.0
     # via
@@ -564,7 +509,7 @@ numexpr==2.8.4
     # via
     #   -r .\requirements-dev.in
     #   langchain
-numpy==1.24.3
+numpy==1.24.2
     # via
     #   -r .\requirements-dev.in
     #   altair
@@ -585,10 +530,6 @@ openapi-schema-pydantic==1.2.4
     # via
     #   -r .\requirements-dev.in
     #   langchain
-outcome==1.2.0
-    # via
-    #   -r .\requirements-dev.in
-    #   trio
 packaging==23.0
     # via
     #   -r .\requirements-dev.in
@@ -625,7 +566,7 @@ pickleshare==0.7.5
     # via
     #   -r .\requirements-dev.in
     #   ipython
-pillow==9.5.0
+pillow==9.4.0
     # via
     #   -r .\requirements-dev.in
     #   matplotlib
@@ -682,8 +623,6 @@ pycparser==2.21
     # via
     #   -r .\requirements-dev.in
     #   cffi
-pycryptodomex==3.17
-    # via -r .\requirements-dev.in
 pydantic==1.10.7
     # via
     #   -r .\requirements-dev.in
@@ -694,7 +633,7 @@ pydeck==0.8.1b0
     # via
     #   -r .\requirements-dev.in
     #   streamlit
-pygments==2.15.1
+pygments==2.14.0
     # via
     #   -r .\requirements-dev.in
     #   ipython
@@ -705,7 +644,7 @@ pygments==2.15.1
     #   rich
 pylint==2.17.0
     # via -r .\requirements-dev.in
-pymdown-extensions==9.11
+pymdown-extensions==10.0.1
     # via
     #   -r .\requirements-dev.in
     #   markdownlit
@@ -725,10 +664,6 @@ pyrsistent==0.19.3
     # via
     #   -r .\requirements-dev.in
     #   jsonschema
-pysocks==1.7.1
-    # via
-    #   -r .\requirements-dev.in
-    #   urllib3
 pytest==7.3.1
     # via -r .\requirements-dev.in
 python-dateutil==2.8.2
@@ -762,14 +697,11 @@ pytz-deprecation-shim==0.1.0.post0
     #   -r .\requirements-dev.in
     #   tzlocal
 pywin32==306
-    # via
-    #   -r .\requirements-dev.in
-    #   jupyter-core
+    # via jupyter-core
 pywin32-ctypes==0.2.0
     # via keyring
 pywinpty==2.0.10
     # via
-    #   -r .\requirements-dev.in
     #   jupyter-server
     #   jupyter-server-terminals
     #   terminado
@@ -807,14 +739,13 @@ regex==2022.10.31
     #   pytorch-transformers
     #   sacremoses
     #   transformers
-replicate==0.8.1
+replicate==0.8.3
     # via -r .\requirements-dev.in
-requests==2.29.0
+requests==2.28.2
     # via
     #   -r .\requirements-dev.in
     #   deep-translator
     #   favicon
-    #   google-search-results
     #   huggingface-hub
     #   instaloader
     #   langchain
@@ -838,10 +769,7 @@ rfc3339-validator==0.1.4
     #   jsonschema
     #   jupyter-events
 rfc3986==1.5.0
-    # via
-    #   -r .\requirements-dev.in
-    #   httpx
-    #   twine
+    # via twine
 rfc3986-validator==0.1.1
     # via
     #   -r .\requirements-dev.in
@@ -861,8 +789,6 @@ sacremoses==0.0.53
     # via
     #   -r .\requirements-dev.in
     #   pytorch-transformers
-selenium==4.9.0
-    # via -r .\requirements-dev.in
 semver==2.13.0
     # via python-semantic-release
 send2trash==1.8.0
@@ -891,18 +817,11 @@ sniffio==1.3.0
     # via
     #   -r .\requirements-dev.in
     #   anyio
-    #   httpcore
-    #   httpx
-    #   trio
-sortedcontainers==2.4.0
-    # via
-    #   -r .\requirements-dev.in
-    #   trio
-soupsieve==2.4.1
+soupsieve==2.4
     # via
     #   -r .\requirements-dev.in
     #   beautifulsoup4
-sqlalchemy==2.0.10
+sqlalchemy==1.4.47
     # via
     #   -r .\requirements-dev.in
     #   langchain
@@ -914,10 +833,13 @@ stack-data==0.6.2
     # via
     #   -r .\requirements-dev.in
     #   ipython
-streamlit==1.22.0
+stqdm==0.0.5
+    # via -r .\requirements-dev.in
+streamlit==1.21.0
     # via
     #   -r .\requirements-dev.in
     #   markdownlit
+    #   stqdm
     #   streamlit-camera-input-live
     #   streamlit-card
     #   streamlit-embedcode
@@ -972,7 +894,6 @@ tenacity==8.2.2
     # via
     #   -r .\requirements-dev.in
     #   langchain
-    #   streamlit
 terminado==0.17.1
     # via
     #   -r .\requirements-dev.in
@@ -1016,7 +937,7 @@ torch==2.0.0
     #   torchvision
 torchvision==0.15.1
     # via -r .\requirements-dev.in
-tornado==6.3.1
+tornado==6.2
     # via
     #   -r .\requirements-dev.in
     #   ipykernel
@@ -1034,6 +955,7 @@ tqdm==4.65.0
     #   openai
     #   pytorch-transformers
     #   sacremoses
+    #   stqdm
     #   transformers
     #   twine
 traitlets==5.9.0
@@ -1057,17 +979,16 @@ traitlets==5.9.0
     #   qtconsole
 transformers==4.27.1
     # via -r .\requirements-dev.in
-trio==0.22.0
-    # via
-    #   -r .\requirements-dev.in
-    #   selenium
-    #   trio-websocket
-trio-websocket==0.10.2
-    # via
-    #   -r .\requirements-dev.in
-    #   selenium
 twine==3.8.0
     # via python-semantic-release
+types-pillow==9.5.0.4
+    # via -r .\requirements-dev.in
+types-requests==2.31.0.0
+    # via -r .\requirements-dev.in
+types-urllib3==1.26.25.13
+    # via
+    #   -r .\requirements-dev.in
+    #   types-requests
 typing-extensions==4.5.0
     # via
     #   -r .\requirements-dev.in
@@ -1076,7 +997,6 @@ typing-extensions==4.5.0
     #   mypy
     #   pydantic
     #   pylint
-    #   sqlalchemy
     #   streamlit
     #   torch
     #   typing-inspect
@@ -1097,12 +1017,11 @@ uri-template==1.2.0
     # via
     #   -r .\requirements-dev.in
     #   jsonschema
-urllib3[socks]==1.26.15
+urllib3==1.26.15
     # via
     #   -r .\requirements-dev.in
     #   botocore
     #   requests
-    #   selenium
     #   twine
 validators==0.20.0
     # via
@@ -1138,18 +1057,12 @@ widgetsnbextension==4.0.5
     #   -r .\requirements-dev.in
     #   ipywidgets
 win32-setctime==1.1.0
-    # via
-    #   -r .\requirements-dev.in
-    #   loguru
+    # via loguru
 wrapt==1.15.0
     # via
     #   -r .\requirements-dev.in
     #   astroid
-wsproto==1.2.0
-    # via
-    #   -r .\requirements-dev.in
-    #   trio-websocket
-yarl==1.9.2
+yarl==1.8.2
     # via
     #   -r .\requirements-dev.in
     #   aiohttp
