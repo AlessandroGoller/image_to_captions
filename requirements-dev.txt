@@ -692,10 +692,6 @@ pytz==2023.3
     # via
     #   -r .\requirements-dev.in
     #   pandas
-pytz-deprecation-shim==0.1.0.post0
-    # via
-    #   -r .\requirements-dev.in
-    #   tzlocal
 pywin32==306
     # via jupyter-core
 pywin32-ctypes==0.2.0
