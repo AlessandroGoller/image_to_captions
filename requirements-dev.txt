@@ -115,9 +115,12 @@ click==8.1.3
     #   sacremoses
     #   streamlit
 click-log==0.4.0
-    # via python-semantic-release
+    # via
+    #   -r .\requirements-dev.in
+    #   python-semantic-release
 colorama==0.4.6
     # via
+    #   -r .\requirements-dev.in
     #   build
     #   click
     #   ipython
@@ -164,9 +167,13 @@ dill==0.3.6
     #   -r .\requirements-dev.in
     #   pylint
 docutils==0.20.1
-    # via readme-renderer
+    # via
+    #   -r .\requirements-dev.in
+    #   readme-renderer
 dotty-dict==1.3.1
-    # via python-semantic-release
+    # via
+    #   -r .\requirements-dev.in
+    #   python-semantic-release
 entrypoints==0.4
     # via
     #   -r .\requirements-dev.in
@@ -220,7 +227,9 @@ gitpython==3.1.31
     #   python-semantic-release
     #   streamlit
 greenlet==2.0.2
-    # via sqlalchemy
+    # via
+    #   -r .\requirements-dev.in
+    #   sqlalchemy
 htbuilder==0.6.1
     # via
     #   -r .\requirements-dev.in
@@ -248,7 +257,9 @@ importlib-metadata==6.5.0
     #   streamlit
     #   twine
 importlib-resources==5.12.0
-    # via matplotlib
+    # via
+    #   -r .\requirements-dev.in
+    #   matplotlib
 iniconfig==2.0.0
     # via
     #   -r .\requirements-dev.in
@@ -256,7 +267,9 @@ iniconfig==2.0.0
 instaloader==4.9.6
     # via -r .\requirements-dev.in
 invoke==1.7.3
-    # via python-semantic-release
+    # via
+    #   -r .\requirements-dev.in
+    #   python-semantic-release
 ipykernel==6.21.3
     # via
     #   -r .\requirements-dev.in
@@ -291,7 +304,9 @@ isort==5.12.0
     #   -r .\requirements-dev.in
     #   pylint
 jaraco-classes==3.2.3
-    # via keyring
+    # via
+    #   -r .\requirements-dev.in
+    #   keyring
 jedi==0.18.2
     # via
     #   -r .\requirements-dev.in
@@ -379,7 +394,9 @@ jupyterlab-widgets==3.0.5
     #   -r .\requirements-dev.in
     #   ipywidgets
 keyring==23.13.1
-    # via twine
+    # via
+    #   -r .\requirements-dev.in
+    #   twine
 kiwisolver==1.4.4
     # via
     #   -r .\requirements-dev.in
@@ -448,6 +465,7 @@ more-itertools==9.1.0
     # via
     #   -r .\requirements-dev.in
     #   htbuilder
+    #   jaraco-classes
 mpmath==1.3.0
     # via
     #   -r .\requirements-dev.in
@@ -575,7 +593,9 @@ pillow==9.4.0
 pip-tools==6.12.3
     # via -r .\requirements-dev.in
 pkginfo==1.9.6
-    # via twine
+    # via
+    #   -r .\requirements-dev.in
+    #   twine
 platformdirs==3.1.1
     # via
     #   -r .\requirements-dev.in
@@ -679,12 +699,14 @@ python-dateutil==2.8.2
 python-dotenv==1.0.0
     # via -r .\requirements-dev.in
 python-gitlab==3.14.0
-    # via python-semantic-release
+    # via
+    #   -r .\requirements-dev.in
+    #   python-semantic-release
 python-json-logger==2.0.7
     # via
     #   -r .\requirements-dev.in
     #   jupyter-events
-python-semantic-release==7.34.2
+python-semantic-release==7.30.0
     # via -r .\requirements-dev.in
 pytorch-transformers==1.2.0
     # via -r .\requirements-dev.in
@@ -692,12 +714,13 @@ pytz==2023.3
     # via
     #   -r .\requirements-dev.in
     #   pandas
-pywin32==306
-    # via jupyter-core
-pywin32-ctypes==0.2.0
-    # via keyring
+pytz-deprecation-shim==0.1.0.post0
+    # via
+    #   -r .\requirements-dev.in
+    #   tzlocal
 pywinpty==2.0.10
     # via
+    #   -r .\requirements-dev.in
     #   jupyter-server
     #   jupyter-server-terminals
     #   terminado
@@ -728,7 +751,9 @@ qtpy==2.3.0
     #   -r .\requirements-dev.in
     #   qtconsole
 readme-renderer==37.3
-    # via twine
+    # via
+    #   -r .\requirements-dev.in
+    #   twine
 regex==2022.10.31
     # via
     #   -r .\requirements-dev.in
@@ -757,6 +782,7 @@ requests==2.28.2
     #   twine
 requests-toolbelt==1.0.0
     # via
+    #   -r .\requirements-dev.in
     #   python-gitlab
     #   twine
 rfc3339-validator==0.1.4
@@ -765,7 +791,9 @@ rfc3339-validator==0.1.4
     #   jsonschema
     #   jupyter-events
 rfc3986==1.5.0
-    # via twine
+    # via
+    #   -r .\requirements-dev.in
+    #   twine
 rfc3986-validator==0.1.1
     # via
     #   -r .\requirements-dev.in
@@ -786,7 +814,9 @@ sacremoses==0.0.53
     #   -r .\requirements-dev.in
     #   pytorch-transformers
 semver==2.13.0
-    # via python-semantic-release
+    # via
+    #   -r .\requirements-dev.in
+    #   python-semantic-release
 send2trash==1.8.0
     # via
     #   -r .\requirements-dev.in
@@ -917,7 +947,7 @@ tomli==2.0.1
     #   pylint
     #   pyproject-hooks
     #   pytest
-tomlkit==0.11.6
+tomlkit==0.10.2
     # via
     #   -r .\requirements-dev.in
     #   pylint
@@ -976,7 +1006,9 @@ traitlets==5.9.0
 transformers==4.27.1
     # via -r .\requirements-dev.in
 twine==3.8.0
-    # via python-semantic-release
+    # via
+    #   -r .\requirements-dev.in
+    #   python-semantic-release
 types-pillow==9.5.0.4
     # via -r .\requirements-dev.in
 types-requests==2.31.0.0
@@ -1053,7 +1085,9 @@ widgetsnbextension==4.0.5
     #   -r .\requirements-dev.in
     #   ipywidgets
 win32-setctime==1.1.0
-    # via loguru
+    # via
+    #   -r .\requirements-dev.in
+    #   loguru
 wrapt==1.15.0
     # via
     #   -r .\requirements-dev.in

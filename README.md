@@ -12,6 +12,8 @@ DESCRIPTION A package for doing great things!...
 ## Informazioni generali
 - divisorio utilizzato -> ;
 
+- pip version that works with pip-compile: python.exe -m pip install pip==23.0.1
+
 ## Angular commit
 Type
 Must be one of the following:
