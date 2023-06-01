@@ -1,0 +1,45 @@
+:py:mod:`action`
+================
+
+.. py:module:: action
+
+.. autoapi-nested-parse::
+
+   Module streamlit
+
+
+
+Module Contents
+---------------
+
+.. py:data:: session_state
+
+   
+
+.. py:data:: LAST_N_POST
+   :value: 20
+
+   
+
+.. py:data:: logger
+
+   
+
+.. py:data:: translator
+
+   
+
+.. py:data:: user
+   :type: Optional[app.model.user.User]
+
+   
+
+.. py:data:: company
+   :type: Optional[app.model.company.Company]
+
+   
+
+.. py:data:: uploaded_file
+
+   
+

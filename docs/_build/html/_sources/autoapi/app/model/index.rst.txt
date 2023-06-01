@@ -1,0 +1,22 @@
+:py:mod:`app.model`
+===================
+
+.. py:module:: app.model
+
+.. autoapi-nested-parse::
+
+   Module Init
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   company/index.rst
+   instagram/index.rst
+   user/index.rst
+
+

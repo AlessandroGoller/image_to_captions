@@ -1,0 +1,42 @@
+:py:mod:`app.utils.logger`
+==========================
+
+.. py:module:: app.utils.logger
+
+.. autoapi-nested-parse::
+
+   Module to configure logger
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.utils.logger.configure_logger
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   app.utils.logger.log_folder
+
+
+.. py:data:: log_folder
+   :value: 'log'
+
+   
+
+.. py:function:: configure_logger() -> Any
+
+   Settings Logger
+
+

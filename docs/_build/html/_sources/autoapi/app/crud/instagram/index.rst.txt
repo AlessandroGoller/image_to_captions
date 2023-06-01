@@ -1,0 +1,101 @@
+:py:mod:`app.crud.instagram`
+============================
+
+.. py:module:: app.crud.instagram
+
+.. autoapi-nested-parse::
+
+   Module for crud for Instagram
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.crud.instagram.get_instagram_by_id
+   app.crud.instagram.get_instagram_by_url
+   app.crud.instagram.get_instagram_by_user_id
+   app.crud.instagram.get_instagram_by_company_id
+   app.crud.instagram.get_last_n_instagram
+   app.crud.instagram.get_instagram_after_date
+   app.crud.instagram.create_instagram
+   app.crud.instagram.bulk_create_instagram
+   app.crud.instagram.insert_data_to_db
+   app.crud.instagram.update_instagram
+   app.crud.instagram.delete_instagram
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   app.crud.instagram.logger
+
+
+.. py:data:: logger
+
+   
+
+.. py:function:: get_instagram_by_id(id_instagram: int) -> Optional[app.model.instagram.Instagram]
+
+   Return the Instagram from id_instagram
+
+
+.. py:function:: get_instagram_by_url(url: int) -> Optional[app.model.instagram.Instagram]
+
+   Return the Instagram from url
+
+
+.. py:function:: get_instagram_by_user_id(user_id: int) -> Optional[list[app.model.instagram.Instagram]]
+
+   Return the list of Instagram from user_id
+
+
+.. py:function:: get_instagram_by_company_id(company_id: int) -> Optional[list[app.model.instagram.Instagram]]
+
+   Return the list of Instagram from company_id
+
+
+.. py:function:: get_last_n_instagram(company_id: int, number_ig: int = 20) -> Optional[list[app.model.instagram.Instagram]]
+
+   Return the list of n Instagram from company_id order by date
+
+
+.. py:function:: get_instagram_after_date(company_id: int, date: datetime.datetime) -> Optional[list[app.model.instagram.Instagram]]
+
+   Return the list of Instagram posts from company_id with date after the input date
+
+
+.. py:function:: create_instagram(instagram: app.schema.instagram.InstagramCreate) -> Optional[app.model.instagram.Instagram]
+
+   Creation a instagram, in input the schema of instagram create and return the instagram
+
+
+.. py:function:: bulk_create_instagram(instagrams: list[app.schema.instagram.InstagramCreate]) -> None
+
+   Bulk creation of instagrams
+
+
+.. py:function:: insert_data_to_db(data: dict, user_id: int, company_id: int) -> bool
+
+   From a dict of data, insert everythin inside Instagram db
+
+
+.. py:function:: update_instagram(instagram: app.model.instagram.Instagram, instagram_edit: app.schema.instagram.InstagramInfoBase) -> Optional[app.model.instagram.Instagram]
+
+   Permit to edit info inside instagram model
+
+
+.. py:function:: delete_instagram(instagram: app.model.instagram.Instagram) -> dict[str, bool]
+
+   Permit to delete a instagram
+
+

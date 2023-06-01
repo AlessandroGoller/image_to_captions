@@ -1,0 +1,53 @@
+:py:mod:`login`
+===============
+
+.. py:module:: login
+
+.. autoapi-nested-parse::
+
+   Module streamlit for loggin
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   login.show_login_page
+   login.show_register_page
+   login.show_auth_page
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   login.session_state
+
+
+.. py:function:: show_login_page() -> None
+
+   show_login_page
+
+
+.. py:function:: show_register_page() -> None
+
+   show_register_page
+
+
+.. py:function:: show_auth_page() -> None
+
+   show_auth_page
+
+
+.. py:data:: session_state
+
+   
+

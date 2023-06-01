@@ -1,0 +1,57 @@
+:py:mod:`app.dependency`
+========================
+
+.. py:module:: app.dependency
+
+.. autoapi-nested-parse::
+
+   Module with the dependency
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.dependency.get_settings
+   app.dependency.get_db
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   app.dependency.database
+   app.dependency.database_engine
+   app.dependency.DBSessionLocal
+
+
+.. py:function:: get_settings()
+
+   Return the config
+
+
+.. py:function:: get_db() -> Iterator
+
+   Return an iterator to the db
+
+
+.. py:data:: database
+
+   
+
+.. py:data:: database_engine
+
+   
+
+.. py:data:: DBSessionLocal
+
+   
+

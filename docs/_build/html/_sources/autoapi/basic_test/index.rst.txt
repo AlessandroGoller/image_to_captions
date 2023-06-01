@@ -1,0 +1,41 @@
+:py:mod:`basic_test`
+====================
+
+.. py:module:: basic_test
+
+.. autoapi-nested-parse::
+
+   Temp test
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   basic_test.MyTest
+
+
+
+
+.. py:class:: MyTest(methodName='runTest')
+
+   Bases: :py:obj:`unittest.TestCase`
+
+   Create class for Mytest
+
+   .. py:method:: test_addition() -> None
+
+      test
+
+
+   .. py:method:: test_subtraction() -> None
+
+      test
+
+
+

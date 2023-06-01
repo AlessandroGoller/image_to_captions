@@ -1,0 +1,59 @@
+:py:mod:`app.crud.company`
+==========================
+
+.. py:module:: app.crud.company
+
+.. autoapi-nested-parse::
+
+   Module for crud for Companies
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.crud.company.get_company_by_name
+   app.crud.company.get_company_by_id
+   app.crud.company.get_company_by_user_id
+   app.crud.company.create_company
+   app.crud.company.update_company
+   app.crud.company.delete_company
+
+
+
+.. py:function:: get_company_by_name(name: str) -> Optional[app.model.company.Company]
+
+   return Company from email
+
+
+.. py:function:: get_company_by_id(id_company: int) -> Optional[app.model.company.Company]
+
+   Return the Company from id_company
+
+
+.. py:function:: get_company_by_user_id(user_id: int) -> Optional[app.model.company.Company]
+
+   Return the Company from user_id
+
+
+.. py:function:: create_company(company: app.schema.company.CompanyCreate) -> Optional[app.model.company.Company]
+
+   Creation a user, in input the schema of user create and return the user
+
+
+.. py:function:: update_company(company: app.model.company.Company, company_edit: app.schema.company.CompanyInfoBase) -> Optional[app.model.company.Company]
+
+   Permit to edit info inside company model
+
+
+.. py:function:: delete_company(company: app.model.company.Company) -> dict[str, bool]
+
+   " Permit to delete a company
+
+

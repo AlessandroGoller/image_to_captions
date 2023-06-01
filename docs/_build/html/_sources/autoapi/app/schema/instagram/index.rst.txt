@@ -1,0 +1,115 @@
+:py:mod:`app.schema.instagram`
+==============================
+
+.. py:module:: app.schema.instagram
+
+.. autoapi-nested-parse::
+
+   Module for Instagram Schema
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.schema.instagram.InstagramInfoBase
+   app.schema.instagram.InstagramCreate
+
+
+
+
+.. py:class:: InstagramInfoBase
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+   Class InstagramInfo
+
+   .. py:attribute:: post
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: image_description
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: hashtags
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: mentions
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: tagged_users
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: likes
+      :type: Optional[int]
+
+      
+
+   .. py:attribute:: comments
+      :type: Optional[int]
+
+      
+
+   .. py:attribute:: date
+      :type: Optional[datetime.datetime]
+
+      
+
+   .. py:attribute:: location
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: typename
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: mediacount
+      :type: Optional[int]
+
+      
+
+   .. py:attribute:: title
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: posturl
+      :type: Optional[str]
+
+      
+
+
+.. py:class:: InstagramCreate
+
+   Bases: :py:obj:`InstagramInfoBase`
+
+   Class InstagramCreate
+   Use it during creation
+
+   .. py:attribute:: id_company
+      :type: int
+
+      
+
+   .. py:attribute:: id_user
+      :type: int
+
+      
+
+

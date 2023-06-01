@@ -1,0 +1,43 @@
+:py:mod:`app.utils.decorators`
+==============================
+
+.. py:module:: app.utils.decorators
+
+.. autoapi-nested-parse::
+
+   Decorators Module
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.utils.decorators.timeit
+   app.utils.decorators.timed_lru_cache
+
+
+
+.. py:function:: timeit(f: Callable) -> Callable
+
+   Decorator to measure time
+
+
+.. py:function:: timed_lru_cache(timeout: int, maxsize: int = 128, typed: bool = False) -> Any
+
+   Extension of functools lru_cache with a timeout
+
+   Parameters:
+   timeout (int): Timeout in seconds to clear the WHOLE cache, default = 10 minutes
+   maxsize (int): Maximum Size of the Cache
+   typed (bool): Same value of different type will be a different entry
+
+   Example:
+   @timed_lru_cache(maxsize=12, timeout=15)
+
+

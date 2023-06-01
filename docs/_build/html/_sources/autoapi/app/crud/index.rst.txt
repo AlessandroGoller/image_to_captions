@@ -1,0 +1,22 @@
+:py:mod:`app.crud`
+==================
+
+.. py:module:: app.crud
+
+.. autoapi-nested-parse::
+
+   Module Init
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   company/index.rst
+   instagram/index.rst
+   user/index.rst
+
+

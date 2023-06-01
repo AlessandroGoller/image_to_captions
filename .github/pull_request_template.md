@@ -1,5 +1,10 @@
 ## Fixed issued
-This PR fix #insert_here_the_issue_number if more add more lines, always with the word fix before
+
+<!-- Provide any references to related issues 
+    This PR fix #insert_here_the_issue_number if more add more lines, always with the word fix before
+-->
+
+
 
 ## Description
 
@@ -15,7 +20,3 @@ This PR fix #insert_here_the_issue_number if more add more lines, always with th
 - [ ] The pipeline works?
 - [ ] There is an issue for this solution I am submitting
 - [ ] I tag the issue
-
-## Related Issues
-
-<!-- Provide any references to related issues -->
