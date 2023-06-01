@@ -195,8 +195,8 @@ class GetInstagramProfile:
         profilo = instaloader.Profile.from_username(self.L.context, username)
         path_pic = str(profilo.profile_pic_url)
         response = requests.get(path_pic, timeout=10)
-        url_immagine = Image.open(BytesIO(response.content))
-        return url_immagine # type: ignore
+        image = Image.open(BytesIO(response.content))
+        return image # type: ignore
 
 
 def load_post_captions_from_json(

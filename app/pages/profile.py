@@ -52,8 +52,8 @@ def company_exist(company: Company) -> None:
     if instagram_url is not None and instagram_url != "":
         try:
             client = GetInstagramProfile()
-            path_pic = client.get_profile_pic(instagram_url)
-            st.image(path_pic, caption="Immagine Instagram")
+            image = client.get_profile_pic(instagram_url)
+            st.image(image, caption="Immagine Instagram")
         except Exception as error:
             traceback_msg = traceback.format_exc()
             logger.warning(f"Impossible showing the profile pic\n{error}\n{traceback_msg}")
