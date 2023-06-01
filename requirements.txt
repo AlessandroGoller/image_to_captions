@@ -17,27 +17,76 @@ altair==4.2.2
     # via
     #   -r requirements.in
     #   streamlit
+anyio==3.6.2
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+appnope==0.1.3
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   ipython
+argon2-cffi==21.3.0
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+    #   nbclassic
+    #   notebook
+argon2-cffi-bindings==21.2.0
+    # via
+    #   -r requirements.in
+    #   argon2-cffi
+arrow==1.2.3
+    # via
+    #   -r requirements.in
+    #   isoduration
+astroid==2.15.0
+    # via
+    #   -r requirements.in
+    #   pylint
+asttokens==2.2.1
+    # via
+    #   -r requirements.in
+    #   stack-data
 async-timeout==4.0.2
     # via
     #   -r requirements.in
     #   aiohttp
     #   langchain
-attrs==23.1.0
+attrs==22.2.0
     # via
     #   -r requirements.in
     #   aiohttp
     #   jsonschema
+backcall==0.2.0
+    # via
+    #   -r requirements.in
+    #   ipython
 bcrypt==4.0.1
     # via -r requirements.in
-beautifulsoup4==4.12.2
+beautifulsoup4==4.11.2
     # via
     #   -r requirements.in
     #   deep-translator
     #   favicon
+    #   nbconvert
+bleach==6.0.0
+    # via
+    #   -r requirements.in
+    #   nbconvert
 blinker==1.6.2
     # via
     #   -r requirements.in
     #   streamlit
+boto3==1.26.93
+    # via
+    #   -r requirements.in
+    #   pytorch-transformers
+botocore==1.29.93
+    # via
+    #   -r requirements.in
+    #   boto3
+    #   s3transfer
 build==0.10.0
     # via
     #   -r requirements.in
@@ -46,10 +95,14 @@ cachetools==5.3.0
     # via
     #   -r requirements.in
     #   streamlit
-certifi==2023.5.7
+certifi==2022.12.7
     # via
     #   -r requirements.in
     #   requests
+cffi==1.15.1
+    # via
+    #   -r requirements.in
+    #   argon2-cffi-bindings
 charset-normalizer==3.1.0
     # via
     #   -r requirements.in
@@ -59,6 +112,7 @@ click==8.1.3
     # via
     #   -r requirements.in
     #   pip-tools
+    #   sacremoses
     #   streamlit
 colorama==0.4.6
     # via
@@ -66,10 +120,16 @@ colorama==0.4.6
     #   click
     #   loguru
     #   tqdm
+comm==0.1.2
+    # via
+    #   -r requirements.in
+    #   ipykernel
 contourpy==1.0.7
     # via
     #   -r requirements.in
     #   matplotlib
+coverage==7.2.3
+    # via -r requirements.in
 cycler==0.11.0
     # via
     #   -r requirements.in
@@ -78,28 +138,63 @@ dataclasses-json==0.5.7
     # via
     #   -r requirements.in
     #   langchain
+debugpy==1.6.6
+    # via
+    #   -r requirements.in
+    #   ipykernel
 decorator==5.1.1
     # via
     #   -r requirements.in
+    #   ipython
     #   validators
 deep-translator==1.11.1
     # via -r requirements.in
+defusedxml==0.7.1
+    # via
+    #   -r requirements.in
+    #   nbconvert
+dill==0.3.6
+    # via
+    #   -r requirements.in
+    #   pylint
 entrypoints==0.4
     # via
     #   -r requirements.in
     #   altair
+exceptiongroup==1.1.1
+    # via
+    #   -r requirements.in
+    #   pytest
+executing==1.2.0
+    # via
+    #   -r requirements.in
+    #   stack-data
 faker==18.9.0
     # via
     #   -r requirements.in
     #   streamlit-faker
+fastjsonschema==2.16.3
+    # via
+    #   -r requirements.in
+    #   nbformat
 favicon==0.7.0
     # via
     #   -r requirements.in
     #   markdownlit
+filelock==3.10.0
+    # via
+    #   -r requirements.in
+    #   huggingface-hub
+    #   torch
+    #   transformers
 fonttools==4.39.4
     # via
     #   -r requirements.in
     #   matplotlib
+fqdn==1.5.1
+    # via
+    #   -r requirements.in
+    #   jsonschema
 frozenlist==1.3.3
     # via
     #   -r requirements.in
@@ -121,38 +216,159 @@ htbuilder==0.6.1
     #   markdownlit
     #   st-annotated-text
     #   streamlit-extras
+huggingface-hub==0.13.2
+    # via
+    #   -r requirements.in
+    #   transformers
 idna==3.4
     # via
     #   -r requirements.in
+    #   anyio
+    #   jsonschema
     #   requests
     #   yarl
-importlib-metadata==6.6.0
+importlib-metadata==6.5.0
     # via
     #   -r requirements.in
     #   markdown
     #   streamlit
 importlib-resources==5.12.0
     # via matplotlib
+iniconfig==2.0.0
+    # via
+    #   -r requirements.in
+    #   pytest
 instaloader==4.9.6
     # via -r requirements.in
+ipykernel==6.21.3
+    # via
+    #   -r requirements.in
+    #   ipywidgets
+    #   jupyter
+    #   jupyter-console
+    #   nbclassic
+    #   notebook
+    #   qtconsole
+ipython==8.11.0
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   ipywidgets
+    #   jupyter-console
+ipython-genutils==0.2.0
+    # via
+    #   -r requirements.in
+    #   nbclassic
+    #   notebook
+    #   qtconsole
+ipywidgets==8.0.4
+    # via
+    #   -r requirements.in
+    #   jupyter
+isoduration==20.11.0
+    # via
+    #   -r requirements.in
+    #   jsonschema
+isort==5.12.0
+    # via
+    #   -r requirements.in
+    #   pylint
+jedi==0.18.2
+    # via
+    #   -r requirements.in
+    #   ipython
 jinja2==3.1.2
     # via
     #   -r requirements.in
     #   altair
+    #   jupyter-server
+    #   nbclassic
+    #   nbconvert
+    #   notebook
     #   pydeck
     #   streamlit-camera-input-live
     #   streamlit-image-coordinates
     #   streamlit-keyup
-jsonschema==4.17.3
+    #   torch
+jmespath==1.0.1
+    # via
+    #   -r requirements.in
+    #   boto3
+    #   botocore
+joblib==1.2.0
+    # via
+    #   -r requirements.in
+    #   sacremoses
+jsonpointer==2.3
+    # via
+    #   -r requirements.in
+    #   jsonschema
+jsonschema[format-nongpl]==4.17.3
     # via
     #   -r requirements.in
     #   altair
+    #   jupyter-events
+    #   nbformat
+jupyter==1.0.0
+    # via -r requirements.in
+jupyter-client==8.0.3
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   jupyter-console
+    #   jupyter-server
+    #   nbclassic
+    #   nbclient
+    #   notebook
+    #   qtconsole
+jupyter-console==6.6.3
+    # via
+    #   -r requirements.in
+    #   jupyter
+jupyter-core==5.3.0
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   jupyter-client
+    #   jupyter-console
+    #   jupyter-server
+    #   nbclassic
+    #   nbclient
+    #   nbconvert
+    #   nbformat
+    #   notebook
+    #   qtconsole
+jupyter-events==0.6.3
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+jupyter-server==2.5.0
+    # via
+    #   -r requirements.in
+    #   nbclassic
+    #   notebook-shim
+jupyter-server-terminals==0.4.4
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+jupyterlab-pygments==0.2.2
+    # via
+    #   -r requirements.in
+    #   nbconvert
+jupyterlab-widgets==3.0.5
+    # via
+    #   -r requirements.in
+    #   ipywidgets
 kiwisolver==1.4.4
     # via
     #   -r requirements.in
     #   matplotlib
-langchain==0.0.181
+langchain==0.0.145
     # via -r requirements.in
+lazy-object-proxy==1.9.0
+    # via
+    #   -r requirements.in
+    #   astroid
 loguru==0.7.0
     # via -r requirements.in
 lxml==4.9.2
@@ -176,6 +392,7 @@ markupsafe==2.1.2
     # via
     #   -r requirements.in
     #   jinja2
+    #   nbconvert
 marshmallow==3.19.0
     # via
     #   -r requirements.in
@@ -189,28 +406,89 @@ matplotlib==3.7.1
     # via
     #   -r requirements.in
     #   streamlit-faker
+matplotlib-inline==0.1.6
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   ipython
+mccabe==0.7.0
+    # via
+    #   -r requirements.in
+    #   pylint
 mdurl==0.1.2
     # via
     #   -r requirements.in
     #   markdown-it-py
+mistune==2.0.5
+    # via
+    #   -r requirements.in
+    #   nbconvert
 more-itertools==9.1.0
     # via
     #   -r requirements.in
     #   htbuilder
+mpmath==1.3.0
+    # via
+    #   -r requirements.in
+    #   sympy
 multidict==6.0.4
     # via
     #   -r requirements.in
     #   aiohttp
     #   yarl
+mypy==1.1.1
+    # via -r requirements.in
 mypy-extensions==1.0.0
     # via
     #   -r requirements.in
+    #   mypy
     #   typing-inspect
+nbclassic==0.5.3
+    # via
+    #   -r requirements.in
+    #   notebook
+nbclient==0.7.2
+    # via
+    #   -r requirements.in
+    #   nbconvert
+nbconvert==7.2.10
+    # via
+    #   -r requirements.in
+    #   jupyter
+    #   jupyter-server
+    #   nbclassic
+    #   notebook
+nbformat==5.7.3
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+    #   nbclassic
+    #   nbclient
+    #   nbconvert
+    #   notebook
+nest-asyncio==1.5.6
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   nbclassic
+    #   notebook
+networkx==3.0
+    # via
+    #   -r requirements.in
+    #   torch
+notebook==6.5.3
+    # via
+    #   -r requirements.in
+    #   jupyter
+notebook-shim==0.2.2
+    # via
+    #   -r requirements.in
+    #   nbclassic
 numexpr==2.8.4
     # via
     #   -r requirements.in
     #   langchain
-numpy==1.24.3
+numpy==1.24.2
     # via
     #   -r requirements.in
     #   altair
@@ -221,45 +499,110 @@ numpy==1.24.3
     #   pandas
     #   pyarrow
     #   pydeck
+    #   pytorch-transformers
     #   streamlit
-openai==0.27.7
+    #   torchvision
+    #   transformers
+openai==0.27.4
     # via -r requirements.in
 openapi-schema-pydantic==1.2.4
     # via
     #   -r requirements.in
     #   langchain
-packaging==23.1
+packaging==23.0
     # via
     #   -r requirements.in
     #   build
+    #   huggingface-hub
+    #   ipykernel
+    #   jupyter-server
     #   marshmallow
     #   matplotlib
+    #   nbconvert
+    #   pytest
+    #   qtconsole
+    #   qtpy
     #   replicate
     #   streamlit
-pandas==2.0.1
+    #   transformers
+pandas==1.5.3
     # via
     #   -r requirements.in
     #   altair
     #   streamlit
-pillow==9.5.0
+pandocfilters==1.5.0
+    # via
+    #   -r requirements.in
+    #   nbconvert
+parso==0.8.3
+    # via
+    #   -r requirements.in
+    #   jedi
+pexpect==4.8.0
+    # via
+    #   -r requirements.in
+    #   ipython
+pickleshare==0.7.5
+    # via
+    #   -r requirements.in
+    #   ipython
+pillow==9.4.0
     # via
     #   -r requirements.in
     #   matplotlib
     #   streamlit
-pip-tools==6.13.0
+    #   torchvision
+pip-tools==6.12.3
     # via -r requirements.in
+platformdirs==3.1.1
+    # via
+    #   -r requirements.in
+    #   jupyter-core
+    #   pylint
+pluggy==1.0.0
+    # via
+    #   -r requirements.in
+    #   pytest
+prometheus-client==0.16.0
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+    #   nbclassic
+    #   notebook
+prompt-toolkit==3.0.38
+    # via
+    #   -r requirements.in
+    #   ipython
+    #   jupyter-console
 protobuf==3.20.3
     # via
     #   -r requirements.in
     #   streamlit
     #   streamlit-extras
+psutil==5.9.4
+    # via
+    #   -r requirements.in
+    #   ipykernel
 psycopg2==2.9.6
     # via -r requirements.in
-pyarrow==12.0.0
+ptyprocess==0.7.0
+    # via
+    #   -r requirements.in
+    #   pexpect
+    #   terminado
+pure-eval==0.2.2
+    # via
+    #   -r requirements.in
+    #   stack-data
+pyarrow==11.0.0
     # via
     #   -r requirements.in
     #   streamlit
-pydantic==1.10.8
+pycparser==2.21
+    # via
+    #   -r requirements.in
+    #   cffi
+pydantic==1.10.7
     # via
     #   -r requirements.in
     #   langchain
@@ -269,10 +612,16 @@ pydeck==0.8.1b0
     # via
     #   -r requirements.in
     #   streamlit
-pygments==2.15.1
+pygments==2.14.0
     # via
     #   -r requirements.in
+    #   ipython
+    #   jupyter-console
+    #   nbconvert
+    #   qtconsole
     #   rich
+pylint==2.17.0
+    # via -r requirements.in
 pymdown-extensions==10.0.1
     # via
     #   -r requirements.in
@@ -293,53 +642,137 @@ pyrsistent==0.19.3
     # via
     #   -r requirements.in
     #   jsonschema
+pytest==7.3.1
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via
     #   -r requirements.in
+    #   arrow
+    #   botocore
     #   faker
+    #   jupyter-client
     #   matplotlib
     #   pandas
     #   streamlit
 python-dotenv==1.0.0
     # via -r requirements.in
+python-json-logger==2.0.7
+    # via
+    #   -r requirements.in
+    #   jupyter-events
+pytorch-transformers==1.2.0
+    # via -r requirements.in
 pytz==2023.3
     # via
     #   -r requirements.in
     #   pandas
+pytz-deprecation-shim==0.1.0.post0
+    # via
+    #   -r requirements.in
+    #   tzlocal
 pyyaml==6.0
     # via
     #   -r requirements.in
+    #   huggingface-hub
+    #   jupyter-events
     #   langchain
     #   pymdown-extensions
+    #   transformers
+pyzmq==25.0.1
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   jupyter-client
+    #   jupyter-console
+    #   jupyter-server
+    #   nbclassic
+    #   notebook
+    #   qtconsole
+qtconsole==5.4.1
+    # via
+    #   -r requirements.in
+    #   jupyter
+qtpy==2.3.0
+    # via
+    #   -r requirements.in
+    #   qtconsole
+regex==2022.10.31
+    # via
+    #   -r requirements.in
+    #   pytorch-transformers
+    #   sacremoses
+    #   transformers
 replicate==0.8.3
     # via -r requirements.in
-requests==2.31.0
+requests==2.28.2
     # via
     #   -r requirements.in
     #   deep-translator
     #   favicon
+    #   huggingface-hub
     #   instaloader
     #   langchain
     #   openai
+    #   pytorch-transformers
     #   replicate
     #   streamlit
-rich==13.3.5
+    #   torchvision
+    #   transformers
+rfc3339-validator==0.1.4
+    # via
+    #   -r requirements.in
+    #   jsonschema
+    #   jupyter-events
+rfc3986-validator==0.1.1
+    # via
+    #   -r requirements.in
+    #   jsonschema
+    #   jupyter-events
+rich==13.3.4
     # via
     #   -r requirements.in
     #   streamlit
+ruff==0.0.256
+    # via -r requirements.in
+s3transfer==0.6.0
+    # via
+    #   -r requirements.in
+    #   boto3
+sacremoses==0.0.53
+    # via
+    #   -r requirements.in
+    #   pytorch-transformers
+send2trash==1.8.0
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+    #   nbclassic
+    #   notebook
+sentencepiece==0.1.97
+    # via
+    #   -r requirements.in
+    #   pytorch-transformers
 six==1.16.0
     # via
     #   -r requirements.in
+    #   asttokens
+    #   bleach
     #   python-dateutil
+    #   rfc3339-validator
+    #   sacremoses
 smmap==5.0.0
     # via
     #   -r requirements.in
     #   gitdb
-soupsieve==2.4.1
+sniffio==1.3.0
+    # via
+    #   -r requirements.in
+    #   anyio
+soupsieve==2.4
     # via
     #   -r requirements.in
     #   beautifulsoup4
-sqlalchemy==2.0.15
+sqlalchemy==1.4.47
     # via
     #   -r requirements.in
     #   langchain
@@ -347,9 +780,13 @@ st-annotated-text==4.0.0
     # via
     #   -r requirements.in
     #   streamlit-extras
+stack-data==0.6.2
+    # via
+    #   -r requirements.in
+    #   ipython
 stqdm==0.0.5
     # via -r requirements.in
-streamlit==1.22.0
+streamlit==1.21.0
     # via
     #   -r requirements.in
     #   markdownlit
@@ -400,11 +837,29 @@ streamlit-vertical-slider==1.0.2
     # via
     #   -r requirements.in
     #   streamlit-extras
+sympy==1.11.1
+    # via
+    #   -r requirements.in
+    #   torch
 tenacity==8.2.2
     # via
     #   -r requirements.in
     #   langchain
-    #   streamlit
+terminado==0.17.1
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+    #   jupyter-server-terminals
+    #   nbclassic
+    #   notebook
+tinycss2==1.2.1
+    # via
+    #   -r requirements.in
+    #   nbconvert
+tokenizers==0.13.2
+    # via
+    #   -r requirements.in
+    #   transformers
 toml==0.10.2
     # via
     #   -r requirements.in
@@ -413,55 +868,144 @@ tomli==2.0.1
     # via
     #   -r requirements.in
     #   build
+    #   mypy
+    #   pylint
     #   pyproject-hooks
+    #   pytest
+tomlkit==0.11.6
+    # via
+    #   -r requirements.in
+    #   pylint
 toolz==0.12.0
     # via
     #   -r requirements.in
     #   altair
-tornado==6.3.2
+torch==2.0.0
     # via
     #   -r requirements.in
+    #   pytorch-transformers
+    #   torchvision
+torchvision==0.15.1
+    # via -r requirements.in
+tornado==6.2
+    # via
+    #   -r requirements.in
+    #   ipykernel
+    #   jupyter-client
+    #   jupyter-server
+    #   nbclassic
+    #   notebook
     #   streamlit
+    #   terminado
 tqdm==4.65.0
     # via
     #   -r requirements.in
+    #   huggingface-hub
+    #   langchain
     #   openai
+    #   pytorch-transformers
+    #   sacremoses
     #   stqdm
-typing-extensions==4.6.2
+    #   transformers
+traitlets==5.9.0
     # via
     #   -r requirements.in
+    #   comm
+    #   ipykernel
+    #   ipython
+    #   ipywidgets
+    #   jupyter-client
+    #   jupyter-console
+    #   jupyter-core
+    #   jupyter-events
+    #   jupyter-server
+    #   matplotlib-inline
+    #   nbclassic
+    #   nbclient
+    #   nbconvert
+    #   nbformat
+    #   notebook
+    #   qtconsole
+transformers==4.27.1
+    # via -r requirements.in
+types-pillow==9.5.0.4
+    # via -r requirements.in
+types-requests==2.31.0.0
+    # via -r requirements.in
+types-urllib3==1.26.25.13
+    # via
+    #   -r requirements.in
+    #   types-requests
+typing-extensions==4.5.0
+    # via
+    #   -r requirements.in
+    #   astroid
+    #   huggingface-hub
+    #   mypy
     #   pydantic
-    #   sqlalchemy
     #   streamlit
+    #   torch
     #   typing-inspect
-typing-inspect==0.9.0
+typing-inspect==0.8.0
     # via
     #   -r requirements.in
     #   dataclasses-json
 tzdata==2023.3
     # via
     #   -r requirements.in
-    #   pandas
+    #   pytz-deprecation-shim
     #   tzlocal
-tzlocal==5.0.1
+tzlocal==4.3
     # via
     #   -r requirements.in
     #   streamlit
-urllib3==2.0.2
+uri-template==1.2.0
     # via
     #   -r requirements.in
+    #   jsonschema
+urllib3==1.26.15
+    # via
+    #   -r requirements.in
+    #   botocore
     #   requests
 validators==0.20.0
     # via
     #   -r requirements.in
     #   streamlit
 watchdog==3.0.0
+    # via -r requirements.in
+wcwidth==0.2.6
+    # via
+    #   -r requirements.in
+    #   prompt-toolkit
+webcolors==1.12
+    # via
+    #   -r requirements.in
+    #   jsonschema
+webencodings==0.5.1
+    # via
+    #   -r requirements.in
+    #   bleach
+    #   tinycss2
+websocket-client==1.5.1
+    # via
+    #   -r requirements.in
+    #   jupyter-server
+watchdog==3.0.0
     # via streamlit
 wheel==0.40.0
     # via pip-tools
+widgetsnbextension==4.0.5
+    # via
+    #   -r requirements.in
+    #   ipywidgets
+wrapt==1.15.0
+    # via
+    #   -r requirements.in
+    #   astroid
 win32-setctime==1.1.0
     # via loguru
-yarl==1.9.2
+yarl==1.8.2
     # via
     #   -r requirements.in
     #   aiohttp

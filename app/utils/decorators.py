@@ -5,7 +5,9 @@ from functools import lru_cache, wraps
 from time import time
 from typing import Any, Callable
 
-from loguru import logger
+from app.utils.logger import configure_logger
+
+logger = configure_logger()
 
 
 def timeit(f: Callable) -> Callable:
@@ -16,9 +18,7 @@ def timeit(f: Callable) -> Callable:
         start = time()
         result = f(*args, **kwargs)
         end = time()
-        logger.info(
-            "%s execution duration: %.0f ms", f.__name__, (end - start) * 10**3
-        )
+        logger.info(f"{f.__name__} execution duration: {round((end - start) * 10**3,2)} ms")
         return result
 
     return wrapper

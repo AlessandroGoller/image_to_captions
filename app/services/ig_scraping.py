@@ -5,10 +5,13 @@ import csv
 import json
 import time
 from datetime import datetime
+from io import BytesIO
 from itertools import dropwhile, takewhile
 from typing import Iterator, Optional
 
 import instaloader
+import requests
+from PIL import Image
 from tqdm import tqdm
 
 from app.dependency import get_settings
@@ -186,6 +189,14 @@ class GetInstagramProfile:
             if ies%5 == 0:
                 # wait 1 second every 5 posts
                 time.sleep(1)
+
+    def get_profile_pic(self, username:str)-> BytesIO:
+        """ Return the profile pic of the user """
+        profilo = instaloader.Profile.from_username(self.L.context, username)
+        path_pic = str(profilo.profile_pic_url)
+        response = requests.get(path_pic, timeout=10)
+        image = Image.open(BytesIO(response.content))
+        return image # type: ignore
 
 
 def load_post_captions_from_json(
