@@ -75,7 +75,7 @@ def company_exist(company: Company) -> None:
 def company_not_exist(user: User) -> None:
     """Case in which the company NOT exist"""
     language = st.text_input("In what language the prompt has to be?\nIf Auto, the AI will decide", "Auto")
-    company_name = st.text_input("Insert Company Name:")
+    company_name = st.text_input("Insert Company Name:","")
     website = st.text_input("Insert Company website:", "")
     instagram_url = st.text_input("Insert Instagram Name:", "")
     description = ""

@@ -1,0 +1,44 @@
+:py:mod:`app.utils.streamlit_utils.auth`
+========================================
+
+.. py:module:: app.utils.streamlit_utils.auth
+
+.. autoapi-nested-parse::
+
+   Module utils for streamlit auth
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.utils.streamlit_utils.auth.verify_login
+   app.utils.streamlit_utils.auth.register_user
+   app.utils.streamlit_utils.auth.is_logged_in
+
+
+
+.. py:function:: verify_login(email: str, password: str) -> bool
+
+   Verifica se l'utente con username e password esiste nella lista degli utenti registrati
+   e se le credenziali sono corrette.
+
+
+.. py:function:: register_user(email: str, password: str) -> bool
+
+   Registra un nuovo utente con email e password.
+   Restituisce True se la registrazione è andata a buon fine,
+   False se l'username è già stato utilizzato.
+
+
+.. py:function:: is_logged_in(session: dict[str, bool]) -> bool
+
+   Verifica se l'utente è già loggato o meno.
+
+

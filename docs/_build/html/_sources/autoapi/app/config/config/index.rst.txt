@@ -1,0 +1,81 @@
+:py:mod:`app.config.config`
+===========================
+
+.. py:module:: app.config.config
+
+.. autoapi-nested-parse::
+
+   Module with all config
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.config.config.Config
+
+
+
+
+.. py:class:: Config
+
+   Bases: :py:obj:`pydantic.BaseSettings`
+
+   Class with the config
+
+   .. py:attribute:: SQLALCHEMY_DATABASE_URI
+      :type: str
+
+      
+
+   .. py:attribute:: LANGUAGE
+      :type: str
+
+      
+
+   .. py:attribute:: PORT
+      :type: str
+
+      
+
+   .. py:attribute:: HUGGINGFACEHUB_API_TOKEN
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: OPENAI_API_TOKEN
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: SERPAPI_API_KEY
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: REPLICATE_API_KEY
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: MODEL_BLIP
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: USERNAME_IG
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: PSW_IG
+      :type: Optional[str]
+
+      
+
+

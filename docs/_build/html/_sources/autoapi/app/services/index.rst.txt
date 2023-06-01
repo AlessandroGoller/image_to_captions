@@ -1,0 +1,21 @@
+:py:mod:`app.services`
+======================
+
+.. py:module:: app.services
+
+.. autoapi-nested-parse::
+
+   App Init
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   ig_scraping/index.rst
+   langchain/index.rst
+
+
