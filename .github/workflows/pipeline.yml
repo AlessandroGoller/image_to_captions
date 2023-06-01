@@ -50,13 +50,13 @@ jobs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        |
+        
         # Aggiungi il costrutto try-catch per gestire l'errore
         set +e
         semantic-release publish
         EXIT_CODE=$?
         set -e
-        |
+        
         # Stampa l'errore ma continua l'esecuzione
         if [ $EXIT_CODE -ne 0 ]; then
           echo "Errore durante l'upload nell'artifact repository"
