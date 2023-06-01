@@ -6,7 +6,7 @@ from typing import Optional
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.crud.company import create_company, get_company_by_user_id, update_company
+from app.crud.company import create_company, get_company_by_user_id, remove_account_ig, update_company
 from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
@@ -43,10 +43,17 @@ def company_exist(company: Company) -> None:
     website = st.text_input(
         "Company Website:", str(company.website) if company.website is not None else ""
     )
-    instagram_url = st.text_input(
-        "Instagram Name:",
-        str(company.url_instagram) if company.url_instagram is not None else "",
-    )
+    if company.url_instagram is not None and company.url_instagram != "":
+        instagram_url = str(company.url_instagram)
+        st.write("Instagram Account: " + str(company.url_instagram))
+        if st.button("Delete Instagram Account. N.B. Cambiare account necessiterà un po di tempo alla prima creazione della caption"):  # noqa
+            remove_account_ig(id_company=company.id_company)
+            st.experimental_rerun()  # reload the page
+    else:
+        instagram_url = st.text_input(
+            "Instagram Name:",
+            str(company.url_instagram) if company.url_instagram is not None else "",
+        )
     if st.button("Save Info") and company_name is not None and company_name != "":
         company_created = CompanyInfoBase(
             name=company_name,
