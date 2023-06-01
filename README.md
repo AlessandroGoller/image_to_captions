@@ -16,7 +16,7 @@ DESCRIPTION A package for doing great things!...
 - pip version that works with pip-compile: python.exe -m pip install pip==23.0.1
 
 ## Angular commit
-Type
+Type to be inserted:
 Must be one of the following:
 
 feat: A new feature
