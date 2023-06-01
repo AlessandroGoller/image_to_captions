@@ -34,7 +34,8 @@ class User(database):
         default=False
     )
 
-    posts_creation = relationship("PostCreation", back_populates="User")
+    # CAUSA ERRORE
+    # posts_creation = relationship("PostCreation", back_populates="User")
 
     def update_last_access(self) -> None:
         """ Permit to update the last acces """
