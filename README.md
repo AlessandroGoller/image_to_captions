@@ -19,8 +19,10 @@ DESCRIPTION A package for doing great things!...
 Type to be inserted:
 Must be one of the following:
 
-feat: A new feature
-fix: A bug fix
+BREAKING o BREAKING CHANGE: -> aumenterà il numero di versione in modalità MAGGIORE
+feat: A new feature -> Aumenta il numero di versione in modalità MINORE (ad esempio, da 1.2.3 a 1.3.0).
+fix: A bug fix      -> Aumenta il numero di versione in modalità PATCH (ad esempio, da 1.2.3 a 1.2.4).
+
 docs: Documentation only changes
 style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 refactor: A code change that neither fixes a bug nor adds a feature
