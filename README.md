@@ -2,6 +2,8 @@
 
 DESCRIPTION A package for doing great things!...
 
+TO delete
+
 - https://image-to-caption.onrender.com/
 - https://trello.com/b/BLyCd3Ju/kanban
 
