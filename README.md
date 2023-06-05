@@ -1,4 +1,4 @@
-# image_to_captions
+# Image To Captions
 
 DESCRIPTION A package for doing great things!...
 
@@ -100,3 +100,4 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 ## Credits
 
+Insert all credits
