@@ -10,6 +10,7 @@ class PostCreation(database):
     """Class for PostCreation Model"""
 
     __tablename__ = "t_post_creation"
+
     id_post_creation = Column("id_t_post_creation", Integer, nullable=False, primary_key=True)
     user_id = Column("id_t_user", Integer, ForeignKey("t_user.id_t_user"), nullable=False)
     image_uploaded = Column("image_uploaded", LargeBinary, nullable=True)

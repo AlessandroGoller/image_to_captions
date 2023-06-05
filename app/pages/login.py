@@ -28,7 +28,7 @@ def show_login_page() -> None:
 def show_register_page() -> None:
     """show_register_page"""
     st.header("Register")
-    email = st.text_input("Email")
+    email = st.text_input("Email").strip()
     password = st.text_input("Password", type="password")
     confirm_password = st.text_input("Confirm password", type="password")
     register_button = st.button("Register")
