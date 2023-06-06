@@ -3,6 +3,7 @@ Module providing functions for scraping information from instagram accounts.
 """
 import csv
 import json
+import re
 import time
 from datetime import datetime
 from io import BytesIO
@@ -34,6 +35,14 @@ class GetInstagramProfile:
             logger.info(f"Correct instagram logging with {settings.USERNAME_IG}")
         except Exception as error:
             logger.info(f"Error during instagram logging with {settings.USERNAME_IG} - {settings.PSW_IG}\n{error}")
+
+    @staticmethod
+    def remove_tagged_users(caption:str) -> str:
+        """ IF activate remove all tagged users and
+        substitute the tag with @taggeduser, only from the post caption
+        """
+        return re.sub(r'@[\w.-]+(?<!\.)', '@taggeduser', caption)
+
 
     def download_users_profile_picture(self, username: str) -> None:
         """
@@ -170,7 +179,7 @@ class GetInstagramProfile:
             data[shortcode] = {}
             # Store the post info
             try:
-                data[shortcode]["post"] = str(post.caption)
+                data[shortcode]["post"] = self.remove_tagged_users(str(post.caption))
                 data[shortcode]["hashtags"] = str(post.caption_hashtags)
                 data[shortcode]["mentions"] = str(post.caption_mentions)
                 data[shortcode]["tagged_users"] = str(post.tagged_users)
