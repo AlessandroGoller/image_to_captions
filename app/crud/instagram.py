@@ -194,6 +194,23 @@ def update_instagram(
     db.commit()
     return instagram
 
+def delete_all_instagram(id_company:int) -> None:
+    """ Delete all instagram account connected to a company """
+    db: Session = next(get_db())
+    # Get all Instagram accounts connected to the company
+    instagrams: list[Instagram] = db.query(Instagram).filter_by(id_company=id_company).all()
+    # Delete each Instagram account
+    for instagram in instagrams:
+        try:
+            delete_instagram_with_sessione(db, instagram)
+        except Exception as error:
+            logger.error(f"Error during deletion of the instagram post {instagram.posturl}\n{error}")
+
+def delete_instagram_with_sessione(db:Session, instagram:Instagram)->None:
+    """ Permit to delete a instagram with an already started session """
+    db.delete(instagram)
+    db.commit()
+
 
 def delete_instagram(instagram: Instagram) -> dict[str, bool]:
     """Permit to delete a instagram"""
