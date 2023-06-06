@@ -1,9 +1,10 @@
 """ Module Model User """
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.dependency import database
+
+# from sqlalchemy.orm import relationship
 
 
 class User(database):
