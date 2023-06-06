@@ -9,13 +9,14 @@ from langchain.agents import initialize_agent, load_tools
 from langchain.llms import OpenAI
 
 from app.dependency import get_settings
+from app.utils.decorators import timeit
 from app.utils.logger import configure_logger
 
 settings = get_settings()
 
 logger = configure_logger()
 
-
+@timeit
 def prepare_llm(provider:str="openai") -> HuggingFaceHub:
     """Return the llm"""
     if provider=="openai":
@@ -39,7 +40,7 @@ def prepare_llm(provider:str="openai") -> HuggingFaceHub:
         raise ValueError("No llm found")
     return llm
 
-
+@timeit
 def search_info_of_company(name_to_search: str) -> str:
     """
     search_info_of_company
@@ -63,8 +64,8 @@ def search_info_of_company(name_to_search: str) -> str:
     )
     return str(response)
 
-
-def generate_ig_post(prompt: str = "", messages:list = None) -> str:
+@timeit
+def generate_ig_post(prompt: str = "") -> str:
     # mustdo: Reformulate history!
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
@@ -93,7 +94,7 @@ def generate_ig_post(prompt: str = "", messages:list = None) -> str:
 
     return answer, messages
 
-
+@timeit
 def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -> str:
     """
     Function to generate a description of an image using blip2

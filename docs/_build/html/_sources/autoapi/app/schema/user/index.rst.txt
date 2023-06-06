@@ -1,0 +1,107 @@
+:py:mod:`app.schema.user`
+=========================
+
+.. py:module:: app.schema.user
+
+.. autoapi-nested-parse::
+
+   Module for User Schema
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.schema.user.UserInfoBase
+   app.schema.user.UserCreate
+   app.schema.user.UserInfo
+   app.schema.user.UserInfoAdmin
+
+
+
+
+.. py:class:: UserInfoBase
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+   Class UserInfoBase
+
+   .. py:attribute:: name
+      :type: str
+
+      
+
+   .. py:attribute:: email
+      :type: str
+
+      
+
+
+.. py:class:: UserCreate
+
+   Bases: :py:obj:`UserInfoBase`
+
+   Class UserCreate
+   Use it during creation
+
+   .. py:attribute:: password
+      :type: str
+
+      
+
+
+.. py:class:: UserInfo
+
+   Bases: :py:obj:`UserInfoBase`
+
+   Class UserInfo
+   Use it during retrieving information
+
+   .. py:class:: Config
+
+      Config
+
+      .. py:attribute:: orm_mode
+         :value: True
+
+         
+
+
+   .. py:attribute:: user_id
+      :type: int
+
+      
+
+
+.. py:class:: UserInfoAdmin
+
+   Bases: :py:obj:`UserInfoBase`
+
+   Class UserInfoAdmin
+
+   .. py:class:: Config
+
+      Config
+
+      .. py:attribute:: orm_mode
+         :value: True
+
+         
+
+
+   .. py:attribute:: user_id
+      :type: int
+
+      
+
+   .. py:attribute:: admin
+      :type: bool
+
+      
+
+

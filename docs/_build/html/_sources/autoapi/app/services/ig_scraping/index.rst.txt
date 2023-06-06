@@ -1,0 +1,102 @@
+:py:mod:`app.services.ig_scraping`
+==================================
+
+.. py:module:: app.services.ig_scraping
+
+.. autoapi-nested-parse::
+
+   Module providing functions for scraping information from instagram accounts.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.services.ig_scraping.GetInstagramProfile
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.services.ig_scraping.load_post_captions_from_json
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   app.services.ig_scraping.settings
+   app.services.ig_scraping.logger
+
+
+.. py:data:: settings
+
+   
+
+.. py:data:: logger
+
+   
+
+.. py:class:: GetInstagramProfile
+
+   Class to load a profile and download its data.
+
+   .. py:method:: download_users_profile_picture(username: str) -> None
+
+      Download a user's profile picture.
+
+
+   .. py:method:: download_users_posts_with_periods(username: str) -> None
+
+      Download posts from a user within a specified period of time.
+
+
+   .. py:method:: download_hastag_posts(hashtag: str) -> None
+
+      Download posts that contains a certain hashtag.
+
+
+   .. py:method:: get_users_followers(user_name: str) -> None
+
+      Function to get a profile's followers.
+      Note: login required to get a profile's followers.
+
+
+   .. py:method:: get_users_followings(username: str) -> None
+
+      Function to get a profile's followings.
+      Note: login required to get a profile's followings.
+
+
+   .. py:method:: get_post_comments(username: str) -> None
+
+      Function to get a post's comments and print them at screen.
+
+
+   .. py:method:: get_post_info_csv(username: str) -> None
+
+      Function to get info from every post of a user and store them in a csv file.
+
+
+   .. py:method:: get_post_info_json(username: str, last_n_posts: int = 100) -> Iterator[dict]
+
+      Function to get info from every post of a user and store them in a json file (dictionary style).
+
+
+
+.. py:function:: load_post_captions_from_json(json_file: str, shortcodes: Optional[list] = None) -> list
+
+   Function to load post captions from a json file. The post loaded are the one specified by the shortcodes list.
+   This to allow compatibility with eventual search functions on the specific post.
+
+

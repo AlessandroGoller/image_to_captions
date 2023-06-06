@@ -1,0 +1,65 @@
+:py:mod:`app.crud.user`
+=======================
+
+.. py:module:: app.crud.user
+
+.. autoapi-nested-parse::
+
+   Module for crud for Users
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.crud.user.get_user_by_email
+   app.crud.user.get_user_by_id
+   app.crud.user.get_users
+   app.crud.user.create_user
+   app.crud.user.become_admin
+   app.crud.user.update_last_access
+   app.crud.user.delete_user
+
+
+
+.. py:function:: get_user_by_email(email: str) -> Optional[app.model.user.User]
+
+   return user from email
+
+
+.. py:function:: get_user_by_id(user_id: str) -> Optional[app.model.user.User]
+
+   Return the user from user_id
+
+
+.. py:function:: get_users() -> Optional[list[app.model.user.User]]
+
+   Return the list of users
+
+
+.. py:function:: create_user(user: app.schema.user.UserCreate) -> Optional[app.model.user.User]
+
+   Creation a user, in input the schema of user create and return the user
+
+
+.. py:function:: become_admin(email: str) -> Optional[app.model.user.User]
+
+   Convert a user to admin
+
+
+.. py:function:: update_last_access(email: str) -> None
+
+   Update last access
+
+
+.. py:function:: delete_user(user: app.model.user.User) -> dict[str, bool]
+
+   Permit to delete a user
+
+

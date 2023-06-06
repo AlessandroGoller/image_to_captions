@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app.crud.company &mdash; image_to_captions  documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="app.crud.instagram" href="../instagram/index.html" />
+    <link rel="prev" title="app.crud" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            image_to_captions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Example usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.config</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../schema/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../services/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.services</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Logout/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">-)Logout</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../action/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">action</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../login/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">login</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../profile/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">profile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../refinement/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">refinement</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../basic_test/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">basic_test</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">image_to_captions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app</span></code></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud.company</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/app/crud/company/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-app.crud.company">
+<span id="app-crud-company"></span><h1><a class="reference internal" href="#module-app.crud.company" title="app.crud.company"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud.company</span></code></a><a class="headerlink" href="#module-app.crud.company" title="Permalink to this heading"></a></h1>
+<p>Module for crud for Companies</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.company.get_company_by_name" title="app.crud.company.get_company_by_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_company_by_name</span></code></a>(→ Optional[app.model.company.Company])</p></td>
+<td><p>return Company from email</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.company.get_company_by_id" title="app.crud.company.get_company_by_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_company_by_id</span></code></a>(→ Optional[app.model.company.Company])</p></td>
+<td><p>Return the Company from id_company</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.company.get_company_by_user_id" title="app.crud.company.get_company_by_user_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_company_by_user_id</span></code></a>(...)</p></td>
+<td><p>Return the Company from user_id</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.company.create_company" title="app.crud.company.create_company"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_company</span></code></a>(→ Optional[app.model.company.Company])</p></td>
+<td><p>Creation a user, in input the schema of user create and return the user</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.company.update_company" title="app.crud.company.update_company"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_company</span></code></a>(→ Optional[app.model.company.Company])</p></td>
+<td><p>Permit to edit info inside company model</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.company.delete_company" title="app.crud.company.delete_company"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_company</span></code></a>(→ dict[str, bool])</p></td>
+<td><p>&quot; Permit to delete a company</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.company.get_company_by_name">
+<span class="sig-prename descclassname"><span class="pre">app.crud.company.</span></span><span class="sig-name descname"><span class="pre">get_company_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.company.get_company_by_name" title="Permalink to this definition"></a></dt>
+<dd><p>return Company from email</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.company.get_company_by_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.company.</span></span><span class="sig-name descname"><span class="pre">get_company_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_company</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.company.get_company_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Return the Company from id_company</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.company.get_company_by_user_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.company.</span></span><span class="sig-name descname"><span class="pre">get_company_by_user_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.company.get_company_by_user_id" title="Permalink to this definition"></a></dt>
+<dd><p>Return the Company from user_id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.company.create_company">
+<span class="sig-prename descclassname"><span class="pre">app.crud.company.</span></span><span class="sig-name descname"><span class="pre">create_company</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../schema/company/index.html#app.schema.company.CompanyCreate" title="app.schema.company.CompanyCreate"><span class="pre">app.schema.company.CompanyCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.company.create_company" title="Permalink to this definition"></a></dt>
+<dd><p>Creation a user, in input the schema of user create and return the user</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.company.update_company">
+<span class="sig-prename descclassname"><span class="pre">app.crud.company.</span></span><span class="sig-name descname"><span class="pre">update_company</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">company_edit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../schema/company/index.html#app.schema.company.CompanyInfoBase" title="app.schema.company.CompanyInfoBase"><span class="pre">app.schema.company.CompanyInfoBase</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.company.update_company" title="Permalink to this definition"></a></dt>
+<dd><p>Permit to edit info inside company model</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.company.delete_company">
+<span class="sig-prename descclassname"><span class="pre">app.crud.company.</span></span><span class="sig-name descname"><span class="pre">delete_company</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../model/company/index.html#app.model.company.Company" title="app.model.company.Company"><span class="pre">app.model.company.Company</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.company.delete_company" title="Permalink to this definition"></a></dt>
+<dd><p>” Permit to delete a company</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="app.crud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../instagram/index.html" class="btn btn-neutral float-right" title="app.crud.instagram" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alessandro Goller &amp; Riccardo Ricci.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

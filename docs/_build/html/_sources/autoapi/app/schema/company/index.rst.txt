@@ -1,0 +1,65 @@
+:py:mod:`app.schema.company`
+============================
+
+.. py:module:: app.schema.company
+
+.. autoapi-nested-parse::
+
+   Module for Company Schema
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.schema.company.CompanyInfoBase
+   app.schema.company.CompanyCreate
+
+
+
+
+.. py:class:: CompanyInfoBase
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+   Class CompanyInfo
+
+   .. py:attribute:: name
+      :type: str
+
+      
+
+   .. py:attribute:: url_instagram
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: description
+      :type: Optional[str]
+
+      
+
+   .. py:attribute:: website
+      :type: Optional[str]
+
+      
+
+
+.. py:class:: CompanyCreate
+
+   Bases: :py:obj:`CompanyInfoBase`
+
+   Class CompanyCreate
+   Use it during creation
+
+   .. py:attribute:: id_user
+      :type: int
+
+      
+
+

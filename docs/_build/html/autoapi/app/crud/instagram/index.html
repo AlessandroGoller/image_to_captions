@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app.crud.instagram &mdash; image_to_captions  documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="app.crud.user" href="../user/index.html" />
+    <link rel="prev" title="app.crud.company" href="../company/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            image_to_captions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Example usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.config</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../schema/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../services/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.services</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Logout/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">-)Logout</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../action/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">action</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../login/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">login</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../profile/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">profile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../refinement/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">refinement</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../basic_test/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">basic_test</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">image_to_captions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app</span></code></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud.instagram</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/app/crud/instagram/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-app.crud.instagram">
+<span id="app-crud-instagram"></span><h1><a class="reference internal" href="#module-app.crud.instagram" title="app.crud.instagram"><code class="xref py py-mod docutils literal notranslate"><span class="pre">app.crud.instagram</span></code></a><a class="headerlink" href="#module-app.crud.instagram" title="Permalink to this heading"></a></h1>
+<p>Module for crud for Instagram</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.get_instagram_by_id" title="app.crud.instagram.get_instagram_by_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instagram_by_id</span></code></a>(...)</p></td>
+<td><p>Return the Instagram from id_instagram</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.instagram.get_instagram_by_url" title="app.crud.instagram.get_instagram_by_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instagram_by_url</span></code></a>(...)</p></td>
+<td><p>Return the Instagram from url</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.get_instagram_by_user_id" title="app.crud.instagram.get_instagram_by_user_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instagram_by_user_id</span></code></a>(...)</p></td>
+<td><p>Return the list of Instagram from user_id</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.instagram.get_instagram_by_company_id" title="app.crud.instagram.get_instagram_by_company_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instagram_by_company_id</span></code></a>(...)</p></td>
+<td><p>Return the list of Instagram from company_id</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.get_last_n_instagram" title="app.crud.instagram.get_last_n_instagram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_last_n_instagram</span></code></a>(...)</p></td>
+<td><p>Return the list of n Instagram from company_id order by date</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.instagram.get_instagram_after_date" title="app.crud.instagram.get_instagram_after_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instagram_after_date</span></code></a>(...)</p></td>
+<td><p>Return the list of Instagram posts from company_id with date after the input date</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.create_instagram" title="app.crud.instagram.create_instagram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_instagram</span></code></a>(→ Optional[app.model.instagram.Instagram])</p></td>
+<td><p>Creation a instagram, in input the schema of instagram create and return the instagram</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.instagram.bulk_create_instagram" title="app.crud.instagram.bulk_create_instagram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_create_instagram</span></code></a>(→ None)</p></td>
+<td><p>Bulk creation of instagrams</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.insert_data_to_db" title="app.crud.instagram.insert_data_to_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_data_to_db</span></code></a>(→ bool)</p></td>
+<td><p>From a dict of data, insert everythin inside Instagram db</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#app.crud.instagram.update_instagram" title="app.crud.instagram.update_instagram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_instagram</span></code></a>(→ Optional[app.model.instagram.Instagram])</p></td>
+<td><p>Permit to edit info inside instagram model</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.delete_instagram" title="app.crud.instagram.delete_instagram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_instagram</span></code></a>(→ dict[str, bool])</p></td>
+<td><p>Permit to delete a instagram</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#app.crud.instagram.logger" title="app.crud.instagram.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="app.crud.instagram.logger">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#app.crud.instagram.logger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.get_instagram_by_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">get_instagram_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_instagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.get_instagram_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Return the Instagram from id_instagram</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.get_instagram_by_url">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">get_instagram_by_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.get_instagram_by_url" title="Permalink to this definition"></a></dt>
+<dd><p>Return the Instagram from url</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.get_instagram_by_user_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">get_instagram_by_user_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.get_instagram_by_user_id" title="Permalink to this definition"></a></dt>
+<dd><p>Return the list of Instagram from user_id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.get_instagram_by_company_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">get_instagram_by_company_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.get_instagram_by_company_id" title="Permalink to this definition"></a></dt>
+<dd><p>Return the list of Instagram from company_id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.get_last_n_instagram">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">get_last_n_instagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_ig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.get_last_n_instagram" title="Permalink to this definition"></a></dt>
+<dd><p>Return the list of n Instagram from company_id order by date</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.get_instagram_after_date">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">get_instagram_after_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.get_instagram_after_date" title="Permalink to this definition"></a></dt>
+<dd><p>Return the list of Instagram posts from company_id with date after the input date</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.create_instagram">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">create_instagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../schema/instagram/index.html#app.schema.instagram.InstagramCreate" title="app.schema.instagram.InstagramCreate"><span class="pre">app.schema.instagram.InstagramCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.create_instagram" title="Permalink to this definition"></a></dt>
+<dd><p>Creation a instagram, in input the schema of instagram create and return the instagram</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.bulk_create_instagram">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">bulk_create_instagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instagrams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../schema/instagram/index.html#app.schema.instagram.InstagramCreate" title="app.schema.instagram.InstagramCreate"><span class="pre">app.schema.instagram.InstagramCreate</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#app.crud.instagram.bulk_create_instagram" title="Permalink to this definition"></a></dt>
+<dd><p>Bulk creation of instagrams</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.insert_data_to_db">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">insert_data_to_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">company_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#app.crud.instagram.insert_data_to_db" title="Permalink to this definition"></a></dt>
+<dd><p>From a dict of data, insert everythin inside Instagram db</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.update_instagram">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">update_instagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">instagram_edit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../schema/instagram/index.html#app.schema.instagram.InstagramInfoBase" title="app.schema.instagram.InstagramInfoBase"><span class="pre">app.schema.instagram.InstagramInfoBase</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.update_instagram" title="Permalink to this definition"></a></dt>
+<dd><p>Permit to edit info inside instagram model</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.instagram.delete_instagram">
+<span class="sig-prename descclassname"><span class="pre">app.crud.instagram.</span></span><span class="sig-name descname"><span class="pre">delete_instagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../model/instagram/index.html#app.model.instagram.Instagram" title="app.model.instagram.Instagram"><span class="pre">app.model.instagram.Instagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.crud.instagram.delete_instagram" title="Permalink to this definition"></a></dt>
+<dd><p>Permit to delete a instagram</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../company/index.html" class="btn btn-neutral float-left" title="app.crud.company" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../user/index.html" class="btn btn-neutral float-right" title="app.crud.user" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alessandro Goller &amp; Riccardo Ricci.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -21,3 +21,44 @@ jobs:
       run: pylint app
     - name: Check for errors
       run: exit $(($? > 0))
+  cd:
+    # Only run this job if the "build" job passes
+    needs: build
+    # Only run this job if new work is pushed to "main"
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Set up operating system
+    runs-on: ubuntu-latest
+    # Define job steps
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        pip install -r docs/requirements.txt
+        pip install python-semantic-release
+    # Penso non possa aggiungerlo cosi
+    - name: Build documentation
+      run: make html --directory docs/
+    - name: Use Python Semantic Release to prepare release
+      env:
+        # This token is created automatically by GH Actions
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        
+        # Aggiungi il costrutto try-catch per gestire l'errore
+        set +e
+        semantic-release publish
+        EXIT_CODE=$?
+        set -e
+        
+        # Stampa l'errore ma continua l'esecuzione
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "Errore durante l'upload nell'artifact repository"
+          exit 0
+        fi

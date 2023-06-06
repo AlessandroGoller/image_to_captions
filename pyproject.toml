@@ -1,3 +1,14 @@
+[tool.semantic_release]
+version_variable = "version.py:__version__"
+branch = "main"
+plugins = [
+  "semantic_release.history",
+  "semantic_release.changelog",
+  "semantic_release.git",
+  "semantic_release.github",
+  "semantic_release.pypi",
+]
+
 [tool.ruff]
 
 select = [

@@ -1,0 +1,70 @@
+:py:mod:`app.services.langchain`
+================================
+
+.. py:module:: app.services.langchain
+
+.. autoapi-nested-parse::
+
+   Module for langchain
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.services.langchain.prepare_llm
+   app.services.langchain.search_info_of_company
+   app.services.langchain.generate_ig_post
+   app.services.langchain.generate_img_description
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   app.services.langchain.settings
+   app.services.langchain.logger
+
+
+.. py:data:: settings
+
+   
+
+.. py:data:: logger
+
+   
+
+.. py:function:: prepare_llm(provider: str = 'openai') -> langchain.HuggingFaceHub
+
+   Return the llm
+
+
+.. py:function:: search_info_of_company(name_to_search: str) -> str
+
+   search_info_of_company
+   Search on Internet for info of a company name and return them.
+
+   :param name_to_search:
+   :type name_to_search: str
+
+   :rtype: str
+
+
+.. py:function:: generate_ig_post(prompt: str = '') -> str
+
+   Function to generate a post for Instagram using a predefined prompt and chatgpt
+
+
+.. py:function:: generate_img_description(image: io.BytesIO, model: str = settings.MODEL_BLIP) -> str
+
+   Function to generate a description of an image using blip2
+
+

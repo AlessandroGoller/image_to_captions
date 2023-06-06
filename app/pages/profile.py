@@ -1,6 +1,7 @@
 """
 Module streamlit for profile settings
 """
+import traceback
 from typing import Optional
 
 import streamlit as st
@@ -11,6 +12,7 @@ from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
 from app.schema.company import CompanyCreate, CompanyInfoBase
+from app.services.ig_scraping import GetInstagramProfile
 from app.services.langchain import search_info_of_company
 from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
@@ -47,9 +49,17 @@ def company_exist(company: Company) -> None:
         "Instagram Name:",
         str(company.url_instagram) if company.url_instagram is not None else "",
     )
-    if st.button("Save Info") and company_name is not None and company_name != "":
+    if instagram_url is not None and instagram_url != "":
+        try:
+            client = GetInstagramProfile()
+            image = client.get_profile_pic(instagram_url)
+            st.image(image, caption="Immagine Instagram")
+        except Exception as error:
+            traceback_msg = traceback.format_exc()
+            logger.warning(f"Impossible showing the profile pic\n{error}\n{traceback_msg}")
+    if st.button("Save Info"):
         company_created = CompanyInfoBase(
-            name=company_name,
+            name=company_name if company_name is not None else "",
             description=st.session_state["description"],
             website=website,
             language=language,
@@ -65,7 +75,7 @@ def company_exist(company: Company) -> None:
 def company_not_exist(user: User) -> None:
     """Case in which the company NOT exist"""
     language = st.text_input("In what language the prompt has to be?\nIf Auto, the AI will decide", "Auto")
-    company_name = st.text_input("Insert Company Name:")
+    company_name = st.text_input("Insert Company Name:","")
     website = st.text_input("Insert Company website:", "")
     instagram_url = st.text_input("Insert Instagram Name:", "")
     description = ""
@@ -78,20 +88,20 @@ def company_not_exist(user: User) -> None:
                 st.success("Done!")
             # Mostrare caption
             description = st.text_input("Description, AI generated", description)
-        if st.button("Save Info"):
-            company_created = CompanyCreate(
-                name=company_name,
-                description=description,
-                website=website,
-                url_instagram=instagram_url,
-                language=language,
-                id_user=user.user_id,
-            )
-            if create_company(company=company_created) is None:
-                raise Exception("Error during creation of a Company")
-            else:
-                st.write("Success Save")
-                switch_page("action")
+    if st.button("Save Info"):
+        company_created = CompanyCreate(
+            name=company_name,
+            description=description,
+            website=website,
+            url_instagram=instagram_url,
+            language=language,
+            id_user=user.user_id,
+        )
+        if create_company(company=company_created) is None:
+            raise Exception("Error during creation of a Company")
+        else:
+            st.write("Success Save")
+            switch_page("action")
 
 
 if not is_logged_in(session=session_state):

@@ -1,0 +1,64 @@
+:py:mod:`app.model.company`
+===========================
+
+.. py:module:: app.model.company
+
+.. autoapi-nested-parse::
+
+   Module Model Company
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   app.model.company.Company
+
+
+
+
+.. py:class:: Company
+
+   Bases: :py:obj:`app.dependency.database`
+
+   Class for Company Model
+
+   .. py:attribute:: __tablename__
+      :value: 't_company'
+
+      
+
+   .. py:attribute:: id_company
+
+      
+
+   .. py:attribute:: name
+
+      
+
+   .. py:attribute:: id_user
+
+      
+
+   .. py:attribute:: url_instagram
+
+      
+
+   .. py:attribute:: language
+
+      
+
+   .. py:attribute:: description
+
+      
+
+   .. py:attribute:: website
+
+      
+
+
