@@ -149,7 +149,14 @@ else:
                 prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La descrizione dell'immagine è: " + session_state["image_description"] + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni. Attieniti al tono di voce dell'azienda." # noqa
                 # Update the prompt
                 session_state["prompt"] = prompt
-                post, messages = generate_ig_post(prompt, messages=None)
+                # Here I generate the first message specifying the role in this case
+                messages = [
+                {
+                    "role": "system",
+                    "content": "Sei un sistema intelligente che genera dei post per instagram",
+                }
+                ]  
+                post, messages = generate_ig_post(prompt, messages=messages)
                 # Save the messages
                 session_state["messages"] = messages
                 session_state["post"] = post
@@ -159,9 +166,9 @@ else:
         st.write("Ecco il tuo post")
         st.write(session_state["post"])
 
-        if st.button("Vorrei modificarlo ulteriormente!"):
+        if st.button("Vorrei modificare il post!"):
             switch_page("refinement")
-        
+
         if st.button("Voglio creare un altro post!"):
             if "image_cache" in session_state:
                 del session_state["image_cache"]

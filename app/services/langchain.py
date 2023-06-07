@@ -65,34 +65,28 @@ def search_info_of_company(name_to_search: str) -> str:
     return str(response)
 
 @timeit
-def generate_ig_post(prompt: str = "") -> str:
-    # mustdo: Reformulate history!
+def generate_ig_post(prompt: str = "", messages: list = None) -> str:
+
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
     """
     openai.api_key = settings.OPENAI_API_TOKEN
-    
-    answer = "Please specify a prompt"
-    
-    if messages is None:
-        messages = [
-            {
-                "role": "system",
-                "content": "Sei un sistema intelligente che genera ed edita dei post per instagram",
-            }
-        ]
-        
-    if prompt!="":
-        messages.append(
-            {"role": "user", "content": prompt},
-        )
-        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-        # mustdo, return more than one choice
-        reply = chat.choices[0].message.content
-        messages.append({"role": "assistant", "content": reply})
-        answer = reply
 
-    return answer, messages
+    reply = "Please specify a prompt"
+
+    if messages is None:
+        raise ValueError("Specify the list of messages in generate_ig_post function!")
+    else:
+        if prompt!="":
+            messages.append(
+                {"role": "user", "content": prompt},
+            )
+            chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+            # mustdo, return more than one choice
+            reply = chat.choices[0].message.content
+            messages.append({"role": "assistant", "content": reply})
+
+    return reply, messages
 
 @timeit
 def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -> str:
