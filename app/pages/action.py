@@ -67,8 +67,6 @@ else:
     ) and session_state.get("image_cache", False):
         # Get the image description
         with st.spinner("Sto cercando una descrizione per l'immagine.."):
-            # TODO: add in the prompt the info of the company
-
             # Generate image description
             description_image: str = generate_img_description(
                 session_state["image_cache"]
@@ -137,10 +135,9 @@ else:
                 company_id=company.id_company, number_ig=20
             )
 
-        prompt = "Fornisci il testo da utilizzare nel post di instagram, \
-            seguendo il formato degli esempi che fornisco. Gli esempi sono:"
+        prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:" # noqa
         for example in sample_posts[:LAST_N_POST]: # type: ignore
-            prompt += '"' + str(example.post) + '",'
+            prompt += ' "' + str(example.post) + '",'
 
         prompt = prompt[:-1] # Remove the comma
         session_state["prompt"] = prompt
@@ -149,16 +146,19 @@ else:
             with st.spinner("Sto generando il post.."):
             # Add the image description
                 prompt = session_state["prompt"]
-                prompt += (
-                    ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La\
-                    descrizione dell'immagine è: "
-                    + session_state["image_description"]
-                    + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni.\
-                    Attieniti al tono di voce dell'azienda."
-                )
+                prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La descrizione dell'immagine è: " + session_state["image_description"] + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni. Attieniti al tono di voce dell'azienda." # noqa
                 # Update the prompt
                 session_state["prompt"] = prompt
-                post = generate_ig_post(prompt)
+                # Here I generate the first message specifying the role in this case
+                messages = [
+                {
+                    "role": "system",
+                    "content": "Sei un sistema intelligente che genera dei post per instagram",
+                }
+                ]
+                post, messages = generate_ig_post(prompt, messages=messages)
+                # Save the messages
+                session_state["messages"] = messages
                 session_state["post"] = post
 
     # Mostrare post
@@ -166,5 +166,23 @@ else:
         st.write("Ecco il tuo post")
         st.write(session_state["post"])
 
-        if st.button("Vorrei modificarlo ulteriormente!"):
+        if st.button("Vorrei modificare il post!"):
             switch_page("refinement")
+
+        if st.button("Voglio creare un altro post!"):
+            if "image_cache" in session_state:
+                del session_state["image_cache"]
+            if "image_description" in session_state:
+                del session_state["image_description"]
+            if "prompt" in session_state:
+                del session_state["prompt"]
+            if "post" in session_state:
+                del session_state["post"]
+            if "temp_post" in session_state:
+                del session_state["temp_post"]
+            if "messages" in session_state:
+                del session_state["messages"]
+            if "temp_messages" in session_state:
+                del session_state["temp_messages"]
+            # Rerun the script
+            st.experimental_rerun()

@@ -4,8 +4,6 @@ from sqlalchemy.sql import func
 
 from app.dependency import database
 
-# from sqlalchemy.orm import relationship
-
 
 class User(database):
     """Class for User Model"""
@@ -36,7 +34,6 @@ class User(database):
     )
 
     # CAUSA ERRORE
-    # posts_creation = relationship("PostCreation", back_populates="User")
 
     def update_last_access(self) -> None:
         """ Permit to update the last acces """

@@ -41,7 +41,7 @@ class GetInstagramProfile:
         """ IF activate remove all tagged users and
         substitute the tag with @taggeduser, only from the post caption
         """
-        return re.sub(r'@[\w.-]+(?<!\.)', '@taggeduser', caption)
+        return re.sub(r"@[\w.-]+(?<!\.)", "@taggeduser", caption)
 
 
     def download_users_profile_picture(self, username: str) -> None:
