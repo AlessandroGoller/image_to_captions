@@ -96,19 +96,20 @@ else:
             company_id=company.id_company, number_ig=20
         )
         if sample_posts is None or len(sample_posts)<1:
-            with st.spinner(text="Preparation..."):
+            with st.spinner("Preparation.."):
                 client = GetInstagramProfile()
                 company = get_company_by_user_id(user_id=user.user_id)
                 if company is None:
-                    raise ValueError("No company found, try to insert it")
+                    raise ValueError("No company inserted, please insert it")
                 instagram_account:str = company.url_instagram
                 if instagram_account is None or instagram_account=="":
                     raise ValueError("No instagram account inserted, please insert it")
                 data = client.get_post_info_json(instagram_account,last_n_posts=LAST_N_POST)
+            
             company_id = company.id_company
             post_inserted = 0
-            post_analyzed = 1
-            for single_post in stqdm(data,desc="Scraping Instagram"):
+            post_analyzed = 1 # QUEST: Why it starts from 1?
+            for single_post in stqdm(data, desc="Scraping Instagram"):
                 instagram_post = InstagramCreate(
                         post=single_post.get("post"),
                         id_user=user.user_id,
@@ -128,8 +129,8 @@ else:
                     )
                 if create_instagram(instagram = instagram_post):
                     post_inserted+=1
-                post_analyzed+=1
-            logger.info(f"Inserted {post_inserted=} on account ig: {company.url_instagram}")
+                post_analyzed+=1 # QUEST: What it is used for?
+            logger.info(f"Inserted {post_inserted} on account ig: {company.url_instagram}")
             st.success(f"Finish Scraping, {post_inserted} post scraped")
             sample_posts = get_last_n_instagram(
                 company_id=company.id_company, number_ig=20

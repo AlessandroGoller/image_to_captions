@@ -58,7 +58,7 @@ st.write("""Inserisci un testo che spieghi come vuoi modificare il post!
          - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""")
 
 modify_request = st.text_input("Come vuoi che venga modificato?", key="mod_request")
-
+st.write(session_state)
 if st.button("Modifica il post!"):
     with st.spinner("Sto modificando il post.."):
         infinite_edit_post(modify_request=modify_request)
