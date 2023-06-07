@@ -3,10 +3,13 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
+from app.crud.instagram import delete_all_instagram
 from app.dependency import get_db
 from app.model.company import Company
 from app.schema.company import CompanyCreate, CompanyInfoBase
+from app.utils.logger import configure_logger
 
+logger = configure_logger()
 
 def get_company_by_name(name: str) -> Optional[Company]:
     """return Company from email"""
@@ -41,6 +44,26 @@ def create_company(company: CompanyCreate) -> Optional[Company]:
     db.refresh(db_company)
     return db_company
 
+def remove_account_ig(id_company: int)->Optional[Company]:
+    """ Permit to remove the instagram account """
+    logger.info("Updating Instagram account")
+    delete_all_instagram(id_company=id_company)
+    db: Session = next(get_db())
+    company = get_company_by_id(id_company=id_company)
+    company.url_instagram = "" # type: ignore
+    db.merge(company)
+    db.commit()
+    return company
+
+def update_account_ig(company: Company, ig_account:str)->Optional[Company]:
+    """ Permit to change the instagram account """
+    db: Session = next(get_db())
+    company.url_instagram = ig_account
+    logger.info("Updating Instagram account")
+    delete_all_instagram(id_company=company.id_company)
+    db.merge(company)
+    db.commit()
+    return company
 
 def update_company(
     company: Company, company_edit: CompanyInfoBase

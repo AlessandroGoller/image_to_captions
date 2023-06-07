@@ -41,7 +41,7 @@ class GetInstagramProfile:
         """ IF activate remove all tagged users and
         substitute the tag with @taggeduser, only from the post caption
         """
-        return re.sub(r'@[\w.-]+(?<!\.)', '@taggeduser', caption)
+        return re.sub(r"@[\w.-]+(?<!\.)", "@taggeduser", caption)
 
 
     def download_users_profile_picture(self, username: str) -> None:
@@ -173,31 +173,37 @@ class GetInstagramProfile:
         print(
             "Downloading last " + str(last_n_posts) + " posts from " + username + "..."
         )
-        for ies,_i in enumerate(tqdm(range(last_n_posts))):
-            post = next(posts) # pylint: disable=R1708
-            shortcode = post.mediaid_to_shortcode(post.mediaid)
-            data[shortcode] = {}
-            # Store the post info
+        for i in tqdm(range(last_n_posts)):
+            # Inser the check here image.png
             try:
-                data[shortcode]["post"] = self.remove_tagged_users(str(post.caption))
-                data[shortcode]["hashtags"] = str(post.caption_hashtags)
-                data[shortcode]["mentions"] = str(post.caption_mentions)
-                data[shortcode]["tagged_users"] = str(post.tagged_users)
-                data[shortcode]["likes"] = str(post.likes)
-                data[shortcode]["comments"] = str(post.comments)
-                data[shortcode]["date"] = str(post.date)
-                data[shortcode]["location"] = str(post.location)
-                data[shortcode]["typename"] = str(post.typename)
-                data[shortcode]["mediacount"] = str(post.mediacount)
-                data[shortcode]["title"] = str(post.title)
-                data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
-                yield data[shortcode]
-            except Exception as error:
-                logger.error(f"Error during extraction of data of the post:\
-                            https://www.instagram.com/p/{shortcode}\n{error}")
-            if ies%5 == 0:
-                # wait 1 second every 5 posts
-                time.sleep(1)
+                post = next(posts) # pylint: disable=R1708
+                shortcode = post.mediaid_to_shortcode(post.mediaid)
+                data[shortcode] = {}
+                # Store the post info
+                try:
+                    data[shortcode]["post"] = self.remove_tagged_users(str(post.caption))
+                    data[shortcode]["hashtags"] = str(post.caption_hashtags)
+                    data[shortcode]["mentions"] = str(post.caption_mentions)
+                    data[shortcode]["tagged_users"] = str(post.tagged_users)
+                    data[shortcode]["likes"] = str(post.likes)
+                    data[shortcode]["comments"] = str(post.comments)
+                    data[shortcode]["date"] = str(post.date)
+                    data[shortcode]["location"] = str(post.location)
+                    data[shortcode]["typename"] = str(post.typename)
+                    data[shortcode]["mediacount"] = str(post.mediacount)
+                    data[shortcode]["title"] = str(post.title)
+                    data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
+                    yield data[shortcode]
+                except Exception as error:
+                    logger.error(f"Error during extraction of data of the post:\
+                                https://www.instagram.com/p/{shortcode}\n{error}")
+                if i%5 == 0:
+                    # wait 1 second every 5 posts
+                    time.sleep(1)
+
+            except StopIteration:
+                logger.info(f"{i} post downloaded from {username}!")
+                break
 
     def get_profile_pic(self, username:str)-> BytesIO:
         """ Return the profile pic of the user """
