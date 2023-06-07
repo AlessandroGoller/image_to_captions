@@ -1,4 +1,6 @@
 [tool.semantic_release]
+version = "0.0.0"
+version_source = "tag"
 version_variable = "version.py:__version__"
 branch = "main"
 plugins = [
