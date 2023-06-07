@@ -56,7 +56,7 @@ def company_exist(company: Company) -> None:
             "Instagram Name:",
             str(company.url_instagram) if company.url_instagram is not None else "",
         )
-    
+
     # Print the profile pic
     if instagram_url is not None and instagram_url != "":
         try:
@@ -66,7 +66,7 @@ def company_exist(company: Company) -> None:
         except Exception as error:
             traceback_msg = traceback.format_exc()
             logger.warning(f"Impossible showing the profile pic\n{error}\n{traceback_msg}")
-            
+
     if st.button("Save Info") and company_name is not None and company_name != "":
         company_created = CompanyInfoBase(
             name=company_name if company_name is not None else "",
