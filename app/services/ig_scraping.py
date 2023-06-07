@@ -200,7 +200,7 @@ class GetInstagramProfile:
                 if i%5 == 0:
                     # wait 1 second every 5 posts
                     time.sleep(1)
-                    
+
             except StopIteration:
                 logger.info(f"{i} post downloaded from {username}!")
                 break

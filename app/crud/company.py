@@ -3,10 +3,10 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
+from app.crud.instagram import delete_all_instagram
 from app.dependency import get_db
 from app.model.company import Company
 from app.schema.company import CompanyCreate, CompanyInfoBase
-from app.crud.instagram import delete_all_instagram
 from app.utils.logger import configure_logger
 
 logger = configure_logger()

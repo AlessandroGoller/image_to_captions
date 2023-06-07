@@ -105,7 +105,7 @@ else:
                 if instagram_account is None or instagram_account=="":
                     raise ValueError("No instagram account inserted, please insert it")
                 data = client.get_post_info_json(instagram_account,last_n_posts=LAST_N_POST)
-            
+
             company_id = company.id_company
             post_inserted = 0
             post_analyzed = 1 # QUEST: Why it starts from 1?
