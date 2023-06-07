@@ -66,7 +66,7 @@ def search_info_of_company(name_to_search: str) -> str:
     return str(response)
 
 @timeit
-def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list]:
+def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> list:
 
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
@@ -82,12 +82,13 @@ def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple
         messages.append(
             {"role": "user", "content": prompt},
         )
-        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-        # mustdo, return more than one choice
-        reply = chat.choices[0].message.content
-        messages.append({"role": "assistant", "content": reply})
-
-    return reply, messages
+        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=3)
+        
+        replies = []
+        for choice in chat.choices:
+            replies.append(choice.message.content)
+            
+    return replies
 
 @timeit
 def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -> str:
