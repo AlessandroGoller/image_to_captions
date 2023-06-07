@@ -1,6 +1,7 @@
 """ Module for langchain """
 
 from io import BytesIO
+from typing import Optional, Tuple
 
 import openai
 import replicate
@@ -65,7 +66,7 @@ def search_info_of_company(name_to_search: str) -> str:
     return str(response)
 
 @timeit
-def generate_ig_post(prompt: str = "", messages: list = None) -> str:
+def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list]:
 
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
@@ -76,15 +77,15 @@ def generate_ig_post(prompt: str = "", messages: list = None) -> str:
 
     if messages is None:
         raise ValueError("Specify the list of messages in generate_ig_post function!")
-    else:
-        if prompt!="":
-            messages.append(
-                {"role": "user", "content": prompt},
-            )
-            chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-            # mustdo, return more than one choice
-            reply = chat.choices[0].message.content
-            messages.append({"role": "assistant", "content": reply})
+
+    if prompt!="":
+        messages.append(
+            {"role": "user", "content": prompt},
+        )
+        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        # mustdo, return more than one choice
+        reply = chat.choices[0].message.content
+        messages.append({"role": "assistant", "content": reply})
 
     return reply, messages
 

@@ -1,7 +1,9 @@
 """
-Streamlit page for the refinement step of the post. Refinement should start after the first generation of the post, and must 
-continue until the user is satisfied with the result. The user can choose to modify the post as many times as he wants, and
-we added a simple switch that let the user choose between the old post and the modified one.
+Streamlit page for the refinement step of the post.
+Refinement should start after the first generation of the post, and must
+continue until the user is satisfied with the result.
+The user can choose to modify the post as many times as he wants.
+Added a simple switch that let the user choose between the old post and the modified one.
 """
 
 import streamlit as st
@@ -19,7 +21,7 @@ if not is_logged_in(session=session_state):
 
 if not session_state.get("post", False):
     switch_page("action")
-    
+
 logger = configure_logger()
 
 # UTILS FUNCTIONS ############################################################################
@@ -35,24 +37,24 @@ def infinite_edit_post(modify_request:str)->None:
                     "role": "system",
                     "content": "Sei un sistema intelligente che ha generato un post per instagram ed ora deve modificarlo seguendo le richieste dell'utente", # noqa
                 }
-        ]  
-        messages.append(session_state["messages"][-1]) # The last message is the reply by the LM with the original post 
+        ]
+        messages.append(session_state["messages"][-1]) # The last message is the reply by the LM with the original post
         prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato.""" # noqa
         post_edited, temp_messages = generate_ig_post(prompt, messages=messages)
         session_state["temp_post"] = post_edited
         session_state["temp_messages"] = temp_messages
 
-def clear_mod_request():
+def clear_mod_request() -> None:
     """ Function to clear the modification request """
     st.session_state["mod_request"] = ""
 ###############################################################################################
 
-st.write("Il post che hai scelto è:") # We leave like this waiting for the possibility to pick a post from a list of possible ones
+st.write("Il post che hai scelto è:") # Waiting for the possibility to pick a post from a list
 st.write(f"{session_state['post']}")
 
 st.write("""Inserisci un testo che spieghi come vuoi modificare il post!
-         Esempi:   
-         - Voglio che il post sia più ironico  
+         Esempi:
+         - Voglio che il post sia più ironico
          - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""")
 
 modify_request = st.text_input("Come vuoi che venga modificato?", key="mod_request")
@@ -80,7 +82,7 @@ if "temp_post" in session_state:
         else:
             del session_state["temp_post"]
             del session_state["temp_messages"]
-        
+
         st.experimental_rerun()
 
 if st.button("Voglio creare un altro post!"):

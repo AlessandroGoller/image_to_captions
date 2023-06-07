@@ -155,7 +155,7 @@ else:
                     "role": "system",
                     "content": "Sei un sistema intelligente che genera dei post per instagram",
                 }
-                ]  
+                ]
                 post, messages = generate_ig_post(prompt, messages=messages)
                 # Save the messages
                 session_state["messages"] = messages
