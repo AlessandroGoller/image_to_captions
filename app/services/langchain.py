@@ -1,7 +1,7 @@
 """ Module for langchain """
 
 from io import BytesIO
-from typing import Optional, Tuple
+from typing import Any, Optional, Tuple
 
 import openai
 import replicate
@@ -66,10 +66,35 @@ def search_info_of_company(name_to_search: str) -> str:
     return str(response)
 
 @timeit
-def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list]:
+def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> list:
 
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
+    """
+    openai.api_key = settings.OPENAI_API_TOKEN
+
+    replies = ["Please specify a prompt"]
+
+    if messages is None:
+        raise ValueError("Specify the list of messages in generate_ig_post function!")
+
+    if prompt!="":
+        messages.append(
+            {"role": "user", "content": prompt},
+        )
+        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=3)
+
+        replies = []
+        for choice in chat.choices:
+            replies.append(choice.message.content)
+
+    return replies
+
+@timeit
+def modify_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list[Any]]:
+
+    """
+    Function to modify a post for Instagram following the user requests
     """
     openai.api_key = settings.OPENAI_API_TOKEN
 
@@ -82,9 +107,10 @@ def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple
         messages.append(
             {"role": "user", "content": prompt},
         )
-        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-        # mustdo, return more than one choice
+        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=1)
+
         reply = chat.choices[0].message.content
+
         messages.append({"role": "assistant", "content": reply})
 
     return reply, messages

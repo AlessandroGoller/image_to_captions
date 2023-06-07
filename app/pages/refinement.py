@@ -9,7 +9,7 @@ Added a simple switch that let the user choose between the old post and the modi
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.services.langchain import generate_ig_post
+from app.services.langchain import modify_ig_post
 from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
 
@@ -31,7 +31,7 @@ def infinite_edit_post(modify_request:str)->None:
     if(modify_request == ""):
         st.write("Per favore, inserisci come vuoi modificare il post")
     else:
-        # Create the messages for the generate_ig_post function
+        # Create the messages for the modify_ig_post function
         messages = [
                 {
                     "role": "system",
@@ -40,7 +40,7 @@ def infinite_edit_post(modify_request:str)->None:
         ]
         messages.append(session_state["messages"][-1]) # The last message is the reply by the LM with the original post
         prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato.""" # noqa
-        post_edited, temp_messages = generate_ig_post(prompt, messages=messages)
+        post_edited, temp_messages = modify_ig_post(prompt, messages=messages)
         session_state["temp_post"] = post_edited
         session_state["temp_messages"] = temp_messages
 
@@ -49,11 +49,10 @@ def clear_mod_request() -> None:
     st.session_state["mod_request"] = ""
 ###############################################################################################
 
-st.write("Il post che hai scelto è:") # Waiting for the possibility to pick a post from a list
+st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
 st.write(f"{session_state['post']}")
 
-st.write("""Inserisci un testo che spieghi come vuoi modificare il post!
-         Esempi:
+st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**
          - Voglio che il post sia più ironico
          - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""")
 
