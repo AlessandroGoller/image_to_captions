@@ -21,6 +21,7 @@ from app.services.langchain import (
 )
 from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
+from app.utils.opeai import tokenization
 
 # Maybe to speed up loading?
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
@@ -137,8 +138,21 @@ else:
             )
 
         prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:" # noqa
-        for example in sample_posts[:LAST_N_POST]: # type: ignore
-            prompt += ' "' + str(example.post) + '",'
+        
+        # To be sure, we will add each post until we reach 3500 tokens maximum
+        tok = 0
+        posts = 0 
+        for example in sample_posts:
+            # We insert posts until we reach 3500 tokens
+            # QUEST: are the post in order from the most recent?
+            tok += tokenization.num_tokens_from_string(example.post)
+            if (tok<3500):
+                prompt += ' "' + str(example.post) + '",'
+                posts += 1
+            else:
+                break
+        
+        logger.info(f"Inserted {posts=}, corresponding to {tok} tokens, in the prompt")
 
         prompt = prompt[:-1] # Remove the comma
         session_state["prompt"] = prompt
