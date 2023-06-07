@@ -20,6 +20,7 @@ from app.services.langchain import (
     generate_img_description,
 )
 from app.utils.logger import configure_logger
+from app.utils.openai import tokenization
 from app.utils.streamlit_utils.auth import is_logged_in
 
 # Maybe to speed up loading?
@@ -137,14 +138,30 @@ else:
             )
 
         prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:" # noqa
-        for example in sample_posts[:LAST_N_POST]: # type: ignore
-            prompt += ' "' + str(example.post) + '",'
+
+        # To be sure, we will add each post until we reach 3500 tokens maximum
+        tok = 0
+        posts = 0
+        if sample_posts is not None:
+            for example in sample_posts:
+                # We insert posts until we reach 3500 tokens
+                # QUEST: are the post in order from the most recent?
+                if (tok+tokenization.num_tokens_from_string(example.post)<3500):
+                    prompt += ' "' + str(example.post) + '",'
+                    tok += tokenization.num_tokens_from_string(example.post)
+                    posts += 1
+                else:
+                    break
+        else:
+            raise ValueError("No posts found")
+
+        logger.info(f"Inserted {posts} post, corresponding to {tok} tokens, in the prompt")
 
         prompt = prompt[:-1] # Remove the comma
         session_state["prompt"] = prompt
 
         if st.button("Genera il post!") and not session_state.get("post", False):
-            with st.spinner("Sto generando il post.."):
+            with st.spinner("Sto generando tre post da cui potrai scegliere.."):
             # Add the image description
                 prompt = session_state["prompt"]
                 prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La descrizione dell'immagine è: " + session_state["image_description"] + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni. Attieniti al tono di voce dell'azienda." # noqa
@@ -157,14 +174,42 @@ else:
                     "content": "Sei un sistema intelligente che genera dei post per instagram",
                 }
                 ]
-                post, messages = generate_ig_post(prompt, messages=messages)
+                posts = generate_ig_post(prompt, messages=messages)
                 # Save the messages
                 session_state["messages"] = messages
-                session_state["post"] = post
+                session_state["post"] = posts
 
-    # Mostrare post
-    if session_state.get("post", False):
-        st.write("Ecco il tuo post")
+    # Mostrare i diversi post generati
+    if session_state.get("post", False) and type(session_state["post"])==list:
+
+        st.write("Post 1:")
+        st.write(session_state["post"][0])
+        st.write("Post 2:")
+        st.write(session_state["post"][1])
+        st.write("Post 3:")
+        st.write(session_state["post"][2])
+
+        # Choose between the old and new post
+        option = st.selectbox(
+            "Quale post desideri mantenere?",
+            ("Post 1", "Post 2", "Post 3"),
+            label_visibility="visible")
+
+        if st.button("Scegli quale post mantenere"):
+            if option == "Post 1":
+                session_state["post"] = session_state["post"][0]
+            if option == "Post 2":
+                session_state["post"] = session_state["post"][1]
+            if option == "Post 3":
+                session_state["post"] = session_state["post"][2]
+
+            # Update the messages with the chosen reply
+            session_state["messages"].append({"role": "assistant", "content": session_state["post"]})
+            st.experimental_rerun()
+
+    # Mostrare il post scelto
+    if session_state.get("post", False) and type(session_state["post"])==str:
+        st.write("Il post che hai scelto è:")
         st.write(session_state["post"])
 
         if st.button("Vorrei modificare il post!"):
