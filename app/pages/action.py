@@ -20,7 +20,7 @@ from app.services.langchain import (
     generate_img_description,
 )
 from app.utils.logger import configure_logger
-from app.utils.opeai import tokenization
+from app.utils.openai import tokenization
 from app.utils.streamlit_utils.auth import is_logged_in
 
 # Maybe to speed up loading?
@@ -146,9 +146,9 @@ else:
             for example in sample_posts:
                 # We insert posts until we reach 3500 tokens
                 # QUEST: are the post in order from the most recent?
-                tok += tokenization.num_tokens_from_string(example.post)
-                if (tok<3500):
+                if (tok+tokenization.num_tokens_from_string(example.post)<3500):
                     prompt += ' "' + str(example.post) + '",'
+                    tok += tokenization.num_tokens_from_string(example.post)
                     posts += 1
                 else:
                     break
