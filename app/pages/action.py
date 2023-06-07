@@ -130,7 +130,7 @@ else:
                 if create_instagram(instagram = instagram_post):
                     post_inserted+=1
                 post_analyzed+=1 # QUEST: What it is used for?
-            logger.info(f"Inserted {post_inserted} on account ig: {company.url_instagram}")
+            logger.info(f"Inserted {post_inserted=} on account ig: {company.url_instagram}")
             st.success(f"Finish Scraping, {post_inserted} post scraped")
             sample_posts = get_last_n_instagram(
                 company_id=company.id_company, number_ig=20
