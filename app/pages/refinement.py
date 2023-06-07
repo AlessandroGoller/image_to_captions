@@ -52,8 +52,8 @@ def clear_mod_request() -> None:
 st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
 st.write(f"{session_state['post']}")
 
-st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**  
-         - Voglio che il post sia più ironico  
+st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**
+         - Voglio che il post sia più ironico
          - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""")
 
 modify_request = st.text_input("Come vuoi che venga modificato?", key="mod_request")

@@ -1,6 +1,7 @@
 import tiktoken
 
-def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
+
+def num_tokens_from_messages(messages:list, model:str="gpt-3.5-turbo-0301")->int:
     """Returns the number of tokens used by a list of messages."""
     try:
         encoding = tiktoken.encoding_for_model(model)
@@ -20,7 +21,7 @@ def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
         tokens_per_message = 3
         tokens_per_name = 1
     else:
-        raise NotImplementedError(f"""num_tokens_from_messages() is not implemented for model {model}. See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
+        raise NotImplementedError(f"""num_tokens_from_messages() is not implemented for model {model}.""")
     num_tokens = 0
     for message in messages:
         num_tokens += tokens_per_message
@@ -31,17 +32,17 @@ def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
     num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
     return num_tokens
 
-def num_tokens_from_string(string, model="gpt-3.5-turbo-0301"):
+def num_tokens_from_string(string:str, model:str="gpt-3.5-turbo-0301")->int:
     """Returns the number of tokens used by a string."""
     try:
         encoding = tiktoken.encoding_for_model(model)
     except KeyError:
         print("Warning: model not found. Using cl100k_base encoding.")
         encoding = tiktoken.get_encoding("cl100k_base")
-    
+
     num_tokens = 0
     num_tokens += len(encoding.encode(string))
-    
+
     return num_tokens
 
 if __name__=="__main__":

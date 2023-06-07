@@ -20,8 +20,8 @@ from app.services.langchain import (
     generate_img_description,
 )
 from app.utils.logger import configure_logger
-from app.utils.streamlit_utils.auth import is_logged_in
 from app.utils.opeai import tokenization
+from app.utils.streamlit_utils.auth import is_logged_in
 
 # Maybe to speed up loading?
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
@@ -138,20 +138,23 @@ else:
             )
 
         prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:" # noqa
-        
+
         # To be sure, we will add each post until we reach 3500 tokens maximum
         tok = 0
-        posts = 0 
-        for example in sample_posts:
-            # We insert posts until we reach 3500 tokens
-            # QUEST: are the post in order from the most recent?
-            tok += tokenization.num_tokens_from_string(example.post)
-            if (tok<3500):
-                prompt += ' "' + str(example.post) + '",'
-                posts += 1
-            else:
-                break
-        
+        posts = 0
+        if sample_posts is not None:
+            for example in sample_posts:
+                # We insert posts until we reach 3500 tokens
+                # QUEST: are the post in order from the most recent?
+                tok += tokenization.num_tokens_from_string(example.post)
+                if (tok<3500):
+                    prompt += ' "' + str(example.post) + '",'
+                    posts += 1
+                else:
+                    break
+        else:
+            raise ValueError("No posts found")
+
         logger.info(f"Inserted {posts} post, corresponding to {tok} tokens, in the prompt")
 
         prompt = prompt[:-1] # Remove the comma
@@ -178,14 +181,14 @@ else:
 
     # Mostrare i diversi post generati
     if session_state.get("post", False) and type(session_state["post"])==list:
-        
+
         st.write("Post 1:")
         st.write(session_state["post"][0])
         st.write("Post 2:")
         st.write(session_state["post"][1])
         st.write("Post 3:")
         st.write(session_state["post"][2])
-        
+
         # Choose between the old and new post
         option = st.selectbox(
             "Quale post desideri mantenere?",
@@ -199,16 +202,16 @@ else:
                 session_state["post"] = session_state["post"][1]
             if option == "Post 3":
                 session_state["post"] = session_state["post"][2]
-                
+
             # Update the messages with the chosen reply
             session_state["messages"].append({"role": "assistant", "content": session_state["post"]})
             st.experimental_rerun()
-    
+
     # Mostrare il post scelto
     if session_state.get("post", False) and type(session_state["post"])==str:
         st.write("Il post che hai scelto è:")
         st.write(session_state["post"])
-        
+
         if st.button("Vorrei modificare il post!"):
             switch_page("refinement")
 
