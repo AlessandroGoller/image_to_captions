@@ -43,7 +43,23 @@ jobs:
     # Penso non possa aggiungerlo cosi
     - name: Build documentation
       run: make html --directory docs/
-    - name: Semantic Release
-      uses: cycjimmy/semantic-release-action@v3
+    - name: Python Semantic Release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # This token is created automatically by GH Actions
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        
+        # Aggiungi il costrutto try-catch per gestire l'errore
+        set +e
+        semantic-release publish
+        EXIT_CODE=$?
+        set -e
+        
+        # Stampa l'errore ma continua l'esecuzione
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "Errore durante l'upload nell'artifact repository"
+          exit 0
+        fi
+
