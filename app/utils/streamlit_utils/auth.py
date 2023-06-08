@@ -1,6 +1,6 @@
 """ Module utils for streamlit auth """
 
-import bcrypt
+import bcrypt  # noqa: I001
 
 from app.crud.user import create_user, get_user_by_email
 from app.schema.user import UserCreate
