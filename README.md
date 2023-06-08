@@ -1,7 +1,12 @@
 # Image To Captions
+----
+Credo si possa eliminare version.py
+
+----
 
 DESCRIPTION A package for doing great things!...
-
+pip install pip==23.0.1
+pip install -r requirements.txt
 TO delete
 
 - https://image-to-caption.onrender.com/
