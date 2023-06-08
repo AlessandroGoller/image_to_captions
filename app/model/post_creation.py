@@ -16,7 +16,7 @@ class PostCreation(database):
     image_uploaded = Column("image_uploaded", LargeBinary, nullable=True)
     description = Column("Description", String, nullable=True)
     prompt = Column("prompt", Text, nullable=True)
-    post_created = Column("post_created", Text, nullable=True)
+    posts_created = Column("post_created", Text, nullable=True)
     refinement = Column("refinement", JSON, nullable=True)
     time_created = Column( # pylint: disable=R0801
         "time_created",
