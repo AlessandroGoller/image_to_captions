@@ -4,6 +4,7 @@ import os
 from typing import Optional
 
 from dotenv import load_dotenv
+from password_strength import PasswordPolicy
 from pydantic import BaseSettings
 
 load_dotenv()
@@ -28,3 +29,11 @@ class Config(BaseSettings):
         "andreasjansson/blip-2:4b32258c42e9efd4288bb9910bc532a69727f9acd26aa08e175713a0a857a608") # noqa
     USERNAME_IG:Optional[str] = os.getenv("USERNAME_IG") or None
     PSW_IG:Optional[str] = os.getenv("PSW_IG") or None
+
+policy = PasswordPolicy.from_names(
+    length=8,  # min length: 8
+    uppercase=2,  # need min. 2 uppercase letters
+    numbers=2,  # need min. 2 digits
+    special=2,  # need min. 2 special characters
+    nonletters=2,  # need min. 2 non-letter characters (digits, specials, anything)
+)
