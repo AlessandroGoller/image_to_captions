@@ -37,7 +37,7 @@ translator = GoogleTranslator(source="en", target="it")
 user: Optional[User] = get_user_by_email(email=session_state["email"])
 if user is None:
     logger.error("Profile Page without having an account")
-    raise Exception("Illegal position")
+    raise ValueError("Impossible Position")
 company: Optional[Company] = get_company_by_user_id(user_id=user.user_id)
 
 if company is None:
@@ -109,7 +109,6 @@ else:
 
             company_id = company.id_company
             post_inserted = 0
-            post_analyzed = 1 # QUEST: Why it starts from 1?
             for single_post in stqdm(data, desc="Scraping Instagram"):
                 instagram_post = InstagramCreate(
                         post=single_post.get("post"),
@@ -130,7 +129,6 @@ else:
                     )
                 if create_instagram(instagram = instagram_post):
                     post_inserted+=1
-                post_analyzed+=1 # QUEST: What it is used for?
             logger.info(f"Inserted {post_inserted=} on account ig: {company.url_instagram}")
             st.success(f"Finish Scraping, {post_inserted} post scraped")
             sample_posts = get_last_n_instagram(

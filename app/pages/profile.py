@@ -120,7 +120,7 @@ if not is_logged_in(session=session_state):
 user: Optional[User] = get_user_by_email(email=session_state["email"])
 if user is None:
     logger.error("Profile Page without having an account")
-    raise Exception("Illegal position")
+    raise ValueError("Illegal position")
 company: Optional[Company] = get_company_by_user_id(user_id=user.user_id)
 
 if company is None:

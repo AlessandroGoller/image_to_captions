@@ -1,5 +1,14 @@
+""" Module with utils regarding tokenization """
+
+import streamlit as st
 import tiktoken
 
+from app.crud.user import add_tokens, get_user_by_email
+from app.utils.logger import configure_logger
+
+logger = configure_logger()
+
+session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
 def num_tokens_from_messages(messages:list, model:str="gpt-3.5-turbo-0301")->int:
     """Returns the number of tokens used by a list of messages."""
@@ -44,6 +53,16 @@ def num_tokens_from_string(string:str, model:str="gpt-3.5-turbo-0301")->int:
     num_tokens += len(encoding.encode(string))
 
     return num_tokens
+
+def add_tokens_to_db(string:str)->None:
+    """ Insert token inside db """
+    user = get_user_by_email(email=session_state["email"])
+    if user is None:
+        logger.error("Profile Page without having an account")
+        raise ValueError("Impossible Position")
+    tokens = num_tokens_from_string(string)
+    _,_ = add_tokens(user=user, tokens=tokens)
+
 
 if __name__=="__main__":
     messages = [{"role": "user", "content": "Hello, world!"}, {"role": "assistant", "content": "Hello, world!"}]

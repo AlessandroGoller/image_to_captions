@@ -38,9 +38,6 @@ class User(database):
     tokens_to_be_paid = Column("tokens_to_be_paid", Integer, nullable=True, default=0)
     total_tokens = Column("total_tokens", Integer, nullable=True, default=0)
 
-
-    # CAUSA ERRORE
-
     def update_last_access(self) -> None:
         """ Permit to update the last acces """
         self.last_access = func.now()

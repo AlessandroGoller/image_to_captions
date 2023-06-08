@@ -9,12 +9,16 @@ from sqlalchemy.sql import func
 from app.dependency import get_db
 from app.model.user import User
 from app.schema.user import UserCreate
+from app.utils.logger import configure_logger
+
+logger = configure_logger()
 
 
 def get_user_by_email(email: str) -> Optional[User]:
     """return user from email"""
     db: Session = next(get_db())
-    return db.query(User).filter(User.email == email).first()  # type: ignore
+    user: Optional[User] = db.query(User).filter(User.email == email).first()
+    return user
 
 def get_user_by_id(user_id: str) -> Optional[User]:
     """Return the user from user_id"""
@@ -26,7 +30,6 @@ def get_users() -> Optional[list[User]]:
     db: Session = next(get_db())
     db_users = db.query(User).all()
     return db_users  # type: ignore
-
 
 def create_user(user: UserCreate) -> Optional[User]:
     """Creation a user, in input the schema of user create and return the user"""
@@ -45,7 +48,8 @@ def become_admin(email: str) -> Optional[User]:
     db: Session = next(get_db())
     user = get_user_by_email(email=email)
     if user is None:
-        return None
+        logger.error("Profile Page without having an account")
+        raise ValueError("Impossible Position")
     user.admin = True
     db.commit()
     db.refresh(user)
@@ -55,7 +59,8 @@ def update_last_access(email: str) -> None:
     """ Update last access """
     user = get_user_by_email(email)
     if user is None:
-        raise ValueError(f"Impossible error, user with {email=} should exist")
+        logger.error("Profile Page without having an account")
+        raise ValueError("Impossible Position")
     db: Session = next(get_db())
     user.last_access = func.now()
     db.merge(user)
@@ -67,3 +72,23 @@ def delete_user(user: User) -> dict[str, bool]:
     db.delete(user)
     db.commit()
     return {"ok": True}
+
+def add_tokens(user: User, tokens:int)-> tuple[int,int]:
+    """ Add tokens used and return token to be paid and total tokens """
+    db: Session = next(get_db())
+    if user.tokens_to_be_paid is None:
+        user.tokens_to_be_paid = 0
+    if user.total_tokens is None:
+        user.total_tokens = 0
+    user.tokens_to_be_paid += tokens
+    user.total_tokens += tokens
+    db.merge(user)
+    db.commit()
+    return user.tokens_to_be_paid,user.total_tokens
+
+def restart_paid_tokens(user: User)->None:
+    """ Restart the token to be paid """
+    db: Session = next(get_db())
+    user.tokens_to_be_paid = 0
+    db.merge(user)
+    db.commit()
