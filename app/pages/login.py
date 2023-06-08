@@ -3,11 +3,11 @@ Module streamlit for loggin
 """
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
+from validate_email import validate_email
 
+from app.config.config import policy
 from app.crud.user import update_last_access
 from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_login
-from validate_email import validate_email
-from app.config.config import policy
 
 
 def show_login_page() -> None:
