@@ -12,6 +12,7 @@ from langchain.llms import OpenAI
 from app.dependency import get_settings
 from app.utils.decorators import timeit
 from app.utils.logger import configure_logger
+from app.utils.openai.tokenization import add_tokens_to_db
 
 settings = get_settings()
 
@@ -79,14 +80,15 @@ def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> list:
         raise ValueError("Specify the list of messages in generate_ig_post function!")
 
     if prompt!="":
+        add_tokens_to_db(prompt)
         messages.append(
             {"role": "user", "content": prompt},
         )
         chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=3)
-
         replies = []
         for choice in chat.choices:
             replies.append(choice.message.content)
+            add_tokens_to_db(choice.message.content)
 
     return replies
 
@@ -104,12 +106,14 @@ def modify_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[s
         raise ValueError("Specify the list of messages in generate_ig_post function!")
 
     if prompt!="":
+        add_tokens_to_db(prompt)
         messages.append(
             {"role": "user", "content": prompt},
         )
         chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=1)
 
         reply = chat.choices[0].message.content
+        add_tokens_to_db(reply)
 
         messages.append({"role": "assistant", "content": reply})
 

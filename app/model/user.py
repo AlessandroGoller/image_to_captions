@@ -32,8 +32,11 @@ class User(database):
         Boolean,
         default=False
     )
-
-    # CAUSA ERRORE
+    is_paid = Column("is_paid", Boolean, nullable=True, default=False)
+    data_first_paid = Column("data_first_paid", DateTime(timezone=True),nullable=True)
+    data_last_paid = Column("data_last_paid", DateTime(timezone=True),nullable=True)
+    tokens_to_be_paid = Column("tokens_to_be_paid", Integer, nullable=True, default=0)
+    total_tokens = Column("total_tokens", Integer, nullable=True, default=0)
 
     def update_last_access(self) -> None:
         """ Permit to update the last acces """

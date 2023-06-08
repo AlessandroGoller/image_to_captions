@@ -664,8 +664,6 @@ pytz-deprecation-shim==0.1.0.post0
     # via
     #   -r requirements.in
     #   tzlocal
-pywin32==306
-    # via jupyter-core
 pywinpty==2.0.10
     # via
     #   jupyter-server
