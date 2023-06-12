@@ -80,6 +80,7 @@ def update_company(
 
 def delete_company(company: Company) -> dict[str, bool]:
     """ " Permit to delete a company"""
+    logger.info("Delete Company")
     db: Session = next(get_db())
     db.delete(company)
     db.commit()

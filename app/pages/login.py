@@ -3,7 +3,9 @@ Module streamlit for loggin
 """
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
+from validate_email import validate_email
 
+from app.config.config import policy
 from app.crud.user import update_last_access
 from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_login
 
@@ -33,15 +35,23 @@ def show_register_page() -> None:
     confirm_password = st.text_input("Confirm password", type="password")
     register_button = st.button("Register")
     if register_button:
-        if password != confirm_password:
-            st.error("Passwords do not match.")
-        elif register_user(email=email, password=password):
-            st.success("Registered successfully.")
-            session_state["is_logged_in"] = True
-            session_state["email"] = email
-            st.experimental_rerun()  # reload the page
+        if validate_email(email):
+            if password != confirm_password:
+                st.error("Passwords do not match.")
+            elif policy.test(password) != []:
+                problems = policy.test(password)
+                st.write(f"The password has {len(problems)} problems. It needs at least:")
+                for problem in problems:
+                    st.write(f"- {problem}")
+            elif register_user(email=email, password=password):
+                st.success("Registered successfully.")
+                session_state["is_logged_in"] = True
+                session_state["email"] = email
+                st.experimental_rerun()  # reload the page
+            else:
+                st.error("Email already taken.")
         else:
-            st.error("Email already taken.")
+            st.write("Email Not Valid")
 
 
 def show_auth_page() -> None:

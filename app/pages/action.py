@@ -5,15 +5,19 @@ from typing import Optional
 
 import streamlit as st
 from deep_translator import GoogleTranslator
+from numpy import array
+from PIL import Image
 from stqdm import stqdm
 from streamlit_extras.switch_page_button import switch_page
 
 from app.crud.company import get_company_by_user_id
 from app.crud.instagram import create_instagram, get_last_n_instagram
+from app.crud.post_creation import create_post_creation
 from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
 from app.schema.instagram import InstagramCreate
+from app.schema.post_creation import PostCreationCreate
 from app.services.ig_scraping import GetInstagramProfile
 from app.services.langchain import (
     generate_ig_post,
@@ -173,6 +177,14 @@ else:
                 }
                 ]
                 posts = generate_ig_post(prompt, messages=messages)
+                post_created: PostCreationCreate = PostCreationCreate(
+                    user_id = user.user_id,
+                    description = session_state["image_description"],
+                    prompt = "", # prompt -> It will save all the 20 description of IG,
+                    posts_created = posts,
+                    image_uploaded = array(Image.open(session_state["image_cache"])).tobytes()
+                )
+                create_post_creation(post_created)
                 # Save the messages
                 session_state["messages"] = messages
                 session_state["post"] = posts

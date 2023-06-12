@@ -43,7 +43,7 @@ jobs:
     # Penso non possa aggiungerlo cosi
     - name: Build documentation
       run: make html --directory docs/
-    - name: Use Python Semantic Release to prepare release
+    - name: Python Semantic Release
       env:
         # This token is created automatically by GH Actions
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -62,3 +62,4 @@ jobs:
           echo "Errore durante l'upload nell'artifact repository"
           exit 0
         fi
+

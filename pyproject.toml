@@ -1,7 +1,9 @@
 [tool.semantic_release]
-version = "0.0.1"
+version = "0.0.0"
 version_source = "tag"
 version_variable = "version.py:__version__"
+upload_to_pypi = false
+upload_to_repository = false
 branch = "main"
 plugins = [
   "semantic_release.history",

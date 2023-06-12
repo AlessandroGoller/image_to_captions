@@ -22,6 +22,11 @@ TO delete
 - delete manually pywin32 from requirements-dev.txt -> it came from python-semantic-release
 - pip version that works with pip-compile: python.exe -m pip install pip==23.0.1
 
+## GIT
+These 2 commands remove a tag
+git tag -d v0.0.1
+git push origin :refs/tags/v0.0.1
+
 ## Angular commit
 Type to be inserted:
 Must be one of the following:
