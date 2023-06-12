@@ -12,7 +12,6 @@ from streamlit_extras.switch_page_button import switch_page
 
 from app.crud.company import get_company_by_user_id
 from app.crud.instagram import create_instagram, get_last_n_instagram
-from app.crud.post_creation import create_post_creation
 from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
@@ -25,8 +24,8 @@ from app.services.langchain import (
 )
 from app.utils.logger import configure_logger
 from app.utils.openai import tokenization
+from app.utils.streamlit_utils.action_helper import add_info_sponsor
 from app.utils.streamlit_utils.auth import is_logged_in
-
 
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
@@ -94,6 +93,29 @@ else:
         # Store it
         session_state["image_description"] = description_image
 
+    # Option list
+    options = [None, "Product", "Event"]
+    index_option = session_state.get("index_options_sponsor", 0)
+    selected_option = st.selectbox("Do you want to sponsor something? Choose an option:", options, index=index_option)
+    session_state["index_options_sponsor"] = options.index(selected_option)
+    if selected_option == "Product":
+        description = st.text_input("Enter a brief description:",session_state.get("option_product", ""))
+        session_state["option_product"] = description
+        session_state.pop("option_event", None)
+    elif selected_option == "Event":
+        if "option_event" in session_state:
+            location = st.text_input("Enter the event location:",session_state.get("option_event")[0])
+            date = st.date_input("Enter the event date:",session_state.get("option_event")[1])
+            additional_info = st.text_area("Enter additional information:",session_state.get("option_event")[2])
+        else:
+            location = st.text_input("Enter the event location:")
+            date = st.date_input("Enter the event date:")
+            additional_info = st.text_area("Enter additional information:")
+        session_state["option_event"] = [location,date,additional_info]
+        session_state.pop("option_product", None)
+    else:
+        session_state.pop("option_product", None)
+        session_state.pop("option_event", None)
 
     # If I have the description, I can go on generating the promtp
     if session_state.get("image_description", False):
@@ -169,7 +191,9 @@ else:
                 prompt = session_state["prompt"]
                 prompt += ". Personalizza il post perchè sia adatto ad un'immagine di " + session_state["image_description"] + ". Inserisci emoticons e hashtags nel post. Attieniti al formato degli esempi." # noqa
                 # Update the prompt
+                prompt += add_info_sponsor(session_state=session_state)
                 session_state["prompt"] = prompt
+
                 # Here I generate the first message specifying the role in this case
                 messages = [
                 {
@@ -185,10 +209,10 @@ else:
                     posts_created = posts,
                     image_uploaded = array(Image.open(session_state["image_cache"])).tobytes()
                 )
-                create_post_creation(post_created)
                 # Save the messages
                 session_state["messages"] = messages
                 session_state["post"] = posts
+                # create_post_creation(post_created) -> There is a problem with ssl connection
 
     # Mostrare i diversi post generati
     if session_state.get("post", False) and type(session_state["post"])==list:
