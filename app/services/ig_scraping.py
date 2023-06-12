@@ -197,9 +197,9 @@ class GetInstagramProfile:
                 except Exception as error:
                     logger.error(f"Error during extraction of data of the post:\
                                 https://www.instagram.com/p/{shortcode}\n{error}")
-                if i%5 == 0:
-                    # wait 1 second every 5 posts
-                    time.sleep(1)
+                    
+                # wait 1 second every post
+                time.sleep(1)
 
             except StopIteration:
                 logger.info(f"{i} post downloaded from {username}!")
