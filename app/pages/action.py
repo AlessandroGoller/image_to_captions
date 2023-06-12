@@ -27,7 +27,7 @@ from app.utils.logger import configure_logger
 from app.utils.openai import tokenization
 from app.utils.streamlit_utils.auth import is_logged_in
 
-# Maybe to speed up loading?
+
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
 if not is_logged_in(session=session_state):
@@ -82,8 +82,9 @@ else:
             # Store it
             session_state["image_description"] = description_image
 
-    if "image_description" in session_state:
-
+    if session_state.get(
+        "image_description", False
+    ):
         description_image = st.text_input(
                 "Modifica la descrizione se non ti soddisfa:",
                 session_state["image_description"],
@@ -139,7 +140,7 @@ else:
                 company_id=company.id_company, number_ig=20
             )
 
-        prompt = "Fornisci il testo da utilizzare nel post di instagram, seguendo il formato degli esempi che fornisco. Gli esempi sono:" # noqa
+        prompt = "Genera un post per instagram, seguendo il formato degli esempi che fornisco:" # noqa
 
         # To be sure, we will add each post until we reach 3500 tokens maximum
         tok = 0
@@ -161,12 +162,12 @@ else:
 
         prompt = prompt[:-1] # Remove the comma
         session_state["prompt"] = prompt
-
-        if st.button("Genera il post!") and not session_state.get("post", False):
+        st.write(session_state)
+        if st.button("Genera il post!") and session_state.get("prompt", False) and not session_state.get("post", False):
             with st.spinner("Sto generando tre post da cui potrai scegliere.."):
             # Add the image description
                 prompt = session_state["prompt"]
-                prompt += ". Inoltre, personalizza il post in base alla descrizione dell'immagine associata. La descrizione dell'immagine è: " + session_state["image_description"] + ". Inserisci le emoji più opportune. Inserisci gli hashtags più opportuni. Attieniti al tono di voce dell'azienda." # noqa
+                prompt += ". Personalizza il post perchè sia adatto ad un'immagine di " + session_state["image_description"] + ". Rendi il post accattivante usando emoticons e hashtags. Attieniti al formato degli esempi." # noqa
                 # Update the prompt
                 session_state["prompt"] = prompt
                 # Here I generate the first message specifying the role in this case
