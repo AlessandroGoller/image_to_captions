@@ -27,7 +27,6 @@ from app.utils.logger import configure_logger
 from app.utils.openai import tokenization
 from app.utils.streamlit_utils.auth import is_logged_in
 
-
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
 if not is_logged_in(session=session_state):
@@ -64,7 +63,7 @@ else:
                 del session_state["prompt"]
             if "post" in session_state:
                 del session_state["post"]
-
+        st.image(session_state["image_cache"], caption="Uploaded File")
 
     # If I have the image, but not the description, I can go on generating the description
     if not session_state.get(
