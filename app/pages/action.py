@@ -162,7 +162,7 @@ else:
 
         prompt = prompt[:-1] # Remove the comma
         session_state["prompt"] = prompt
-        st.write(session_state)
+
         if st.button("Genera il post!") and session_state.get("prompt", False) and not session_state.get("post", False):
             with st.spinner("Sto generando tre post da cui potrai scegliere.."):
             # Add the image description
