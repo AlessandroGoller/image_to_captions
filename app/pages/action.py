@@ -167,7 +167,7 @@ else:
             with st.spinner("Sto generando tre post da cui potrai scegliere.."):
             # Add the image description
                 prompt = session_state["prompt"]
-                prompt += ". Personalizza il post perchè sia adatto ad un'immagine di " + session_state["image_description"] + ". Rendi il post accattivante usando emoticons e hashtags. Attieniti al formato degli esempi." # noqa
+                prompt += ". Personalizza il post perchè sia adatto ad un'immagine di " + session_state["image_description"] + ". Inserisci emoticons e hashtags nel post. Attieniti al formato degli esempi." # noqa
                 # Update the prompt
                 session_state["prompt"] = prompt
                 # Here I generate the first message specifying the role in this case
