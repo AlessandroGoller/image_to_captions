@@ -27,7 +27,6 @@ from app.utils.logger import configure_logger
 from app.utils.openai import tokenization
 from app.utils.streamlit_utils.auth import is_logged_in
 
-
 session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 
 if not is_logged_in(session=session_state):
