@@ -20,8 +20,8 @@ def show_login_page() -> None:
         if verify_login(email=email, password=password):
             st.success("Logged in successfully.")
             update_last_access(email)
-            session_state["is_logged_in"] = True
-            session_state["email"] = email
+            st.session_state["is_logged_in"] = True
+            st.session_state["email"] = email
             st.experimental_rerun()  # reload the page
         else:
             st.error("Invalid email or password.")
@@ -45,8 +45,8 @@ def show_register_page() -> None:
                     st.write(f"- {problem}")
             elif register_user(email=email, password=password):
                 st.success("Registered successfully.")
-                session_state["is_logged_in"] = True
-                session_state["email"] = email
+                st.session_state["is_logged_in"] = True
+                st.session_state["email"] = email
                 st.experimental_rerun()  # reload the page
             else:
                 st.error("Email already taken.")
@@ -56,7 +56,7 @@ def show_register_page() -> None:
 
 def show_auth_page() -> None:
     """show_auth_page"""
-    if is_logged_in(session_state):
+    if is_logged_in(st.session_state):
         switch_page("action")
     else:
         st.warning("Not logged in.")
@@ -68,5 +68,4 @@ def show_auth_page() -> None:
             show_register_page()
 
 
-session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 show_auth_page()

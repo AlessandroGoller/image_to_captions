@@ -14,12 +14,11 @@ from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
 
 # Faster switch to other pages if some criterion are not met
-session_state = st.session_state.setdefault("auth", {})
 
-if not is_logged_in(session=session_state):
+if not is_logged_in(session_state=st.session_state):
     switch_page("login")
 
-if not session_state.get("post", False):
+if not st.session_state.get("post", False):
     switch_page("action")
 
 logger = configure_logger()
@@ -38,11 +37,11 @@ def infinite_edit_post(modify_request:str)->None:
                     "content": "Sei un sistema intelligente che ha generato un post per instagram ed ora deve modificarlo seguendo le richieste dell'utente", # noqa
                 }
         ]
-        messages.append(session_state["messages"][-1]) # The last message is the reply by the LM with the original post
+        messages.append(st.session_state["messages"][-1]) # The last message is the reply by the LM
         prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato.""" # noqa
         post_edited, temp_messages = modify_ig_post(prompt, messages=messages)
-        session_state["temp_post"] = post_edited
-        session_state["temp_messages"] = temp_messages
+        st.session_state["temp_post"] = post_edited
+        st.session_state["temp_messages"] = temp_messages
 
 def clear_mod_request() -> None:
     """ Function to clear the modification request """
@@ -50,11 +49,11 @@ def clear_mod_request() -> None:
 ###############################################################################################
 
 st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
-st.write(f"{session_state['post']}")
+st.write(f"{st.session_state['post']}")
 
 st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**
          - Voglio che il post sia più ironico
-         - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""")
+         - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""") #noqa
 
 modify_request = st.text_input("Come vuoi che venga modificato?", key="mod_request")
 
@@ -62,9 +61,9 @@ if st.button("Modifica il post!"):
     with st.spinner("Sto modificando il post.."):
         infinite_edit_post(modify_request=modify_request)
 
-if "temp_post" in session_state:
+if "temp_post" in st.session_state:
     st.write("Post modificato")
-    st.write(f"{session_state['temp_post']}")
+    st.write(f"{st.session_state['temp_post']}")
 
     # Choose between the old and new post
     option = st.selectbox(
@@ -74,31 +73,31 @@ if "temp_post" in session_state:
 
     if st.button("Scegli quale post mantenere", on_click=clear_mod_request):
         if option == "Modificato":
-            session_state["post"] = session_state["temp_post"]
-            session_state["messages"] = session_state["temp_messages"]
-            del session_state["temp_post"]
-            del session_state["temp_messages"]
+            st.session_state["post"] = st.session_state["temp_post"]
+            st.session_state["messages"] = st.session_state["temp_messages"]
+            del st.session_state["temp_post"]
+            del st.session_state["temp_messages"]
         else:
-            del session_state["temp_post"]
-            del session_state["temp_messages"]
+            del st.session_state["temp_post"]
+            del st.session_state["temp_messages"]
 
         st.experimental_rerun()
 
 if st.button("Voglio creare un altro post!"):
-    if "image_cache" in session_state:
-        del session_state["image_cache"]
-    if "image_description" in session_state:
-        del session_state["image_description"]
-    if "prompt" in session_state:
-        del session_state["prompt"]
-    if "post" in session_state:
-        del session_state["post"]
-    if "temp_post" in session_state:
-        del session_state["temp_post"]
-    if "messages" in session_state:
-        del session_state["messages"]
-    if "temp_messages" in session_state:
-        del session_state["temp_messages"]
+    if "image_cache" in st.session_state:
+        del st.session_state["image_cache"]
+    if "image_description" in st.session_state:
+        del st.session_state["image_description"]
+    if "prompt" in st.session_state:
+        del st.session_state["prompt"]
+    if "post" in st.session_state:
+        del st.session_state["post"]
+    if "temp_post" in st.session_state:
+        del st.session_state["temp_post"]
+    if "messages" in st.session_state:
+        del st.session_state["messages"]
+    if "temp_messages" in st.session_state:
+        del st.session_state["temp_messages"]
     # Rerun the script
     st.experimental_rerun()
 

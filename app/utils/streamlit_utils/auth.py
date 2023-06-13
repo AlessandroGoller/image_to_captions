@@ -38,8 +38,8 @@ def register_user(email: str, password: str) -> bool:
     return True
 
 
-def is_logged_in(session: dict[str, bool]) -> bool:
+def is_logged_in(session_state: dict[str, bool]) -> bool:
     """
     Verifica se l'utente è già loggato o meno.
     """
-    return session.get("is_logged_in", False)
+    return session_state.get("is_logged_in", False)

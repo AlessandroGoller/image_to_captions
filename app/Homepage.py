@@ -55,4 +55,4 @@ st.markdown(
 )
 
 if st.button("Premi per iniziare"):
-    switch_page("action")
+    switch_page("login")
