@@ -63,7 +63,7 @@ else:
                 del session_state["prompt"]
             if "post" in session_state:
                 del session_state["post"]
-
+        st.image(session_state["image_cache"], caption="Uploaded File")
 
     # If I have the image, but not the description, I can go on generating the description
     if not session_state.get(
