@@ -37,7 +37,7 @@ def infinite_edit_post(modify_request:str)->None:
                     "content": "Sei un sistema intelligente che ha generato un post per instagram ed ora deve modificarlo seguendo le richieste dell'utente", # noqa
                 }
         ]
-        messages.append(st.session_state["messages"][-1]) # The last message is the reply by the LM with the original post
+        messages.append(st.session_state["messages"][-1]) # The last message is the reply by the LM
         prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato.""" # noqa
         post_edited, temp_messages = modify_ig_post(prompt, messages=messages)
         st.session_state["temp_post"] = post_edited
@@ -51,8 +51,8 @@ def clear_mod_request() -> None:
 st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
 st.write(f"{st.session_state['post']}")
 
-st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**  
-         - Voglio che il post sia più ironico  
+st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**
+         - Voglio che il post sia più ironico
          - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""") #noqa
 
 modify_request = st.text_input("Come vuoi che venga modificato?", key="mod_request")

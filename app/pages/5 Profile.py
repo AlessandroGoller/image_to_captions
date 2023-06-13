@@ -112,7 +112,7 @@ def company_not_exist(user: User) -> None:
             switch_page("action")
 
 
-if not is_logged_in(session=st.session_state):
+if not is_logged_in(session_state=st.session_state):
     switch_page("login")
 
 user: Optional[User] = get_user_by_email(email=st.session_state["email"])

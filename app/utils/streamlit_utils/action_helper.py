@@ -1,5 +1,6 @@
 """ Helper for action streamlit """
 import streamlit as st
+
 from app.utils.logger import configure_logger
 
 logger = configure_logger()
@@ -25,7 +26,10 @@ def  add_info_sponsor(session_state:dict)->str:
         return text
     return ""
 
-def update_post(option):
+def update_post(option:str)->None:
+    """
+    Function that update the post in the session state and update also the message history
+    """
     if option == "Post 1":
         st.session_state["post"] = st.session_state["post"][0]
     elif option == "Post 2":
@@ -33,8 +37,11 @@ def update_post(option):
     elif option == "Post 3":
         st.session_state["post"] = st.session_state["post"][2]
     st.session_state["messages"].append({"role": "assistant", "content": st.session_state["post"]})
-    
-def create_new_post():
+
+def create_new_post()->None:
+    """
+    Function to clear the session state to start creating a new post
+    """
     if "prompt" in st.session_state:
         del st.session_state["prompt"]
     if "post" in st.session_state:
@@ -45,4 +52,3 @@ def create_new_post():
         del st.session_state["messages"]
     if "temp_messages" in st.session_state:
         del st.session_state["temp_messages"]
-    

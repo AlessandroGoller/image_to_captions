@@ -68,5 +68,4 @@ def show_auth_page() -> None:
             show_register_page()
 
 
-#session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
 show_auth_page()

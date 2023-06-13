@@ -24,7 +24,7 @@ from app.services.langchain import (
 )
 from app.utils.logger import configure_logger
 from app.utils.openai import tokenization
-from app.utils.streamlit_utils.action_helper import add_info_sponsor, update_post, create_new_post
+from app.utils.streamlit_utils.action_helper import add_info_sponsor, create_new_post, update_post
 from app.utils.streamlit_utils.auth import is_logged_in
 
 if not is_logged_in(session_state=st.session_state):
@@ -94,7 +94,7 @@ else:
         # Option list
         options = [None, "Product", "Event"]
         index_option = st.session_state.get("index_options_sponsor", 0)
-        selected_option = st.selectbox("Do you want to sponsor something? Choose an option:", options, index=index_option)
+        selected_option = st.selectbox("Do you want to sponsor something?", options, index=index_option)
         st.session_state["index_options_sponsor"] = options.index(selected_option)
         if selected_option == "Product":
             description = st.text_input("Enter a brief description:",st.session_state.get("option_product", ""))
@@ -117,7 +117,7 @@ else:
 
         if st.button("Genera il post!") and not st.session_state.get("post", False):
             with st.spinner("Sto generando tre post da cui potrai scegliere.."):
-                # Create the prompt 
+                # Create the prompt
                 if st.session_state.get("image_description", False):
                 # Generate the prompt for the post
                     sample_posts = get_last_n_instagram(
@@ -183,11 +183,11 @@ else:
                 logger.info(f"Inserted {posts} post, corresponding to {tok} tokens, in the prompt")
 
                 prompt = prompt[:-1] # Remove the comma
-                
+
                 prompt += ". Personalizza il post perchè sia adatto ad un'immagine di " + st.session_state["image_description"] + ". Inserisci emoticons e hashtags nel post. Attieniti al formato degli esempi." # noqa
                 # Update the prompt
                 prompt += add_info_sponsor(session_state=st.session_state)
-                
+
                 # Save the prompt
                 st.session_state["prompt"] = prompt
 
@@ -210,7 +210,7 @@ else:
                 st.session_state["messages"] = messages
                 st.session_state["post"] = posts
                 # create_post_creation(post_created) -> There is a problem with ssl connection
-                
+
     # Mostrare i diversi post generati
     if st.session_state.get("post", False) and type(st.session_state["post"])==list:
         st.write("Post 1:")
@@ -236,5 +236,5 @@ else:
         # Render the two buttons to modify or create a new post
         if st.button("Vorrei modificare il post!"):
             switch_page("refinement")
-            
+
         st.button("Voglio creare un altro post!", on_click=create_new_post)
