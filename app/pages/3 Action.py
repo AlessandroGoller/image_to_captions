@@ -62,6 +62,8 @@ else:
             if "post" in st.session_state:
                 del st.session_state["post"]
 
+    if st.session_state.get("image_cache", False):
+        st.image(st.session_state["image_cache"], caption="La tua immagine")
 
     # If I have the image, but not the description, I can go on generating the description
     if not st.session_state.get(
@@ -94,7 +96,7 @@ else:
         # Option list
         options = [None, "Product", "Event"]
         index_option = st.session_state.get("index_options_sponsor", 0)
-        selected_option = st.selectbox("Do you want to sponsor something?", options, index=index_option)
+        selected_option = st.selectbox("Do you want to sponsor something? Choose an option:", options, index=index_option)
         st.session_state["index_options_sponsor"] = options.index(selected_option)
         if selected_option == "Product":
             description = st.text_input("Enter a brief description:",st.session_state.get("option_product", ""))
