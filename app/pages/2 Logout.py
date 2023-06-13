@@ -8,8 +8,6 @@ from app.utils.logger import configure_logger
 
 logger = configure_logger()
 
-session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
-
 # Delete all the items in Session state
 for key, _ in st.session_state.items():
     del st.session_state[key]

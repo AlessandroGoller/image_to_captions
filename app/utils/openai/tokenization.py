@@ -54,8 +54,7 @@ def num_tokens_from_string(string:str, model:str="gpt-3.5-turbo-0301")->int:
 
 def add_tokens_to_db(string:str)->None:
     """ Insert token inside db """
-    session_state = st.session_state.setdefault("auth", {})  # retrieve the session state
-    user = get_user_by_email(email=session_state["email"])
+    user = get_user_by_email(email=st.session_state["email"])
     if user is None:
         logger.error("Profile Page without having an account")
         raise ValueError("Impossible Position")
