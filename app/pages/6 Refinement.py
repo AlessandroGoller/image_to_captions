@@ -50,7 +50,7 @@ def clear_mod_request() -> None:
 
 if st.session_state.get("image_cache", False):
     st.image(st.session_state["image_cache"], caption="La tua immagine")
-    
+
 st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
 st.write(f"{st.session_state['post']}")
 

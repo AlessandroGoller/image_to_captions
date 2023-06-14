@@ -69,7 +69,6 @@ def add_profile_pic(company: Company, url_pic:str)-> None:
     logger.info("Updating Profile pic url")
     db.merge(company)
     db.commit()
-    return None
 
 def update_company(
     company: Company, company_edit: CompanyInfoBase

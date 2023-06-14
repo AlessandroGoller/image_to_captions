@@ -1,17 +1,17 @@
 """ Streamlit helper profile """
 
+import traceback
 from io import BytesIO
-from app.services.ig_scraping import GetInstagramProfile
 from typing import Optional
 
-import traceback
-
-from app.dependency import get_settings
-from app.utils.logger import configure_logger
-from app.model.company import Company
-from app.crud.company import add_profile_pic
 import requests
 from PIL import Image
+
+from app.crud.company import add_profile_pic
+from app.dependency import get_settings
+from app.model.company import Company
+from app.services.ig_scraping import GetInstagramProfile
+from app.utils.logger import configure_logger
 
 settings = get_settings()
 
@@ -30,7 +30,7 @@ def request_image_from_url(url_pic:str)->Optional[BytesIO]:
     Optional[BytesIO]
     """
     if url_pic is None:
-        logger.warning("Error, None as url_pic")
+        logger.warning("Error, None as url_pic") # type: ignore
         return None
     try:
         logger.info(f"Request on {url_pic=}")
@@ -61,7 +61,7 @@ def get_profile_pic(company:Company)->Optional[BytesIO]:
             return image
     try:
         client = GetInstagramProfile()
-        url_pic = client.get_profile_url(company.url_instagram) # type: ignore
+        url_pic = client.get_profile_url(company.url_instagram)
     except Exception as error:
         traceback_msg = traceback.format_exc()
         logger.warning(f"Impossible showing the profile pic\n{error}\n{traceback_msg}")
