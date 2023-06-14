@@ -9,7 +9,6 @@ from pydantic import BaseSettings
 
 load_dotenv()
 
-
 class Config(BaseSettings):
     """Class with the config"""
     # Database config variables
@@ -18,7 +17,6 @@ class Config(BaseSettings):
         or
         "sqlite:///./sql_app.db"
     )
-
     LANGUAGE:str = os.getenv("LANGUAGE") or "italian"
     PORT:str = os.getenv("PORT") or "5000"
     HUGGINGFACEHUB_API_TOKEN:Optional[str] = os.getenv("HUGGINGFACEHUB_API_TOKEN") or None

@@ -17,5 +17,7 @@ class Company(database):
     language = Column(String, nullable=True, default= "Auto")
     description = Column(Text, nullable=True)
     website = Column(String, nullable=True)
+    tokens_to_be_paid = Column("tokens_to_be_paid", Integer, nullable=True, default=0)
+    total_tokens = Column("total_tokens", Integer, nullable=True, default=0)
 
     user = relationship("User", uselist=False)
