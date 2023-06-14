@@ -19,5 +19,6 @@ class Company(database):
     website = Column(String, nullable=True)
     tokens_to_be_paid = Column("tokens_to_be_paid", Integer, nullable=True, default=0)
     total_tokens = Column("total_tokens", Integer, nullable=True, default=0)
+    profile_pic_url = Column("profile_pic_url", String, nullable=True, default=None)
 
     user = relationship("User", uselist=False)

@@ -1,7 +1,6 @@
 """
 Module streamlit for profile settings
 """
-import traceback
 from typing import Optional
 
 import streamlit as st
@@ -12,10 +11,10 @@ from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
 from app.schema.company import CompanyCreate, CompanyInfoBase
-from app.services.ig_scraping import GetInstagramProfile
 from app.services.langchain import search_info_of_company
 from app.utils.logger import configure_logger
 from app.utils.streamlit_utils.auth import is_logged_in
+from app.utils.streamlit_utils.profile_helper import get_profile_pic
 
 logger = configure_logger()
 
@@ -56,16 +55,12 @@ def company_exist(company: Company) -> None:
         )
 
     # Print the profile pic
-    if instagram_url is not None and instagram_url != "":
-        try:
-            client = GetInstagramProfile()
-            image = client.get_profile_pic(instagram_url)
-            st.image(image, caption="Immagine Instagram")
-        except Exception as error:
-            traceback_msg = traceback.format_exc()
-            logger.warning(f"Impossible showing the profile pic\n{error}\n{traceback_msg}")
+    if instagram_url is not None and instagram_url != "" and company.url_instagram!="":
+        profile_pic_url = get_profile_pic(company)
+        if profile_pic_url is not None:
+            st.image(profile_pic_url, caption="Immagine Instagram")
 
-    if st.button("Save Info") and company_name is not None and company_name != "":
+    if st.button("Save Info"):
         company_created = CompanyInfoBase(
             name=company_name if company_name is not None else "",
             description=st.session_state["description"],
@@ -75,9 +70,8 @@ def company_exist(company: Company) -> None:
         )
         if update_company(company=company, company_edit=company_created) is None:
             raise Exception("Error during creation of a Company")
-        else:
-            st.write("Success Save")
-            switch_page("action")
+        st.write("Success Save")
+        switch_page("action")
 
 
 def company_not_exist(user: User) -> None:

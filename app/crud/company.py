@@ -16,18 +16,15 @@ def get_company_by_name(name: str) -> Optional[Company]:
     db: Session = next(get_db())
     return db.query(Company).filter(Company.name == name).first()  # type: ignore
 
-
 def get_company_by_id(id_company: int) -> Optional[Company]:
     """Return the Company from id_company"""
     db: Session = next(get_db())
     return db.query(Company).filter(Company.id_company == id_company).first()  # type: ignore
 
-
 def get_company_by_user_id(user_id: int) -> Optional[Company]:
     """Return the Company from user_id"""
     db: Session = next(get_db())
     return db.query(Company).filter(Company.id_user == user_id).first()  # type: ignore
-
 
 def create_company(company: CompanyCreate) -> Optional[Company]:
     """Creation a user, in input the schema of user create and return the user"""
@@ -64,6 +61,15 @@ def update_account_ig(company: Company, ig_account:str)->Optional[Company]:
     db.merge(company)
     db.commit()
     return company
+
+def add_profile_pic(company: Company, url_pic:str)-> None:
+    """ Add or edit a profile url pic """
+    db: Session = next(get_db())
+    company.profile_pic_url = url_pic
+    logger.info("Updating Profile pic url")
+    db.merge(company)
+    db.commit()
+    return None
 
 def update_company(
     company: Company, company_edit: CompanyInfoBase
