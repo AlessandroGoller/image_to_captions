@@ -30,7 +30,7 @@ def get_company_by_user_id(user_id: int) -> Optional[Company]:
 
 
 def create_company(company: CompanyCreate) -> Optional[Company]:
-    """Creation a user, in input the schema of user create and return the user"""
+    """Creation a company, in input the schema of company create and return the company"""
     db: Session = next(get_db())
     db_company = Company(
         name=company.name,
@@ -77,7 +77,6 @@ def update_company(
     db.commit()
     return company
 
-
 def delete_company(company: Company) -> dict[str, bool]:
     """ " Permit to delete a company"""
     logger.info("Delete Company")
@@ -85,3 +84,23 @@ def delete_company(company: Company) -> dict[str, bool]:
     db.delete(company)
     db.commit()
     return {"ok": True}
+
+def add_tokens(company: Company, tokens:int)-> tuple[int,int]:
+    """ Add tokens used and return token to be paid and total tokens """
+    db: Session = next(get_db())
+    if company.tokens_to_be_paid is None:
+        company.tokens_to_be_paid = 0
+    if company.total_tokens is None:
+        company.total_tokens = 0
+    company.tokens_to_be_paid += tokens
+    company.total_tokens += tokens
+    db.merge(company)
+    db.commit()
+    return company.tokens_to_be_paid,company.total_tokens
+
+def restart_paid_tokens(company: Company)->None:
+    """ Restart the token to be paid """
+    db: Session = next(get_db())
+    company.tokens_to_be_paid = 0
+    db.merge(company)
+    db.commit()

@@ -3,7 +3,8 @@
 import streamlit as st
 import tiktoken
 
-from app.crud.user import add_tokens, get_user_by_email
+from app.crud.company import add_tokens, get_company_by_user_id
+from app.crud.user import get_user_by_email
 from app.utils.logger import configure_logger
 
 logger = configure_logger()
@@ -58,8 +59,12 @@ def add_tokens_to_db(string:str)->None:
     if user is None:
         logger.error("Profile Page without having an account")
         raise ValueError("Impossible Position")
+    company = get_company_by_user_id(user_id=user.user_id)
+    if company is None:
+        logger.error("Try to insert token without having a company")
+        raise ValueError("Impossible Position")
     tokens = num_tokens_from_string(string)
-    _,_ = add_tokens(user=user, tokens=tokens)
+    _,_ = add_tokens(company=company, tokens=tokens)
 
 
 if __name__=="__main__":
