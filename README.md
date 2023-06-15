@@ -1,7 +1,6 @@
 # Image To Captions
 ----
 Credo si possa eliminare version.py
-
 ----
 
 DESCRIPTION A package for doing great things!...
