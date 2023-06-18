@@ -56,7 +56,7 @@ st.write(f"{st.session_state['post']}")
 
 col1, col2 = st.columns(2)
 col1.write("**Inserisci un testo che spieghi come vuoi modificare il post!  \nAd esempio:**")
-col1.write("- Voglio che il post sia più ironico\n - Voglio che il post menzioni il nostro prodotto [nomeprodotto]") #noqa
+col1.write("- Voglio che il post sia più ironico\n - Voglio che il post menzioni il nostro prodotto [nomeprodotto]") # noqa
 
 modify_request = col2.text_input("Come vuoi che venga modificato?", key="mod_request")
 
