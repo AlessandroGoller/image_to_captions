@@ -72,23 +72,3 @@ def delete_user(user: User) -> dict[str, bool]:
     db.delete(user)
     db.commit()
     return {"ok": True}
-
-def add_tokens(user: User, tokens:int)-> tuple[int,int]:
-    """ Add tokens used and return token to be paid and total tokens """
-    db: Session = next(get_db())
-    if user.tokens_to_be_paid is None:
-        user.tokens_to_be_paid = 0
-    if user.total_tokens is None:
-        user.total_tokens = 0
-    user.tokens_to_be_paid += tokens
-    user.total_tokens += tokens
-    db.merge(user)
-    db.commit()
-    return user.tokens_to_be_paid,user.total_tokens
-
-def restart_paid_tokens(user: User)->None:
-    """ Restart the token to be paid """
-    db: Session = next(get_db())
-    user.tokens_to_be_paid = 0
-    db.merge(user)
-    db.commit()
