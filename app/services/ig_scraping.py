@@ -12,6 +12,7 @@ from typing import Iterator, Optional
 
 import instaloader
 import requests
+from memoization import cached
 from PIL import Image
 from tqdm import tqdm
 
@@ -28,6 +29,7 @@ class GetInstagramProfile:
     Class to load a profile and download its data.
     """
 
+    @cached(max_size=5, ttl=300)
     def __init__(self) -> None:
         self.L = instaloader.Instaloader(user_agent="Edg/113.0.1774.50")
         try:
@@ -205,10 +207,14 @@ class GetInstagramProfile:
                 logger.info(f"{i} post downloaded from {username}!")
                 break
 
-    def get_profile_pic(self, username:str)-> BytesIO:
+    def get_profile_url(self, username:str)-> str:
+        """ return the url of the profile pic """
+        profile = instaloader.Profile.from_username(self.L.context, username)
+        return str(profile.profile_pic_url)
+
+    def retrieve_profile_pic(self, username:str)-> BytesIO:
         """ Return the profile pic of the user """
-        profilo = instaloader.Profile.from_username(self.L.context, username)
-        path_pic = str(profilo.profile_pic_url)
+        path_pic = self.get_profile_url(username)
         response = requests.get(path_pic, timeout=10)
         image = Image.open(BytesIO(response.content))
         return image # type: ignore

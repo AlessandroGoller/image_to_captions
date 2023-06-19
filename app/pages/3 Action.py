@@ -96,7 +96,8 @@ else:
         # Option list
         options = [None, "Product", "Event"]
         index_option = st.session_state.get("index_options_sponsor", 0)
-        selected_option = st.selectbox("Do you want to sponsor something? Choose an option:", options, index=index_option)
+        selected_option = st.selectbox("Do you want to sponsor something? Choose an option:",
+                                    options, index=index_option)
         st.session_state["index_options_sponsor"] = options.index(selected_option)
         if selected_option == "Product":
             description = st.text_input("Enter a brief description:",st.session_state.get("option_product", ""))

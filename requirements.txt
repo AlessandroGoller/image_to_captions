@@ -125,6 +125,8 @@ matplotlib==3.7.1
     # via streamlit-faker
 mdurl==0.1.2
     # via markdown-it-py
+memoization==0.4.0
+    # via -r requirements.in
 more-itertools==9.1.0
     # via htbuilder
 multidict==6.0.4
