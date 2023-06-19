@@ -70,6 +70,9 @@ Questo comando esegue tutte le migrazioni non ancora applicate al database, con 
 - alembic downgrade NOME REVISIONE
 - alembic downgrade -1
 
+## Telegram
+https://api.telegram.org/bot{my_bot_token}/setWebhook?url={url_to_send_updates_to}
+
 # Technology:
 - sphinx: Documentation
 - Alembic: Migration DB

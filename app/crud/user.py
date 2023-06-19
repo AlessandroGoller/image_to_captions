@@ -20,6 +20,14 @@ def get_user_by_email(email: str) -> Optional[User]:
     user: Optional[User] = db.query(User).filter(User.email == email).first()
     return user
 
+def get_id_user_by_email(email: str) -> str:
+    """return id user from email"""
+    db: Session = next(get_db())
+    id_user: Optional[str] = db.query(User.user_id).filter(User.email == email).first()
+    if id_user is None:
+        raise Exception("No user found, impossible to return an id")
+    return id_user[0]
+
 def get_user_by_id(user_id: str) -> Optional[User]:
     """Return the user from user_id"""
     db: Session = next(get_db())
