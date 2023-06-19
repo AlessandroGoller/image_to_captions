@@ -54,13 +54,13 @@ if st.session_state.get("image_cache", False):
 st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
 st.write(f"{st.session_state['post']}")
 
-st.write("""**Inserisci un testo che spieghi come vuoi modificare il post! Esempi:**
-         - Voglio che il post sia più ironico
-         - Voglio che il post menzioni il nostro prodotto [nomeprodotto]""") #noqa
+col1, col2 = st.columns(2)
+col1.write("**Inserisci un testo che spieghi come vuoi modificare il post!  \nAd esempio:**")
+col1.write("- Voglio che il post sia più ironico\n - Voglio che il post menzioni il nostro prodotto [nomeprodotto]") # noqa
 
-modify_request = st.text_input("Come vuoi che venga modificato?", key="mod_request")
+modify_request = col2.text_input("Come vuoi che venga modificato?", key="mod_request")
 
-if st.button("Modifica il post!"):
+if col2.button("Modifica il post!"):
     with st.spinner("Sto modificando il post.."):
         infinite_edit_post(modify_request=modify_request)
 
@@ -86,7 +86,7 @@ if "temp_post" in st.session_state:
 
         st.experimental_rerun()
 
-if st.button("Voglio creare un altro post!"):
+if st.button("Ricomincia da capo!"):
     if "image_cache" in st.session_state:
         del st.session_state["image_cache"]
     if "image_description" in st.session_state:
