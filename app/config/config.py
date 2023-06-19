@@ -29,7 +29,8 @@ class Config(BaseSettings):
     PSW_IG:Optional[str] = os.getenv("PSW_IG") or None
     TELEGRAM_TOKEN:Optional[str] = os.getenv("TELEGRAM_TOKEN") or None
     TELEGRAM_BOT: str = "images_to_caption_bot"
-    DOMAIN:str = "https://image-to-caption.onrender.com/"
+    DOMAIN: str = "https://image-test-fjhr.onrender.com/"
+    DOMAIN_old:str = "https://image-to-caption.onrender.com/"
 
 policy = PasswordPolicy.from_names(
     length=8,  # min length: 8
