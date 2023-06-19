@@ -209,8 +209,8 @@ class GetInstagramProfile:
 
     def get_profile_url(self, username:str)-> str:
         """ return the url of the profile pic """
-        profilo = instaloader.Profile.from_username(self.L.context, username)
-        return str(profilo.profile_pic_url)
+        profile = instaloader.Profile.from_username(self.L.context, username)
+        return str(profile.profile_pic_url)
 
     def retrieve_profile_pic(self, username:str)-> BytesIO:
         """ Return the profile pic of the user """

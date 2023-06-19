@@ -55,7 +55,7 @@ def company_exist(company: Company) -> None:
         )
 
     # Print the profile pic
-    if instagram_url is not None and instagram_url != "" and company.url_instagram!="":
+    if company.url_instagram is not None and company.url_instagram!="":
         profile_pic_url = get_profile_pic(company)
         if profile_pic_url is not None:
             st.image(profile_pic_url, caption="Immagine Instagram")
