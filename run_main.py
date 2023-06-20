@@ -13,7 +13,7 @@ logger = configure_logger()
 # Funzione per avviare FastAPI
 def start_fastapi()-> None:
     """ Start FastApi module """
-    fastapi_command = f"{sys.executable} -m uvicorn app.main_fastapi:app --reload --port 5000"
+    fastapi_command = f"{sys.executable} -m uvicorn app.main_fastapi:app --host 0.0.0.0 --port 80"# --reload --port 5000"
     subprocess.run(fastapi_command, shell=True, check=False)
 
 if __name__ == "__main__":
@@ -25,12 +25,12 @@ if __name__ == "__main__":
     streamlit_process.start()
 
     # Attendi la terminazione dei processi / fastapi_process.join()
-    # fastapi_process.join()
-    # streamlit_process.join()
+    fastapi_process.join()
+    streamlit_process.join()
 
     # Attendi 5 secondi
-    time.sleep(5)
+    #time.sleep(5)
 
     # Termina i processi
-    fastapi_process.terminate()
-    streamlit_process.terminate()
+    #fastapi_process.terminate()
+    #streamlit_process.terminate()
