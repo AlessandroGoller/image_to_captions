@@ -29,7 +29,7 @@ class Config(BaseSettings):
     PSW_IG:Optional[str] = os.getenv("PSW_IG") or None
     TELEGRAM_TOKEN:Optional[str] = os.getenv("TELEGRAM_TOKEN") or None
     TELEGRAM_BOT: str = "images_to_caption_bot"
-    WEBHOOK_PATH:str = "/telegram/webhook"
+    WEBHOOK_PATH:str = "telegram/webhook"
     DOMAIN: str = "https://image-test-fjhr.onrender.com/"
     DOMAIN_old:str = "https://image-to-caption.onrender.com/"
 

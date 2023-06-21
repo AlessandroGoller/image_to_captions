@@ -5,5 +5,3 @@ from app.utils.logger import configure_logger
 
 logger = configure_logger()
 settings = get_settings()
-
-

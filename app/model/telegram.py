@@ -1,10 +1,11 @@
 """ Model for telegram """
 
-from sqlalchemy import Boolean, Column, ForeignKey, DateTime, Integer, String
+from random import getrandbits
+
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.sql import func
 
 from app.dependency import database
-from random import getrandbits
 
 
 def _createhash()->str:
@@ -19,14 +20,14 @@ class Telegram(database):
     id_user = Column(Integer, ForeignKey("t_user.id_t_user"), nullable=False)
     id_chat = Column(String, nullable=True, default=None)
     unique_hash_code = Column(String, nullable=True, default=_createhash(), unique=True)
-    language = Column(String, nullable=True, default= "Italian")
-    last_access = Column(
+    language = Column(String, nullable=True, default= "Italian") # pylint: disable=R0801
+    last_access = Column( # pylint: disable=R0801
         "last_access",
         DateTime(timezone=True),
         onupdate=func.now(),
         nullable=True,
     )
-    time_created = Column(
+    time_created = Column( # pylint: disable=R0801
         "time_created",
         DateTime(timezone=True),
         server_default=func.now(),

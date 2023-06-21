@@ -1,10 +1,11 @@
 
-import uvicorn
-
-from app.app_creator import router, create_app
-from app.utils.logger import configure_logger
+"""
+Module for start FastApi
+"""
+from app.app_creator import create_app, router
 from app.dependency import get_settings
-from app.services.telegram_bot import bot,WEBHOOK_URL
+from app.services.telegram_bot import WEBHOOK_URL, bot
+from app.utils.logger import configure_logger
 
 logger = configure_logger()
 settings = get_settings()
@@ -25,6 +26,3 @@ async def on_startup()->None:
 async def on_shutdown()-> None:
     """ Settings on shutdown """
     await bot.session.close()
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=5000)

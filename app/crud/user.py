@@ -25,7 +25,7 @@ def get_id_user_by_email(email: str) -> str:
     db: Session = next(get_db())
     id_user: Optional[str] = db.query(User.user_id).filter(User.email == email).first()
     if id_user is None:
-        raise Exception("No user found, impossible to return an id")
+        raise KeyError("No user found, impossible to return an id")
     return id_user[0]
 
 def get_user_by_id(user_id: str) -> Optional[User]:

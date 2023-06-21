@@ -14,14 +14,14 @@ class User(database):
     name = Column(String, nullable=True)
     password = Column(String)
     admin = Column(Boolean, default=False)
-    language = Column(String, nullable=True, default= "Italian")
-    last_access = Column(
+    language = Column(String, nullable=True, default= "Italian") # pylint: disable=R0801
+    last_access = Column( # pylint: disable=R0801
         "last_access",
         DateTime(timezone=True),
         onupdate=func.now(),
         nullable=True,
     )
-    time_created = Column(
+    time_created = Column( # pylint: disable=R0801
         "time_created",
         DateTime(timezone=True),
         server_default=func.now(),

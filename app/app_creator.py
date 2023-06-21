@@ -1,6 +1,6 @@
 """ Necessary info for Fastapi """
 
-from fastapi import FastAPI, APIRouter
+from fastapi import APIRouter, FastAPI
 
 from app.controller import telegram
 from app.dependency import get_settings

@@ -1,6 +1,5 @@
 """ Module for Telegram Schema """
 
-from typing import Optional
 
 from pydantic import BaseModel
 

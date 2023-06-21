@@ -36,7 +36,7 @@ def create_telegram(telegram: TelegramCreate) -> Telegram:
     db: Session = next(get_db())
     db_telegram = Telegram(
         id_user=telegram.id_user,
-    ) 
+    )
     db.add(db_telegram)
     db.commit()
     db.refresh(db_telegram)
