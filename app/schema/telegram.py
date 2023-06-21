@@ -13,6 +13,8 @@ class TelegramCreate(TelegramInfoBase):
     Use it during creation
     """
     id_user: int
+    id_user_telegram: int
+    id_chat: int
 
 class Chat(BaseModel):
     """ Classe for """
