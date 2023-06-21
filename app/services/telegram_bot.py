@@ -22,7 +22,8 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands="start")
 async def start(message: types.Message)->str:
     """ Anwser message for commands start """
-    await message.answer(f"Salom, {message.from_user.full_name}")
+    await message.answer(f"Salom, {message.from_user.full_name}\n{message.text=}\n\
+                        {message.chat.id=}\n")
     return "ok"
 
 @dp.message_handler()
