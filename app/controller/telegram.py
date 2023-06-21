@@ -6,8 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Response
 from app.utils.logger import configure_logger
 from app.dependency import get_settings
 from app.schema.telegram import TelegramMessage
-import time
-from app.main_fastapi import dp,bot
+from app.services.telegram_bot import dp,bot
 
 logger = configure_logger()
 settings = get_settings()
@@ -19,22 +18,6 @@ def hello()-> dict[str,str]:
     """ Only for test """
     return {"message": "Hello, world!"}
 
-@dp.message_handler(commands=['start'])
-async def start(message: types.Message)->None:
-    """ Penso al comando start """
-    await message.answer(f"Salom, {message.from_user.full_name}")
-
-@dp.message_handler()
-async def main_handler(message: types.Message):
-    try:
-        user_id = message.from_user.id
-        user_full_name = message.from_user.full_name
-        logger.info(f'Main: {user_id} {user_full_name} {time.asctime()}. Message: {message}')
-        await message.reply(f"Hello world!{user_id=}\n{user_full_name=}\n")
-    except:
-        logger.info(f'Main: {user_id} {user_full_name} {time.asctime()}. Message: {message}. Error in main_handler')
-        await message.reply("Something went wrong...")   
-
 @router.post("/webhook")
 async def bot_webhook(update: dict):
     telegram_update = types.Update(**update)
@@ -45,6 +28,7 @@ async def bot_webhook(update: dict):
 @router.post("/web_old")
 async def telegram_webhook(message: TelegramMessage)->dict[str,str]:
     """ Telegram webhook """
+    return "ok, fastapi online"
     # Gestisci il messaggio qui
     # Puoi accedere al testo del messaggio con `message.text`
 
