@@ -71,7 +71,9 @@ Questo comando esegue tutte le migrazioni non ancora applicate al database, con 
 - alembic downgrade -1
 
 ## Telegram
-https://api.telegram.org/bot{my_bot_token}/setWebhook?url={url_to_send_updates_to}
+SET webhook https://api.telegram.org/bot{my_bot_token}/setWebhook?url={url_to_send_updates_to}
+check info: https://api.telegram.org/bot{your_bot_token}/getWebhookInfo
+
 
 # Technology:
 - sphinx: Documentation

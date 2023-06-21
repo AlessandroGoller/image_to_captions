@@ -17,4 +17,4 @@ password-strength
 memoization
 fastapi
 uvicorn
-python-telegram-bot
+aiogram
