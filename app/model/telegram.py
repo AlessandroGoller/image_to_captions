@@ -18,7 +18,8 @@ class Telegram(database):
     __tablename__ = "t_telegram"
     id_telegram = Column("id_t_telegram", Integer, nullable=False, primary_key=True)
     id_user = Column(Integer, ForeignKey("t_user.id_t_user"), nullable=False)
-    id_chat = Column(String, nullable=True, default=None)
+    id_user_telegram = Column(Integer, nullable=True, default=None)
+    id_chat = Column(String, nullable=True, default=None, unique=True)
     unique_hash_code = Column(String, nullable=True, default=_createhash(), unique=True)
     language = Column(String, nullable=True, default= "Italian") # pylint: disable=R0801
     last_access = Column( # pylint: disable=R0801
