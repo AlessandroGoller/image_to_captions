@@ -23,7 +23,12 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands="start")
 async def start(message: types.Message)->str:
     """ Anwser message for commands start """
-    hash_code: str = message.text.split(" ")[1]
+    try:
+        hash_code: str = message.text.split(" ")[1]
+    except:
+        await message.answer(f"Error hash code, {message.from_user.full_name}\n{message.text=}\n\
+                        {message.chat.id=}")
+        return "ok"
     user: Optional[User] = get_user_by_hash(hash_code=hash_code)
     if user is None:
         await message.answer(f"Salom, {message.from_user.full_name}\n \
