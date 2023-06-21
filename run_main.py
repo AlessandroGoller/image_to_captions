@@ -19,14 +19,14 @@ def start_fastapi()-> None:
 if __name__ == "__main__":
     # Avvia FastAPI e Streamlit come processi separati
     fastapi_process = multiprocessing.Process(target=start_fastapi)
-    streamlit_process =  multiprocessing.Process(target=main)
+    #streamlit_process =  multiprocessing.Process(target=main)
 
     fastapi_process.start()
-    streamlit_process.start()
+    #streamlit_process.start()
 
     # Attendi la terminazione dei processi / fastapi_process.join()
     fastapi_process.join()
-    streamlit_process.join()
+    #streamlit_process.join()
 
     # Attendi 5 secondi
     #time.sleep(5)
