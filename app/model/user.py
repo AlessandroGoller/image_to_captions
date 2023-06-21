@@ -1,9 +1,15 @@
 """ Module Model User """
+from random import getrandbits
+
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 from sqlalchemy.sql import func
 
 from app.dependency import database
 
+
+def _createhash()->str:
+    """This function generate long hash"""
+    return str(getrandbits(128))
 
 class User(database):
     """Class for User Model"""
@@ -38,6 +44,8 @@ class User(database):
     # we should use this like a sum of the company tokens
     tokens_to_be_paid = Column("tokens_to_be_paid", Integer, nullable=True, default=0)
     total_tokens = Column("total_tokens", Integer, nullable=True, default=0)
+    unique_hash_code = Column(String, nullable=True, default=_createhash(), unique=True)
+
 
     def update_last_access(self) -> None:
         """ Permit to update the last acces """

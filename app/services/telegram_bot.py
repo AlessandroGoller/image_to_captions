@@ -5,7 +5,12 @@ from typing import Optional
 
 from aiogram import Bot, Dispatcher, types
 
-from app.crud.telegram import create_telegram, get_telegram_by_user_id
+from app.crud.user import get_user_by_id, update_hash
+from app.crud.telegram import (
+    create_telegram,
+    get_telegram_by_user_id,
+    get_telegram_by_user_tele_id,
+)
 from app.dependency import get_settings
 from app.model.telegram import Telegram
 from app.schema.telegram import TelegramCreate
@@ -22,6 +27,12 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands="start")
 async def start(message: types.Message)->str:
     """ Anwser message for commands start """
+    #hash_code: str = message.text.split(' ')[1]
+    #telegram = get_telegram_by_user_tele_id(message.from_user.id)
+    #if telegram is not None:
+    #    user = get_user_by_id(user_id=telegram.id_user)
+    #    if
+
     await message.answer(f"Salom, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}\n")
     return "ok"
@@ -47,5 +58,7 @@ def get_telegram_url(user_id: str)->str:
     if telegram is None:
         telegram_schema: TelegramCreate = TelegramCreate(id_user=int(user_id))
         telegram = create_telegram(telegram=telegram_schema)
-    telegram_hash = telegram.unique_hash_code
+    telegram_hash = telegram.user.unique_hash_code
+    if telegram_hash is None:
+        telegram_hash = update_hash(telegram.user.email)
     return f"https://telegram.me/{settings.TELEGRAM_BOT}?start={telegram_hash}"

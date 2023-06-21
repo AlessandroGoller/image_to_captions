@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
 
 from app.dependency import get_db
-from app.model.user import User
+from app.model.user import User, _createhash
 from app.schema.user import UserCreate
 from app.utils.logger import configure_logger
 
@@ -18,6 +18,20 @@ def get_user_by_email(email: str) -> Optional[User]:
     """return user from email"""
     db: Session = next(get_db())
     user: Optional[User] = db.query(User).filter(User.email == email).first()
+    return user
+
+def get_hash_from_email(email:str) -> str:
+    """ Return hashcode from user email """
+    db: Session = next(get_db())
+    hash_code: str = db.query(User.unique_hash_code).filter(User.email == email).first()[0]
+    if hash_code is None or hash_code=="":
+        hash_code = update_hash(email)
+    return hash_code
+
+def get_user_by_hash(hash_code: str) -> Optional[User]:
+    """return user from hash"""
+    db: Session = next(get_db())
+    user: Optional[User] = db.query(User).filter(User.unique_hash_code == hash_code).first()
     return user
 
 def get_id_user_by_email(email: str) -> str:
@@ -73,6 +87,23 @@ def update_last_access(email: str) -> None:
     user.last_access = func.now()
     db.merge(user)
     db.commit()
+
+def update_hash(email: str) -> str:
+    """ Update hash """
+    while True:
+        hash_code = _createhash()
+        user = get_user_by_hash(hash_code=hash_code)
+        if user is None:
+            break
+    user = get_user_by_email(email)
+    if user is None:
+        logger.error("Profile Page without having an account")
+        raise ValueError("Impossible Position")
+    db: Session = next(get_db())
+    user.unique_hash_code = hash_code
+    db.merge(user)
+    db.commit()
+    return hash_code
 
 def delete_user(user: User) -> dict[str, bool]:
     """ Permit to delete a user"""
