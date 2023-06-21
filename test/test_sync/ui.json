@@ -1,0 +1,276 @@
+{
+    "metadata": {
+        "streamsync_version": "0.1.7"
+    },
+    "components": {
+        "root": {
+            "id": "root",
+            "type": "root",
+            "content": {
+                "appName": "My App"
+            },
+            "parentId": null,
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "c0f99a9e-5004-4e75-a6c6-36f17490b134": {
+            "id": "c0f99a9e-5004-4e75-a6c6-36f17490b134",
+            "type": "page",
+            "content": {
+                "pageMode": "compact",
+                "emptinessColor": "#e9eef1",
+                "key": "Home"
+            },
+            "parentId": "root",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "bebc5fe9-63a7-46a7-b0fa-62303555cfaf": {
+            "id": "bebc5fe9-63a7-46a7-b0fa-62303555cfaf",
+            "type": "header",
+            "content": {
+                "text": "@{my_app.title}"
+            },
+            "parentId": "c0f99a9e-5004-4e75-a6c6-36f17490b134",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "28d3885b-0fb8-4d41-97c6-978540015431": {
+            "id": "28d3885b-0fb8-4d41-97c6-978540015431",
+            "type": "section",
+            "content": {
+                "title": "",
+                "snapMode": "no",
+                "containerShadow": "0px 4px 11px -12px #000000"
+            },
+            "parentId": "c0f99a9e-5004-4e75-a6c6-36f17490b134",
+            "position": 1,
+            "handlers": {},
+            "visible": true
+        },
+        "9556c0e3-8584-4ac9-903f-908a775a33ec": {
+            "id": "9556c0e3-8584-4ac9-903f-908a775a33ec",
+            "type": "button",
+            "content": {
+                "text": " Increment",
+                "icon": "arrow-up"
+            },
+            "parentId": "0d05bc9f-1655-4d0b-bc9b-c2f4c71a5117",
+            "position": 1,
+            "handlers": {
+                "click": "increment"
+            },
+            "visible": true
+        },
+        "51d1554e-1b88-461c-9353-1419cba0053a": {
+            "id": "51d1554e-1b88-461c-9353-1419cba0053a",
+            "type": "button",
+            "content": {
+                "text": "Decrement",
+                "icon": "arrow-down"
+            },
+            "parentId": "0d05bc9f-1655-4d0b-bc9b-c2f4c71a5117",
+            "position": 0,
+            "handlers": {
+                "click": "decrement"
+            },
+            "visible": true
+        },
+        "0d05bc9f-1655-4d0b-bc9b-c2f4c71a5117": {
+            "id": "0d05bc9f-1655-4d0b-bc9b-c2f4c71a5117",
+            "type": "horizontalstack",
+            "content": {
+                "alignment": "left"
+            },
+            "parentId": "f3777e75-3659-4d44-8ef7-aeec0d06855b",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "172a14df-f73a-44fa-8fb1-e8648e7d32d2": {
+            "id": "172a14df-f73a-44fa-8fb1-e8648e7d32d2",
+            "type": "metric",
+            "content": {
+                "metricValue": "@{counter}",
+                "note": "@{message}",
+                "name": "Counter"
+            },
+            "parentId": "c2519671-9ce7-44e7-ba4e-b0efda9cb20e",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "d4a5e62c-c6fe-49c4-80d4-33862af8727d": {
+            "id": "d4a5e62c-c6fe-49c4-80d4-33862af8727d",
+            "type": "columns",
+            "content": {},
+            "parentId": "28d3885b-0fb8-4d41-97c6-978540015431",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "f3777e75-3659-4d44-8ef7-aeec0d06855b": {
+            "id": "f3777e75-3659-4d44-8ef7-aeec0d06855b",
+            "type": "column",
+            "content": {
+                "title": "",
+                "width": "1",
+                "verticalAlignment": "center",
+                "horizontalAlignment": "center"
+            },
+            "parentId": "d4a5e62c-c6fe-49c4-80d4-33862af8727d",
+            "position": 2,
+            "handlers": {},
+            "visible": true
+        },
+        "c2519671-9ce7-44e7-ba4e-b0efda9cb20e": {
+            "id": "c2519671-9ce7-44e7-ba4e-b0efda9cb20e",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "d4a5e62c-c6fe-49c4-80d4-33862af8727d",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "d4a71819-7444-4083-a1c7-7995452a7abf": {
+            "id": "d4a71819-7444-4083-a1c7-7995452a7abf",
+            "type": "separator",
+            "content": {},
+            "parentId": "d4a5e62c-c6fe-49c4-80d4-33862af8727d",
+            "position": 1,
+            "handlers": {},
+            "visible": true
+        },
+        "c9ac9200-7d9b-44c1-acbd-d61b5e5f6917": {
+            "id": "c9ac9200-7d9b-44c1-acbd-d61b5e5f6917",
+            "type": "page",
+            "parentId": "root",
+            "content": {
+                "key": "Login",
+                "pageMode": "compact"
+            },
+            "handlers": {},
+            "position": 1,
+            "visible": ""
+        },
+        "0277809e-8058-49e3-90ef-d64a8e045144": {
+            "id": "0277809e-8058-49e3-90ef-d64a8e045144",
+            "type": "page",
+            "parentId": "root",
+            "content": {},
+            "handlers": {},
+            "position": 2,
+            "visible": true
+        },
+        "bd2f85c9-99c9-4ec6-ba02-9fbea2d2ec5a": {
+            "id": "bd2f85c9-99c9-4ec6-ba02-9fbea2d2ec5a",
+            "type": "header",
+            "parentId": "c9ac9200-7d9b-44c1-acbd-d61b5e5f6917",
+            "content": {
+                "text": "Header Text"
+            },
+            "handlers": {},
+            "position": 0,
+            "visible": true
+        },
+        "d88ed498-c0b2-44a1-921a-94bc6b890807": {
+            "id": "d88ed498-c0b2-44a1-921a-94bc6b890807",
+            "type": "horizontalstack",
+            "parentId": "c9ac9200-7d9b-44c1-acbd-d61b5e5f6917",
+            "content": {},
+            "handlers": {},
+            "position": 1,
+            "visible": true
+        },
+        "3ca1d4cf-f146-474a-ad9d-e0442db200f3": {
+            "id": "3ca1d4cf-f146-474a-ad9d-e0442db200f3",
+            "type": "section",
+            "parentId": "c9ac9200-7d9b-44c1-acbd-d61b5e5f6917",
+            "content": {
+                "title": "Section Title",
+                "snapMode": "no"
+            },
+            "handlers": {},
+            "position": 2,
+            "visible": true
+        },
+        "7c33f93c-8110-4745-98d0-1a94ea7d27b2": {
+            "id": "7c33f93c-8110-4745-98d0-1a94ea7d27b2",
+            "type": "textinput",
+            "parentId": "db0f788c-a34a-4c4a-a5ef-a42a676ea8df",
+            "content": {
+                "label": "Input Label"
+            },
+            "handlers": {},
+            "position": 0,
+            "visible": true
+        },
+        "23b17bc5-e0c8-4414-93ea-90b744e7c678": {
+            "id": "23b17bc5-e0c8-4414-93ea-90b744e7c678",
+            "type": "textinput",
+            "parentId": "6fd4b940-a811-43ac-ad52-c9eb679bd7a0",
+            "content": {
+                "label": "Input Label"
+            },
+            "handlers": {},
+            "position": 0,
+            "visible": true
+        },
+        "acadeb0e-5838-4d37-9229-92c5072e7790": {
+            "id": "acadeb0e-5838-4d37-9229-92c5072e7790",
+            "type": "columns",
+            "parentId": "c9ac9200-7d9b-44c1-acbd-d61b5e5f6917",
+            "content": {},
+            "handlers": {},
+            "position": 3,
+            "visible": true
+        },
+        "db0f788c-a34a-4c4a-a5ef-a42a676ea8df": {
+            "id": "db0f788c-a34a-4c4a-a5ef-a42a676ea8df",
+            "type": "column",
+            "parentId": "acadeb0e-5838-4d37-9229-92c5072e7790",
+            "content": {
+                "width": "1"
+            },
+            "handlers": {},
+            "position": 2,
+            "visible": true
+        },
+        "a03d4330-e6e6-487c-a0be-198829e4ca41": {
+            "id": "a03d4330-e6e6-487c-a0be-198829e4ca41",
+            "type": "separator",
+            "parentId": "acadeb0e-5838-4d37-9229-92c5072e7790",
+            "content": {},
+            "handlers": {},
+            "position": 3,
+            "visible": true
+        },
+        "6fd4b940-a811-43ac-ad52-c9eb679bd7a0": {
+            "id": "6fd4b940-a811-43ac-ad52-c9eb679bd7a0",
+            "type": "column",
+            "parentId": "acadeb0e-5838-4d37-9229-92c5072e7790",
+            "content": {
+                "width": "1"
+            },
+            "handlers": {},
+            "position": 1,
+            "visible": true
+        },
+        "d0cc85a6-094c-46fa-bfc7-c3dca1b270cc": {
+            "id": "d0cc85a6-094c-46fa-bfc7-c3dca1b270cc",
+            "type": "column",
+            "parentId": "acadeb0e-5838-4d37-9229-92c5072e7790",
+            "content": {
+                "width": "1"
+            },
+            "handlers": {},
+            "position": 0,
+            "visible": true
+        }
+    }
+}
