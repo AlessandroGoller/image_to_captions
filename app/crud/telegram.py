@@ -37,6 +37,8 @@ def create_telegram(telegram: TelegramCreate) -> Telegram:
     db: Session = next(get_db())
     db_telegram = Telegram(
         id_user=telegram.id_user,
+        id_user_telegram=telegram.id_user_telegram,
+        id_chat=telegram.id_chat,
     )
     db.add(db_telegram)
     db.commit()

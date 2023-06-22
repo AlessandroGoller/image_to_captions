@@ -51,9 +51,8 @@ async def start(message: types.Message)->str:
     update_last_access(telegram)
     await message.answer(f"Salom, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}\n{telegram.user.email}")
-    await message.answer(f"Telegram schema created:, {telegram_schema.id_user}\n{telegram_schema.id_chat=}\n\
-                        {telegram_schema.id_user_telegram=}\n\nTelegram row\
-                        {telegram.user.email}")
+    await message.answer(f"Telegram row created:, {telegram.id_user}\n{telegram.id_chat=}\n\
+                        {telegram.id_user_telegram=}")
     return "ok"
 
 @dp.message_handler()
