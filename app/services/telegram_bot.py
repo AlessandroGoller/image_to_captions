@@ -47,14 +47,9 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
     if button_data == 'start_test':
         await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante start_test')
     elif button_data == '/start_test':
-        await bot.edit_message_text(f"DOVRESTI ESSERE QUA GIUSTO!! =\n\
-                                {query.data=}\n",
-                                chat_id=query.message.chat.id,
-                                message_id=query.message.message_id,
-                                reply_markup=None)
-        # await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante /start_test 2')
-    elif button_data =="IMPOSSIBLE":
-        profile_settings(query.message)
+        await action_post(query.message)
+    elif button_data =="/profile":
+        await profile_settings(query.message)
     elif button_data=="ciao":
         #await bot.answer_callback_query(query.id, text='Pulsante non valido')
 
@@ -63,7 +58,7 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                     message_id=query.message.message_id,
                                     reply_markup=None)
     else:
-        await bot.edit_message_text(f"Hello! se clicchi Avvia Inline non dovresti arrivare qua =\nhai cliccato: {query.data}\n\
+        await bot.edit_message_text(f"Hello! se clicchi Avvia Inline e con Modifica il Profilo non dovresti arrivare qua =\nhai cliccato: {query.data}\n\
                                 {query.data=}\n",
                                 chat_id=query.message.chat.id,
                                 message_id=query.message.message_id,
@@ -149,7 +144,10 @@ async def profile_settings(message: types.Message)->None:
     """
     telegram = check_chat(message)
     if telegram is False:
-        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser")
+        await bot.edit_message_text(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
+                                        chat_id=message.chat.id,
+                                        message_id=message.message_id,
+                                        reply_markup=None)
         return
 
     profile_settings_text = f"ID Azienda: {telegram.id_company}\n \
@@ -163,12 +161,25 @@ async def profile_settings(message: types.Message)->None:
                             Totale Tokens: {telegram.total_tokens}\n \
                             URL Immagine Profilo: {telegram.profile_pic_url}"
 
-    await message.reply(profile_settings_text)
+    await bot.edit_message_text(f"DOVRESTI ESSERE in Settings!! =\n{profile_settings_text}",
+                                chat_id=message.chat.id,
+                                message_id=message.message_id,
+                                reply_markup=None)
 
 async def action_post(message: types.Message)->None:
+    """
+    action_post
+
+    Parameters
+    ----------
+    message : types.Message
+    """
     telegram = check_chat(message)
     if telegram is False:
-        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser")
+        await bot.edit_message_text(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
+                                chat_id=message.chat.id,
+                                message_id=message.message_id,
+                                reply_markup=None)
         return
 
     list_commands_inline = [
@@ -180,6 +191,7 @@ async def action_post(message: types.Message)->None:
         button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
         keyboard.append([button])
     command_inline = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
-    await message.reply(f"Hello!{message.from_user.full_name=}\nPremere OK per continuare oppure\
-                        HOME per tornare all'inizio",
-                    reply_markup=command_inline)
+    await bot.edit_message_text("DOVRESTI ESSERE in ACTION!! =\n",
+                                chat_id=message.chat.id,
+                                message_id=message.message_id,
+                                reply_markup=command_inline)
