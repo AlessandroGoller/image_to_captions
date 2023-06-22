@@ -128,18 +128,19 @@ async def start(message: types.Message)->str:
 
 @dp.message_handler()
 async def main_handler(message: types.Message)-> str:
-    """ Anwser message for other commands """
+    """ Anwser message for all messages  """
     try:
         user_id = message.from_user.id
         user_full_name = message.from_user.full_name
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}. Message: {message}")
 
-        telegram = check_chat(message)
+        telegram = check_chat(message.chat.id)
         if telegram is False:
             await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
             return "ok"
         update_last_access(telegram.id_telegram)
-        await message.reply(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",reply_markup=create_inline_keyboard())
+        await message.reply(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",
+                    reply_markup=create_inline_keyboard())
         return "ok"
     except Exception as error:
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}.\
@@ -155,25 +156,24 @@ async def profile_settings(message: types.Message)->None:
     ----------
     message : types.Message
     """
-    telegram = check_chat(message)
+    telegram = check_chat(message.chat.id)
     if telegram is False:
         await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                         reply_markup=None)
         return
 
-    profile_settings_text = f"ID Azienda: {telegram.id_company}\n \
-                            Nome: {telegram.name}\n \
-                            ID Utente: {telegram.id_user}\n \
-                            URL Instagram: {telegram.url_instagram}\n \
-                            Lingua: {telegram.language}\n \
-                            Descrizione: {telegram.description}\n \
-                            Sito Web: {telegram.website}\n \
-                            Tokens da pagare: {telegram.tokens_to_be_paid}\n \
-                            Totale Tokens: {telegram.total_tokens}\n \
-                            URL Immagine Profilo: {telegram.profile_pic_url}"
+    profile_settings_text = f"Email: {telegram.user.email}\n \
+                            name: {telegram.user.name}\n \
+                            password: Non la sappiamo neache noi :)\n \
+                            URL Instagram: {telegram.user.url_instagram}\n \
+                            Lingua: {telegram.user.language}\n \
+                            last_access: {telegram.user.last_access}\n \
+                            time_created: {telegram.user.time_created}\n \
+                            Tokens da pagare: {telegram.user.tokens_to_be_paid}\n \
+                            Totale Tokens: {telegram.user.total_tokens}"
 
     await message.reply(f"DOVRESTI ESSERE in Settings!! =\n{profile_settings_text}",
-                                reply_markup=None)
+        reply_markup=None)
 
 async def action_post(message: types.Message) -> None:
     """
@@ -183,7 +183,7 @@ async def action_post(message: types.Message) -> None:
     ----------
     message : types.Message
     """
-    telegram = check_chat(message)
+    telegram = check_chat(message.chat.id)
     if telegram is False:
         message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                 reply_markup=None)
