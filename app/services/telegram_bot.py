@@ -141,17 +141,21 @@ async def main_handler(message: types.Message)-> str:
             await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
             return "ok"
         update_last_access(telegram.id_telegram)
-        if message.photo:
-            await message.reply(f"Salom, {message.from_user.full_name}\nHAI CARICATO UNA IMMAGINE")
-        else:
-            await message.answer(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",
-                    reply_markup=create_inline_keyboard())
+        await message.answer(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",
+                reply_markup=create_inline_keyboard())
         return "ok"
     except Exception as error:
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}.\
                     Message: {message}. Error in main_handler\n {error}")
         await message.reply("Something went wrong...")
         return f"There was an error: {error}"
+
+@dp.message_handler(content_types=types.ContentTypes.PHOTO)
+async def image_handler(message: types.Message)->str:
+    """ Anwser message only for images """
+    # photo = message.photo[-1]  # Prendi solo l'ultima immagine (la più grande)
+    await message.reply("Hello!\n Questa è una IMMAGINE")
+    return "ok"
 
 async def profile_settings(message: types.Message)->None:
     """
