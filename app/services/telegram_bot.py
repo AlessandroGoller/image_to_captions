@@ -44,8 +44,8 @@ async def start(message: types.Message)->str:
         delete_telegram(telegram)
     telegram_schema = TelegramCreate(
         id_user=user.user_id,
-        id_user_telegram=message.from_user.id,
-        id_chat=message.chat.id
+        id_user_telegram=int(message.from_user.id),
+        id_chat=int(message.chat.id)
     )
     telegram = create_telegram(telegram=telegram_schema)
     update_last_access(telegram)
