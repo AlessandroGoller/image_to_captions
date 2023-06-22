@@ -47,8 +47,16 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
     if button_data == 'start_test':
         await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante start_test')
     elif button_data == '/start_test':
+        await bot.edit_message_text("Avvia Inline, attivato",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
         await action_post(query.message)
     elif button_data =="/profile":
+        await bot.edit_message_text("Modifica il Profilo, attivato",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
         await profile_settings(query.message)
     elif button_data=="ciao":
         #await bot.answer_callback_query(query.id, text='Pulsante non valido')
@@ -144,9 +152,7 @@ async def profile_settings(message: types.Message)->None:
     """
     telegram = check_chat(message)
     if telegram is False:
-        await bot.edit_message_text(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
-                                        chat_id=message.chat.id,
-                                        message_id=message.message_id,
+        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                         reply_markup=None)
         return
 
@@ -161,12 +167,10 @@ async def profile_settings(message: types.Message)->None:
                             Totale Tokens: {telegram.total_tokens}\n \
                             URL Immagine Profilo: {telegram.profile_pic_url}"
 
-    await bot.edit_message_text(f"DOVRESTI ESSERE in Settings!! =\n{profile_settings_text}",
-                                chat_id=message.chat.id,
-                                message_id=message.message_id,
+    await message.reply(f"DOVRESTI ESSERE in Settings!! =\n{profile_settings_text}",
                                 reply_markup=None)
 
-async def action_post(message: types.Message)->None:
+async def action_post(message: types.Message) -> None:
     """
     action_post
 
@@ -176,9 +180,7 @@ async def action_post(message: types.Message)->None:
     """
     telegram = check_chat(message)
     if telegram is False:
-        await bot.edit_message_text(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
-                                chat_id=message.chat.id,
-                                message_id=message.message_id,
+        message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                 reply_markup=None)
         return
 
@@ -191,7 +193,5 @@ async def action_post(message: types.Message)->None:
         button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
         keyboard.append([button])
     command_inline = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
-    await bot.edit_message_text("DOVRESTI ESSERE in ACTION!! =\n",
-                                chat_id=message.chat.id,
-                                message_id=message.message_id,
+    await message.reply("DOVRESTI ESSERE in ACTION!! =\n",
                                 reply_markup=command_inline)
