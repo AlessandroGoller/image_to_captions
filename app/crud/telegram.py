@@ -45,9 +45,12 @@ def create_telegram(telegram: TelegramCreate) -> Telegram:
     db.refresh(db_telegram)
     return db_telegram
 
-def update_last_access(telegram: Telegram) -> None:
+def update_last_access(id_telegram: int) -> None:
     """ Update last access """
     db: Session = next(get_db())
+    telegram = get_telegram_by_id(id_telegram)
+    if telegram is None:
+        raise ValueError("Impossible Position")
     telegram.last_access = func.now()
     db.merge(telegram)
     db.commit()

@@ -23,12 +23,12 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands="start")
 async def start(message: types.Message)->str:
     """ Anwser message for commands start """
-    try:
-        hash_code: str = message.text.split(" ")[1]
-    except:
+    hash_code: str = message.text.split(" ")
+    if len(hash_code)<=1:
         await message.answer(f"Error hash code, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}")
         return "ok"
+    hash_code = hash_code[1]
     user: Optional[User] = get_user_by_hash(hash_code=hash_code)
     if user is None:
         await message.answer(f"Salom, {message.from_user.full_name}\n \
@@ -37,8 +37,7 @@ async def start(message: types.Message)->str:
     telegram = get_telegram_by_chat_id(message.chat.id)
     if telegram is not None:
         if telegram.id_user == user.user_id:
-            # update_last_access(telegram)
-            await message.answer("Salom another time2")
+            update_last_access(telegram.id_telegram)
             await message.answer(f"Salom another time, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}\n{telegram.user.email}")
             return "ok"
