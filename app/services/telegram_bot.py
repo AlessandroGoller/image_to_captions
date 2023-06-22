@@ -44,18 +44,15 @@ def create_inline_keyboard()-> types.InlineKeyboardMarkup:
 async def handle_callback_query(query: types.CallbackQuery)->str:
     """ Handle the keyboard query pression """
     button_data = query.data
-    await bot.edit_message_text(f"Hello! Messaggio vecchio =\n {query.message.text}\n\
-                                {query.inline_message_id=}\n\
-                                {query.chat_instance=}\n\
-                                {query.data=}\n\
-                                {query.game_short_name=}\n",
-                                chat_id=query.message.chat.id,
-                                message_id=query.message.message_id,
-                                reply_markup=None)
     if button_data == 'start_test':
         await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante start_test')
     elif button_data == '/start_test':
-        await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante /start_test 2')
+        await bot.edit_message_text(f"DOVRESTI ESSERE QUA GIUSTO!! =\n\
+                                {query.data=}\n",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
+        # await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante /start_test 2')
     elif button_data =="IMPOSSIBLE":
         profile_settings(query.message)
     elif button_data=="ciao":
@@ -65,6 +62,12 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                     chat_id=query.message.chat.id,
                                     message_id=query.message.message_id,
                                     reply_markup=None)
+    else:
+        await bot.edit_message_text(f"Hello! se clicchi Avvia Inline non dovresti arrivare qua =\nhai cliccato: {query.data}\n\
+                                {query.data=}\n",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
     return "ok"
 
 
