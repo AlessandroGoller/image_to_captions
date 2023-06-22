@@ -26,16 +26,21 @@ commands = [
         types.BotCommand(command="/bomba", description="Explodeeee")
     ]
 
-list_commands_inline = [
+list_commands_inline_basic_message = [
     {'command': '/start_test', 'label': 'Avvia Inline'},
     {'command': '/help_inline', 'label': 'Aiuto Inline'},
     {'command': '/profile', 'label': 'Modifica il Profilo'}
 ]
 
+list_commands_inline_action = [
+        {'command': '/ok_action_post', 'label': 'OK'},
+        {'command': '/home_action_post', 'label': 'HOME'},
+    ]
+
 def create_inline_keyboard()-> types.InlineKeyboardMarkup:
     """ Permit to create the inline comands for telegram"""
     keyboard = []
-    for cmd in list_commands_inline:
+    for cmd in list_commands_inline_basic_message:
         button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
         keyboard.append([button])
     return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
@@ -44,8 +49,11 @@ def create_inline_keyboard()-> types.InlineKeyboardMarkup:
 async def handle_callback_query(query: types.CallbackQuery)->str:
     """ Handle the keyboard query pression """
     button_data = query.data
-    if button_data == 'start_test':
-        await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante start_test')
+    if button_data == '/help_inline':
+        await bot.edit_message_text("Help page",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
     elif button_data == '/start_test':
         await bot.edit_message_text("Avvia Inline, attivato",
                                 chat_id=query.message.chat.id,
@@ -58,19 +66,16 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                 message_id=query.message.message_id,
                                 reply_markup=None)
         await profile_settings(query.message)
+    elif button_data =="/ok_action_post":
+        await bot.edit_message_text("Se tutto andasse ora potresti caricare una immagine",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
     elif button_data=="ciao":
-        #await bot.answer_callback_query(query.id, text='Pulsante non valido')
-
         await bot.edit_message_text(f"Hello! user_full_name\nIl tuo messaggio è: {query.message.text}",
                                     chat_id=query.message.chat.id,
                                     message_id=query.message.message_id,
                                     reply_markup=None)
-    else:
-        await bot.edit_message_text(f"Hello! se clicchi Avvia Inline e con Modifica il Profilo non dovresti arrivare qua =\nhai cliccato: {query.data}\n\
-                                {query.data=}\n",
-                                chat_id=query.message.chat.id,
-                                message_id=query.message.message_id,
-                                reply_markup=None)
     return "ok"
 
 
@@ -183,13 +188,8 @@ async def action_post(message: types.Message) -> None:
         message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                 reply_markup=None)
         return
-
-    list_commands_inline = [
-        {'command': '/ok_action_post', 'label': 'OK'},
-        {'command': '/home_action_post', 'label': 'HOME'},
-    ]
     keyboard = []
-    for cmd in list_commands_inline:
+    for cmd in list_commands_inline_action:
         button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
         keyboard.append([button])
     command_inline = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
