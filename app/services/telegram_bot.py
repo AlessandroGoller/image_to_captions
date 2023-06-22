@@ -64,7 +64,7 @@ async def main_handler(message: types.Message)-> str:
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}. Message: {message}")
 
         telegram = get_telegram_by_chat_id(message.chat.id)
-        if telegram is not None:
+        if telegram is None:
             await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
             return "ok"
         update_last_access(telegram.id_telegram)
