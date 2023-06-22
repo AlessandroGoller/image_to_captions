@@ -37,7 +37,8 @@ async def start(message: types.Message)->str:
     telegram = get_telegram_by_chat_id(message.chat.id)
     if telegram is not None:
         if telegram.id_user == user.user_id:
-            update_last_access(telegram)
+            # update_last_access(telegram)
+            await message.answer("Salom another time2")
             await message.answer(f"Salom another time, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}\n{telegram.user.email}")
             return "ok"
