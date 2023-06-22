@@ -4,7 +4,7 @@ Module for start FastApi
 """
 from app.app_creator import create_app, router
 from app.dependency import get_settings
-from app.services.telegram_bot import WEBHOOK_URL, bot
+from app.services.telegram_bot import WEBHOOK_URL, bot, commands
 from app.utils.logger import configure_logger
 
 logger = configure_logger()
@@ -21,6 +21,8 @@ async def on_startup()->None:
         await bot.set_webhook(
             url=WEBHOOK_URL
         )
+    await bot.set_my_commands(commands)
+
 
 @app.on_event("shutdown")
 async def on_shutdown()-> None:

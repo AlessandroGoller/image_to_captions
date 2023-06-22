@@ -4,6 +4,7 @@ import time
 from typing import Optional
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.types import InlineQueryResultArticle, InputTextMessageContent
 
 from app.crud.telegram import create_telegram, delete_telegram, get_telegram_by_chat_id, update_last_access
 from app.crud.user import get_user_by_hash
@@ -20,36 +21,52 @@ WEBHOOK_URL = settings.DOMAIN + settings.WEBHOOK_PATH
 bot = Bot(token=settings.TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
-list_commands = [
-    {'command': '/start_test', 'label': 'Avvia'},
-    {'command': '/help', 'label': 'Aiuto'},
-    {'command': '/info', 'label': 'Informazioni'}
+commands = [
+        types.BotCommand(command="/help", description="Show help"),
+        types.BotCommand(command="/bomba", description="Explodeeee")
+    ]
+
+list_commands_inline = [
+    {'command': '/start_test', 'label': 'Avvia Inline'},
+    {'command': '/help_inline', 'label': 'Aiuto Inline'},
+    {'command': '/info', 'label': 'Informazioni Inline'}
 ]
 
 def create_inline_keyboard()-> types.InlineKeyboardMarkup:
     """ Permit to create the inline comands for telegram"""
     keyboard = []
-    for cmd in list_commands:
+    for cmd in list_commands_inline:
         button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
         keyboard.append([button])
     return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
 
-@dp.message_handler(commands="/start_test")
-async def start_test(message: types.Message)->str:
-    """ Anwser message for commands start """
-    await message.answer("NON fa nulla :)")
+@dp.inline_handler()
+async def inline_query_handler(query: types.InlineQuery)-> str:
+    """ To receive the inline commands"""
+    command = query.query.lower()
+    text = f"Il comando che hai scelto è : {command}"
+    results = [
+        InlineQueryResultArticle(
+            id='1',
+            title='echo',
+            input_message_content=InputTextMessageContent(message_text=text)
+        )
+    ]
+    # don't forget to set cache_time=1 for testing (default is 300s or 5m)
+    await bot.answer_inline_query(query.id, results=results, cache_time=1)
     return "ok"
+
 
 @dp.message_handler(commands="/help")
 async def help_comand(message: types.Message)->str:
     """ Anwser message for commands start """
-    await message.answer("NON fa nulla :)")
+    await message.answer("NON fa nulla2 :)")
     return "ok"
 
 @dp.message_handler(commands="/info")
 async def info_comand(message: types.Message)->str:
     """ Anwser message for commands start """
-    await message.answer("NON fa nulla :)")
+    await message.answer("NON fa nulla 3:)")
     return "ok"
 
 @dp.message_handler(commands="start")
