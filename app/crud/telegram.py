@@ -60,10 +60,21 @@ def delete_telegram_from_id_chat(id_chat: int) -> dict[str, bool]:
 
 def delete_telegram(telegram: Telegram) -> dict[str, bool]:
     """Permit to delete a telegram"""
-    db: Session = next(get_db())
-    db.delete(telegram)
-    db.commit()
+    delete_all_telegram_from_id_user_telegram(telegram.id_user_telegram)
     return {"ok": True}
+
+def delete_all_telegram_from_id_user_telegram(id_user_telegram:int) -> None:
+    """ Delete all telegram account connected to a id_user_telegram """
+    db: Session = next(get_db())
+    # Get all Telegram accounts connected to the id_user_telegram
+    telegrams: list[Telegram] = db.query(Telegram).filter_by(id_user_telegram=int(id_user_telegram)).all()
+    # Delete each Telegram account
+    for telegram in telegrams:
+        try:
+            delete_telegram_with_sessione(db, telegram)
+        except Exception as error:
+            logger.error(f"Error during deletion of the telegram post {telegram.posturl}\n{error}")
+
 
 def delete_all_telegram(id_user:int) -> None:
     """ Delete all telegram account connected to a id_user """

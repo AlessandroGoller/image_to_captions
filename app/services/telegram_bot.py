@@ -36,7 +36,7 @@ async def start(message: types.Message)->str:
         return "ok, but with impossible account"
     telegram = get_telegram_by_chat_id(message.chat.id)
     if telegram is not None:
-        if telegram.user.user_id == user.user_id:
+        if telegram.id_user == user.user_id:
             update_last_access(telegram)
             await message.answer(f"Salom another time, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}\n{telegram.user.email}")
