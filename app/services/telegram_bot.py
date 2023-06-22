@@ -4,7 +4,6 @@ import time
 from typing import Optional
 
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import InlineQueryResultArticle, InputTextMessageContent
 
 from app.crud.telegram import create_telegram, delete_telegram, get_telegram_by_chat_id, update_last_access
 from app.crud.user import get_user_by_hash
@@ -12,6 +11,7 @@ from app.dependency import get_settings
 from app.model.user import User
 from app.schema.telegram import TelegramCreate
 from app.utils.logger import configure_logger
+from app.utils.telegram_utils import check_chat
 
 logger = configure_logger()
 settings = get_settings()
@@ -29,7 +29,7 @@ commands = [
 list_commands_inline = [
     {'command': '/start_test', 'label': 'Avvia Inline'},
     {'command': '/help_inline', 'label': 'Aiuto Inline'},
-    {'command': '/info', 'label': 'Informazioni Inline'}
+    {'command': '/profile', 'label': 'Modifica il Profilo'}
 ]
 
 def create_inline_keyboard()-> types.InlineKeyboardMarkup:
@@ -44,18 +44,27 @@ def create_inline_keyboard()-> types.InlineKeyboardMarkup:
 async def handle_callback_query(query: types.CallbackQuery)->str:
     """ Handle the keyboard query pression """
     button_data = query.data
-
+    await bot.edit_message_text(f"Hello! Messaggio vecchio =\n {query.message.text}\n\
+                                {query.inline_message_id=}\n\
+                                {query.chat_instance=}\n\
+                                {query.data=}\n\
+                                {query.game_short_name=}\n",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
     if button_data == 'start_test':
         await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante start_test')
     elif button_data == '/start_test':
         await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante /start_test 2')
-    else:
-        await bot.answer_callback_query(query.id, text='Pulsante non valido')
+    elif button_data =="IMPOSSIBLE":
+        profile_settings(query.message)
+    elif button_data=="ciao":
+        #await bot.answer_callback_query(query.id, text='Pulsante non valido')
 
-    await bot.edit_message_text(f"Hello! user_full_name\nIl tuo messaggio è: {query.message.text}",
-                                chat_id=query.message.chat.id,
-                                message_id=query.message.message_id,
-                                reply_markup=None)
+        await bot.edit_message_text(f"Hello! user_full_name\nIl tuo messaggio è: {query.message.text}",
+                                    chat_id=query.message.chat.id,
+                                    message_id=query.message.message_id,
+                                    reply_markup=None)
     return "ok"
 
 
@@ -114,8 +123,8 @@ async def main_handler(message: types.Message)-> str:
         user_full_name = message.from_user.full_name
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}. Message: {message}")
 
-        telegram = get_telegram_by_chat_id(message.chat.id)
-        if telegram is None:
+        telegram = check_chat(message)
+        if telegram is False:
             await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
             return "ok"
         update_last_access(telegram.id_telegram)
@@ -126,3 +135,48 @@ async def main_handler(message: types.Message)-> str:
                     Message: {message}. Error in main_handler\n {error}")
         await message.reply("Something went wrong...")
         return f"There was an error: {error}"
+
+async def profile_settings(message: types.Message)->None:
+    """
+    Shows the profile settings
+
+    Parameters
+    ----------
+    message : types.Message
+    """
+    telegram = check_chat(message)
+    if telegram is False:
+        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser")
+        return
+
+    profile_settings_text = f"ID Azienda: {telegram.id_company}\n \
+                            Nome: {telegram.name}\n \
+                            ID Utente: {telegram.id_user}\n \
+                            URL Instagram: {telegram.url_instagram}\n \
+                            Lingua: {telegram.language}\n \
+                            Descrizione: {telegram.description}\n \
+                            Sito Web: {telegram.website}\n \
+                            Tokens da pagare: {telegram.tokens_to_be_paid}\n \
+                            Totale Tokens: {telegram.total_tokens}\n \
+                            URL Immagine Profilo: {telegram.profile_pic_url}"
+
+    await message.reply(profile_settings_text)
+
+async def action_post(message: types.Message)->None:
+    telegram = check_chat(message)
+    if telegram is False:
+        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser")
+        return
+
+    list_commands_inline = [
+        {'command': '/ok_action_post', 'label': 'OK'},
+        {'command': '/home_action_post', 'label': 'HOME'},
+    ]
+    keyboard = []
+    for cmd in list_commands_inline:
+        button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
+        keyboard.append([button])
+    command_inline = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
+    await message.reply(f"Hello!{message.from_user.full_name=}\nPremere OK per continuare oppure\
+                        HOME per tornare all'inizio",
+                    reply_markup=command_inline)
