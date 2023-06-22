@@ -62,8 +62,14 @@ async def main_handler(message: types.Message)-> str:
         user_id = message.from_user.id
         user_full_name = message.from_user.full_name
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}. Message: {message}")
-        await message.reply(f"Hello world!{user_id=}\n{user_full_name=}\n")
-        return "Correct Answer"
+
+        telegram = get_telegram_by_chat_id(message.chat.id)
+        if telegram is not None:
+            await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
+            return "ok"
+        update_last_access(telegram.id_telegram)
+        await message.reply(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}")
+        return "ok"
     except Exception as error:
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}.\
                     Message: {message}. Error in main_handler\n {error}")
