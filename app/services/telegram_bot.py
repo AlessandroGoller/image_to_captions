@@ -20,6 +20,20 @@ WEBHOOK_URL = settings.DOMAIN + settings.WEBHOOK_PATH
 bot = Bot(token=settings.TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
+commands = [
+    {'command': '/start_test', 'label': 'Avvia'},
+    {'command': '/help', 'label': 'Aiuto'},
+    {'command': '/info', 'label': 'Informazioni'}
+]
+
+def create_inline_keyboard()-> types.InlineKeyboardMarkup:
+    """ Permit to create the inline comands for telegram"""
+    keyboard = []
+    for cmd in commands:
+        button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
+        keyboard.append([button])
+    return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
+
 @dp.message_handler(commands="start")
 async def start(message: types.Message)->str:
     """ Anwser message for commands start """
@@ -68,7 +82,7 @@ async def main_handler(message: types.Message)-> str:
             await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
             return "ok"
         update_last_access(telegram.id_telegram)
-        await message.reply(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}")
+        await message.reply(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",reply_markup=create_inline_keyboard())
         return "ok"
     except Exception as error:
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}.\
