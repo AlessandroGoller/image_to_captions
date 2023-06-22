@@ -40,30 +40,32 @@ def create_inline_keyboard()-> types.InlineKeyboardMarkup:
         keyboard.append([button])
     return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
 
-@dp.inline_handler()
-async def inline_query_handler(query: types.InlineQuery)-> str:
-    """ To receive the inline commands"""
-    command = query.query.lower()
-    text = f"Il comando che hai scelto è : {command}"
-    results = [
-        InlineQueryResultArticle(
-            id='1',
-            title='echo',
-            input_message_content=InputTextMessageContent(message_text=text)
-        )
-    ]
-    # don't forget to set cache_time=1 for testing (default is 300s or 5m)
-    await bot.answer_inline_query(query.id, results=results, cache_time=1)
+@dp.callback_query_handler()
+async def handle_callback_query(query: types.CallbackQuery)->str:
+    """ Handle the keyboard query pression """
+    button_data = query.data
+
+    if button_data == 'start_test':
+        await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante start_test')
+    elif button_data == '/start_test':
+        await bot.answer_callback_query(query.id, text='Hai selezionato il pulsante /start_test 2')
+    else:
+        await bot.answer_callback_query(query.id, text='Pulsante non valido')
+
+    await bot.edit_message_text(f"Hello! user_full_name\nIl tuo messaggio è: {query.message.text}",
+                                chat_id=query.message.chat.id,
+                                message_id=query.message.message_id,
+                                reply_markup=None)
     return "ok"
 
 
-@dp.message_handler(commands="/help")
+@dp.message_handler(commands="help")
 async def help_comand(message: types.Message)->str:
     """ Anwser message for commands start """
     await message.answer("NON fa nulla2 :)")
     return "ok"
 
-@dp.message_handler(commands="/info")
+@dp.message_handler(commands="bomba")
 async def info_comand(message: types.Message)->str:
     """ Anwser message for commands start """
     await message.answer("NON fa nulla 3:)")
