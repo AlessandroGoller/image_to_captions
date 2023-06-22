@@ -106,19 +106,21 @@ async def start(message: types.Message)->str:
                             Impossible to find account, try again")
         return "ok, but with impossible account"
     telegram = get_telegram_by_chat_id(message.chat.id)
-    if telegram is not None:
-        if telegram.id_user == user.user_id:
-            update_last_access(telegram.id_telegram)
-            await message.answer(f"Salom another time, {message.from_user.full_name}\n{message.text=}\n\
-                        {message.chat.id=}\n{telegram.user.email}")
-            return "ok"
+    if telegram is not None and telegram.id_user != user.user_id:
         delete_telegram(telegram)
-    telegram_schema = TelegramCreate(
-        id_user=user.user_id,
-        id_user_telegram=int(message.from_user.id),
-        id_chat=int(message.chat.id)
-    )
-    telegram = create_telegram(telegram=telegram_schema)
+        telegram_schema = TelegramCreate(
+            id_user=user.user_id,
+            id_user_telegram=int(message.from_user.id),
+            id_chat=int(message.chat.id)
+        )
+        telegram = create_telegram(telegram=telegram_schema)
+    else:
+        telegram_schema = TelegramCreate(
+            id_user=user.user_id,
+            id_user_telegram=int(message.from_user.id),
+            id_chat=int(message.chat.id)
+        )
+        telegram = create_telegram(telegram=telegram_schema)
     update_last_access(telegram)
     await message.answer(f"Salom, {message.from_user.full_name}\n{message.text=}\n\
                         {message.chat.id=}\n{telegram.user.email}")
@@ -139,7 +141,10 @@ async def main_handler(message: types.Message)-> str:
             await message.reply(f"Hello!{user_full_name=}\nPer favore fai il primo accesso via browser")
             return "ok"
         update_last_access(telegram.id_telegram)
-        await message.reply(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",
+        if message.photo:
+            await message.reply(f"Salom, {message.from_user.full_name}\nHAI CARICATO UNA IMMAGINE")
+        else:
+            await message.answer(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",
                     reply_markup=create_inline_keyboard())
         return "ok"
     except Exception as error:
