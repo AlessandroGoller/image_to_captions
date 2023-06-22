@@ -20,7 +20,7 @@ WEBHOOK_URL = settings.DOMAIN + settings.WEBHOOK_PATH
 bot = Bot(token=settings.TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
-commands = [
+list_commands = [
     {'command': '/start_test', 'label': 'Avvia'},
     {'command': '/help', 'label': 'Aiuto'},
     {'command': '/info', 'label': 'Informazioni'}
@@ -29,10 +29,28 @@ commands = [
 def create_inline_keyboard()-> types.InlineKeyboardMarkup:
     """ Permit to create the inline comands for telegram"""
     keyboard = []
-    for cmd in commands:
+    for cmd in list_commands:
         button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
         keyboard.append([button])
     return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
+
+@dp.message_handler(commands="/start_test")
+async def start_test(message: types.Message)->str:
+    """ Anwser message for commands start """
+    await message.answer("NON fa nulla :)")
+    return "ok"
+
+@dp.message_handler(commands="/help")
+async def help_comand(message: types.Message)->str:
+    """ Anwser message for commands start """
+    await message.answer("NON fa nulla :)")
+    return "ok"
+
+@dp.message_handler(commands="/info")
+async def info_comand(message: types.Message)->str:
+    """ Anwser message for commands start """
+    await message.answer("NON fa nulla :)")
+    return "ok"
 
 @dp.message_handler(commands="start")
 async def start(message: types.Message)->str:
