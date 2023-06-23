@@ -1,10 +1,11 @@
 """ Module with utils regarding tokenization """
 
-import streamlit as st
 import tiktoken
+from typing import Optional
 
 from app.crud.company import add_tokens, get_company_by_user_id
 from app.crud.user import get_user_by_email
+from app.model.instagram import Instagram
 from app.utils.logger import configure_logger
 
 logger = configure_logger()
@@ -53,9 +54,9 @@ def num_tokens_from_string(string:str, model:str="gpt-3.5-turbo-0301")->int:
 
     return num_tokens
 
-def add_tokens_to_db(string:str)->None:
+def add_tokens_to_db(string:str, email:str)->None:
     """ Insert token inside db """
-    user = get_user_by_email(email=st.session_state["email"])
+    user = get_user_by_email(email=email)
     if user is None:
         logger.error("Profile Page without having an account")
         raise ValueError("Impossible Position")
@@ -65,6 +66,38 @@ def add_tokens_to_db(string:str)->None:
         raise ValueError("Impossible Position")
     tokens = num_tokens_from_string(string)
     _,_ = add_tokens(company=company, tokens=tokens)
+
+def limit_posts_for_token(sample_posts:Optional[list[Instagram]])->str:
+    """
+    limit_posts_for_token
+    Return the prompt with instagram posts, limited by token
+
+    Parameters
+    ----------
+    sample_posts : list[Instagram]
+
+    Returns
+    -------
+    str
+    """
+    # To be sure, we will add each post until we reach 3500 tokens maximum
+    if sample_posts is None:
+        raise ValueError("No posts found")
+    tok = 0
+    posts = 0
+    prompt = "Genera un post per instagram, seguendo il formato degli esempi che fornisco:" # noqa
+    for example in sample_posts:
+        # We insert posts until we reach 3500 tokens
+        # QUEST: are the post in order from the most recent?
+        if (tok+num_tokens_from_string(example.post)<3500):
+            prompt += ' "' + str(example.post) + '",'
+            tok += num_tokens_from_string(example.post)
+            posts += 1
+        else:
+            break
+    logger.info(f"Inserted {posts} post, corresponding to {tok} tokens, in the prompt")
+    prompt = prompt[:-1] # Remove the comma
+    return prompt
 
 
 if __name__=="__main__":

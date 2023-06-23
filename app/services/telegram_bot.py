@@ -1,17 +1,29 @@
 """ Telegram """
 
 import time
+import io
+import traceback
+from app.crud.instagram import create_instagram, get_last_n_instagram
+
+from app.services.langchain import (
+    generate_ig_post,
+    generate_img_description,
+)
+
 from typing import Optional
 
 from aiogram import Bot, Dispatcher, types
 
 from app.crud.telegram import create_telegram, delete_telegram, get_telegram_by_chat_id, update_last_access
 from app.crud.user import get_user_by_hash
+from app.crud.company import get_company_by_user_id
 from app.dependency import get_settings
 from app.model.user import User
+from app.model.company import Company
 from app.schema.telegram import TelegramCreate
 from app.utils.logger import configure_logger
 from app.utils.telegram_utils import check_chat
+from app.utils.openai.prompt import create_prompt
 
 logger = configure_logger()
 settings = get_settings()
@@ -27,21 +39,21 @@ commands = [
     ]
 
 list_commands_inline_basic_message = [
-    {'command': '/start_test', 'label': 'Avvia Inline'},
-    {'command': '/help_inline', 'label': 'Aiuto Inline'},
-    {'command': '/profile', 'label': 'Modifica il Profilo'}
+    {"command": "/start_test", "label": "Avvia Inline"},
+    {"command": "/help_inline", "label": "Aiuto Inline"},
+    {"command": "/profile", "label": "Modifica il Profilo"}
 ]
 
 list_commands_inline_action = [
-        {'command': '/ok_action_post', 'label': 'OK'},
-        {'command': '/home_action_post', 'label': 'HOME'},
+        {"command": "/ok_action_post", "label": "OK"},
+        {"command": "/home_action_post", "label": "HOME"},
     ]
 
 def create_inline_keyboard()-> types.InlineKeyboardMarkup:
     """ Permit to create the inline comands for telegram"""
     keyboard = []
     for cmd in list_commands_inline_basic_message:
-        button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
+        button = types.InlineKeyboardButton(text=cmd["label"], callback_data=cmd["command"])
         keyboard.append([button])
     return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
 
@@ -49,12 +61,12 @@ def create_inline_keyboard()-> types.InlineKeyboardMarkup:
 async def handle_callback_query(query: types.CallbackQuery)->str:
     """ Handle the keyboard query pression """
     button_data = query.data
-    if button_data == '/help_inline':
+    if button_data == "/help_inline":
         await bot.edit_message_text("Help page",
                                 chat_id=query.message.chat.id,
                                 message_id=query.message.message_id,
                                 reply_markup=None)
-    elif button_data == '/start_test':
+    elif button_data == "/start_test":
         await bot.edit_message_text("Avvia Inline, attivato",
                                 chat_id=query.message.chat.id,
                                 message_id=query.message.message_id,
@@ -153,8 +165,43 @@ async def main_handler(message: types.Message)-> str:
 @dp.message_handler(content_types=types.ContentTypes.PHOTO)
 async def image_handler(message: types.Message)->str:
     """ Anwser message only for images """
-    # photo = message.photo[-1]  # Prendi solo l'ultima immagine (la più grande)
-    await message.reply("Hello!\n Questa è una IMMAGINE")
+    telegram = check_chat(message.chat.id)
+    if telegram is False:
+        message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
+                                reply_markup=None)
+        return
+    image = message.photo[-1]
+    try:
+        await message.reply(f"Hello!\n Questa è una IMMAGINE\n\
+            {image.file_id=}\n\
+            {image.width=}\n\
+            {image.height=}\n\
+            {image.file_size=}\n\
+                ")
+        image_bytes = io.BytesIO()
+        image.download(destination=image_bytes)
+        description_image: str = generate_img_description(image_bytes)
+        await message.reply(f"{description_image=}")
+        company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
+        if company is None:
+            await message.reply("Please go to website and add IG user")
+            return "No company"
+        sample_posts = get_last_n_instagram(
+                company_id=company.id_company, number_ig=20
+            )
+        await message.reply("Extracted instagram images from db")
+        prompt = create_prompt(sample_posts, description_image)
+        posts = generate_ig_post(telegram.user.email, prompt)
+        await message.reply(f"{posts}")
+    except Exception as error:
+        logger.error(
+            f"ERROR during action from telegram{error}\n{traceback}"
+        )
+        await message.reply(f"There was an error: {error}\n-----\n{traceback}")
+    
+    # Esempio: leggere l'immagine come dati di tipo bytes
+    #image_bytes = io.BytesIO()
+    #await photo.download(destination=image_bytes)
     return "ok"
 
 async def profile_settings(message: types.Message)->None:
@@ -199,7 +246,7 @@ async def action_post(message: types.Message) -> None:
         return
     keyboard = []
     for cmd in list_commands_inline_action:
-        button = types.InlineKeyboardButton(text=cmd['label'], callback_data=cmd['command'])
+        button = types.InlineKeyboardButton(text=cmd["label"], callback_data=cmd["command"])
         keyboard.append([button])
     command_inline = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
     await message.reply("DOVRESTI ESSERE in ACTION!! =\n",

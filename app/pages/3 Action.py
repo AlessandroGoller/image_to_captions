@@ -23,7 +23,7 @@ from app.services.langchain import (
     generate_img_description,
 )
 from app.utils.logger import configure_logger
-from app.utils.openai import tokenization
+from app.utils.openai.prompt import create_prompt
 from app.utils.streamlit_utils.action_helper import add_info_sponsor, create_new_post, update_post
 from app.utils.streamlit_utils.auth import is_logged_in
 
@@ -167,28 +167,8 @@ else:
 
             with st.spinner("Sto generando tre post da cui potrai scegliere.."):
                 # Create the prompt
-                prompt = "Genera un post per instagram, seguendo il formato degli esempi che fornisco:" # noqa
-                # To be sure, we will add each post until we reach 3500 tokens maximum
-                tok = 0
-                posts = 0
-                if sample_posts is not None:
-                    for example in sample_posts:
-                        # We insert posts until we reach 3500 tokens
-                        # QUEST: are the post in order from the most recent?
-                        if (tok+tokenization.num_tokens_from_string(example.post)<3500):
-                            prompt += ' "' + str(example.post) + '",'
-                            tok += tokenization.num_tokens_from_string(example.post)
-                            posts += 1
-                        else:
-                            break
-                else:
-                    raise ValueError("No posts found")
+                prompt = create_prompt(sample_posts, st.session_state["image_description"])
 
-                logger.info(f"Inserted {posts} post, corresponding to {tok} tokens, in the prompt")
-
-                prompt = prompt[:-1] # Remove the comma
-
-                prompt += ". Personalizza il post perchè sia adatto ad un'immagine di " + st.session_state["image_description"] + ". Inserisci emoticons e hashtags nel post. Attieniti al formato degli esempi." # noqa
                 # Update the prompt
                 prompt += add_info_sponsor(session_state=st.session_state)
 
@@ -197,23 +177,15 @@ else:
 
                 # Here I generate the first message specifying the role in this case
                 messages = [
-                {
-                    "role": "system",
-                    "content": "Sei un sistema intelligente che genera dei post per instagram",
-                }
+                    {
+                        "role": "system",
+                        "content": "Sei un sistema intelligente che genera dei post per instagram",
+                    }
                 ]
-                posts = generate_ig_post(prompt, messages=messages)
-                post_created: PostCreationCreate = PostCreationCreate(
-                    user_id = user.user_id,
-                    description = st.session_state["image_description"],
-                    prompt = "", # prompt -> It will save all the 20 description of IG,
-                    posts_created = posts,
-                    image_uploaded = array(Image.open(st.session_state["image_cache"])).tobytes()
-                )
+                posts = generate_ig_post(st.session_state["email"], prompt, messages=messages)
                 # Save the messages
                 st.session_state["messages"] = messages
                 st.session_state["post"] = posts
-                # create_post_creation(post_created) -> There is a problem with ssl connection
 
     # Mostrare i diversi post generati
     if st.session_state.get("post", False) and type(st.session_state["post"])==list:

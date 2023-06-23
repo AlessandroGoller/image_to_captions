@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 from typing import Optional
 
+from memoization import cached
 from sqlalchemy.orm import Session
 
 from app.dependency import get_db
@@ -37,6 +38,7 @@ def get_instagram_by_company_id(company_id: int) -> Optional[list[Instagram]]:
     return db.query(Instagram).filter(Instagram.id_company == company_id).all()  # type: ignore
 
 
+@cached(max_size=16, ttl=300)
 def get_last_n_instagram(company_id: int, number_ig: int = 20) -> Optional[list[Instagram]]:
     """Return the list of n Instagram from company_id order by date"""
     db: Session = next(get_db())

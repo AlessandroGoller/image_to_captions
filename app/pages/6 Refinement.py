@@ -39,7 +39,7 @@ def infinite_edit_post(modify_request:str)->None:
         ]
         messages.append(st.session_state["messages"][-1]) # The last message is the reply by the LM
         prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato.""" # noqa
-        post_edited, temp_messages = modify_ig_post(prompt, messages=messages)
+        post_edited, temp_messages = modify_ig_post(st.session_state["email"], prompt, messages=messages)
         st.session_state["temp_post"] = post_edited
         st.session_state["temp_messages"] = temp_messages
 

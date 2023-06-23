@@ -67,20 +67,23 @@ def search_info_of_company(name_to_search: str) -> str:
     return str(response)
 
 @timeit
-def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> list:
-
+def generate_ig_post(email: str, prompt: str = "", messages: Optional[list] = None) -> list:
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
     """
+    if messages is None:
+        # Here I generate the first message specifying the role in this case
+        messages = [
+        {
+            "role": "system",
+            "content": "Sei un sistema intelligente che genera dei post per instagram",
+        }
+        ]
     openai.api_key = settings.OPENAI_API_TOKEN
 
     replies = ["Please specify a prompt"]
-
-    if messages is None:
-        raise ValueError("Specify the list of messages in generate_ig_post function!")
-
     if prompt!="":
-        add_tokens_to_db(prompt)
+        add_tokens_to_db(prompt,email)
         messages.append(
             {"role": "user", "content": prompt},
         )
@@ -88,12 +91,21 @@ def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> list:
         replies = []
         for choice in chat.choices:
             replies.append(choice.message.content)
-            add_tokens_to_db(choice.message.content)
+            add_tokens_to_db(choice.message.content, email)
+
+    # Da aggiungere dopo un check post_created: PostCreationCreate = PostCreationCreate(
+    #    user_id = user.user_id,
+    #    description = st.session_state["image_description"],
+    #    prompt = "", # prompt -> It will save all the 20 description of IG,
+    #    posts_created = posts,
+    #    image_uploaded = array(Image.open(st.session_state["image_cache"])).tobytes()
+    #)
+    # todo: create_post_creation(post_created) -> There is a problem with ssl connection
 
     return replies
 
 @timeit
-def modify_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list[Any]]:
+def modify_ig_post(email:str, prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list[Any]]:
 
     """
     Function to modify a post for Instagram following the user requests
@@ -106,14 +118,14 @@ def modify_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[s
         raise ValueError("Specify the list of messages in generate_ig_post function!")
 
     if prompt!="":
-        add_tokens_to_db(prompt)
+        add_tokens_to_db(prompt, email)
         messages.append(
             {"role": "user", "content": prompt},
         )
         chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=1)
 
         reply = chat.choices[0].message.content
-        add_tokens_to_db(reply)
+        add_tokens_to_db(reply, email)
 
         messages.append({"role": "assistant", "content": reply})
 
