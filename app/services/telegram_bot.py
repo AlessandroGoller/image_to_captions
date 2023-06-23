@@ -188,7 +188,7 @@ async def image_handler(message: types.Message)->str:
         prompt = create_prompt(sample_posts, description_image)
         posts = generate_ig_post(telegram.user.email, prompt)
         for i, post in enumerate(posts):
-            await message.reply(f"Post {i}:\n\n{post}")
+            await message.reply(f"Post {i+1}):\n\n{post}")
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"
@@ -215,7 +215,6 @@ async def profile_settings(message: types.Message)->None:
         profile_settings_text = f"Email: {telegram.user.email}\n \
                             name: {telegram.user.name}\n \
                             password: Non la sappiamo neache noi :)\n \
-                            URL Instagram: {telegram.user.url_instagram}\n \
                             Lingua: {telegram.user.language}\n \
                             last_access: {telegram.user.last_access}\n \
                             time_created: {telegram.user.time_created}\n \
