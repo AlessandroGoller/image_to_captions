@@ -112,10 +112,11 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
             selected_prompt = selected_prompt[2]
         else:
             selected_prompt = selected_prompt[0]
-        await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
+        id_message_prompt = await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
             chat_id=query.message.chat.id,
             message_id=query.message.message_id,
             reply_markup=None)
+        update_message_id_prompt(id_chat=query.message.chat.id, id_message=id_message_prompt)
     return "ok"
 
 
