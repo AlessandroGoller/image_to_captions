@@ -184,9 +184,7 @@ async def image_handler(message: types.Message)->str:
         # Recupera l'oggetto immagine utilizzando il file_id
         file = await bot.get_file(file_id)
         # Scarica il contenuto dell'immagine come byte array
-        image_content = await bot.download_file(file.file_path)
-        # Crea un oggetto BytesIO dall'immagine scaricata
-        image_bytes = io.BytesIO(image_content)
+        image_bytes = await bot.download_file(file.file_path)
 
         await message.reply(f"file image of type: {type(image_bytes)}")
         description_image: str = generate_img_description(image_bytes)
