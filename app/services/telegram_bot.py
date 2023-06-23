@@ -193,7 +193,7 @@ async def main_handler(message: types.Message)-> str:
         return f"There was an error: {error}"
 
 @dp.message_handler(content_types=types.ContentTypes.PHOTO)
-def image_handler(message: types.Message)->str:
+async def image_handler(message: types.Message)->str:
     """ Anwser message only for images """
     telegram = check_chat(message.chat.id)
     if telegram is False:
