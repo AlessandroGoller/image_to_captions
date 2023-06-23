@@ -221,7 +221,7 @@ async def image_handler(message: types.Message)->str:
             )
         await message.reply("Extracted instagram images from db")
         prompt:str = create_prompt(sample_posts, description_image)
-        posts = await generate_ig_post(telegram.user.email, prompt)
+        posts = generate_ig_post(telegram.user.email, prompt)
         all_posts = ""
         for i, post in enumerate(posts):
             all_posts += f"Post {i+1}):\n{post}\n\n"
