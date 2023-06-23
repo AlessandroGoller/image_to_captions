@@ -2,6 +2,7 @@
 
 import time
 import io
+import os
 import traceback
 from app.crud.instagram import create_instagram, get_last_n_instagram
 
@@ -178,7 +179,15 @@ async def image_handler(message: types.Message)->str:
             {image.height=}\n\
             {image.file_size=}\n\
                 ")
-        image_bytes = image.download()
+
+        file_id = image.file_id
+        # Recupera l'oggetto immagine utilizzando il file_id
+        file = await bot.get_file(file_id)
+        # Scarica il contenuto dell'immagine come byte array
+        image_content = await bot.download_file(file.file_path)
+        # Crea un oggetto BytesIO dall'immagine scaricata
+        image_bytes = io.BytesIO(image_content)
+
         await message.reply(f"file image of type: {type(image_bytes)}")
         description_image: str = generate_img_description(image_bytes)
         await message.reply(f"{description_image=}")
