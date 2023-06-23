@@ -169,7 +169,7 @@ async def image_handler(message: types.Message)->str:
     if telegram is False:
         message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                 reply_markup=None)
-        return
+        return "No account"
     image = message.photo[-1]
     try:
         await message.reply(f"Hello!\n Questa è una IMMAGINE\n\
@@ -178,8 +178,8 @@ async def image_handler(message: types.Message)->str:
             {image.height=}\n\
             {image.file_size=}\n\
                 ")
-        image_bytes = io.BytesIO()
-        image.download(destination=image_bytes)
+        image_bytes = image.download()
+        await message.reply(f"file image of type: {type(image_bytes)}")
         description_image: str = generate_img_description(image_bytes)
         await message.reply(f"{description_image=}")
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
