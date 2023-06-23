@@ -72,6 +72,7 @@ def create_inline_keyboard(list_command: list[dict])-> types.InlineKeyboardMarku
 @dp.callback_query_handler()
 async def handle_callback_query(query: types.CallbackQuery)->str:
     """ Handle the keyboard query pression """
+    # bisogna aggiungere una verifica anche qua per sicurezza
     button_data = query.data
     if button_data == "/help_inline":
         await bot.edit_message_text("Help page",
@@ -192,7 +193,7 @@ async def main_handler(message: types.Message)-> str:
         return f"There was an error: {error}"
 
 @dp.message_handler(content_types=types.ContentTypes.PHOTO)
-async def image_handler(message: types.Message)->str:
+def image_handler(message: types.Message)->str:
     """ Anwser message only for images """
     telegram = check_chat(message.chat.id)
     if telegram is False:
@@ -204,12 +205,12 @@ async def image_handler(message: types.Message)->str:
         update_message_id_image(id_chat=message.chat.id, id_message=message.message_id)
         file_id = image.file_id
         # Recupera l'oggetto immagine utilizzando il file_id
-        file = await bot.get_file(file_id)
+        file = bot.get_file(file_id)
         # Scarica il contenuto dell'immagine come byte array
-        image_bytes = await bot.download_file(file.file_path)
+        image_bytes = bot.download_file(file.file_path)
 
-        description_image: str = await generate_img_description(image_bytes)
-        id_message_description: int = await message.reply(f"Descrizione dell'immagine: {description_image}")
+        description_image: str = generate_img_description(image_bytes)
+        id_message_description: int = message.reply(f"Descrizione dell'immagine: {description_image}")
         update_message_id_description(id_chat=message.chat.id, id_message=id_message_description)
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
         if company is None:
@@ -220,19 +221,19 @@ async def image_handler(message: types.Message)->str:
             )
         message.reply("Extracted instagram images from db")
         prompt = create_prompt(sample_posts, description_image)
-        posts = await generate_ig_post(telegram.user.email, prompt)
+        posts = generate_ig_post(telegram.user.email, prompt)
         all_posts = ""
         for i, post in enumerate(posts):
             all_posts += f"Post {i+1}):\n{post}\n\n"
         all_posts += "\nPost FINITI :Quale Post vuoi tenere? \n"
-        id_message_prompt:int = await message.reply(f"{all_posts}",
+        id_message_prompt:int = message.reply(f"{all_posts}",
             reply_markup=create_inline_keyboard(list_commands_after_prompt))
         update_message_id_prompt(id_chat=message.chat.id, id_message=id_message_prompt)
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"
         )
-        await message.reply(f"There was an error: {error}\n-----\n{traceback}")
+        message.reply(f"There was an error: {error}\n-----\n{traceback}")
     return "ok"
 
 
