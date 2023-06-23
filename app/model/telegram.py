@@ -29,7 +29,7 @@ class Telegram(database):
         nullable=True,
     )
 
-    user = relationship("User", uselist=False, lazy='joined')
+    user = relationship("User", uselist=False, lazy="joined")
 
     def update_last_access(self) -> None:
         """ Permit to update the last acces """

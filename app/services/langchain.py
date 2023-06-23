@@ -94,13 +94,7 @@ def generate_ig_post(email: str, prompt: str = "", messages: Optional[list] = No
             add_tokens_to_db(choice.message.content, email)
 
     # Da aggiungere dopo un check post_created: PostCreationCreate = PostCreationCreate(
-    #    user_id = user.user_id,
-    #    description = st.session_state["image_description"],
-    #    prompt = "", # prompt -> It will save all the 20 description of IG,
-    #    posts_created = posts,
-    #    image_uploaded = array(Image.open(st.session_state["image_cache"])).tobytes()
-    #)
-    # todo: create_post_creation(post_created) -> There is a problem with ssl connection
+    # Da aggiungere, controllare anche:  create_post_creation(post_created) -> There is a problem with ssl connection
 
     return replies
 

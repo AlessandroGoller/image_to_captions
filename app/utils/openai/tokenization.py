@@ -1,7 +1,8 @@
 """ Module with utils regarding tokenization """
 
-import tiktoken
 from typing import Optional
+
+import tiktoken
 
 from app.crud.company import add_tokens, get_company_by_user_id
 from app.crud.user import get_user_by_email

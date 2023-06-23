@@ -1,30 +1,26 @@
 """ Telegram """
 
 import time
-import io
-import os
 import traceback
-from app.crud.instagram import create_instagram, get_last_n_instagram
-
-from app.services.langchain import (
-    generate_ig_post,
-    generate_img_description,
-)
-
 from typing import Optional
 
 from aiogram import Bot, Dispatcher, types
 
+from app.crud.company import get_company_by_user_id
+from app.crud.instagram import get_last_n_instagram
 from app.crud.telegram import create_telegram, delete_telegram, get_telegram_by_chat_id, update_last_access
 from app.crud.user import get_user_by_hash
-from app.crud.company import get_company_by_user_id
 from app.dependency import get_settings
-from app.model.user import User
 from app.model.company import Company
+from app.model.user import User
 from app.schema.telegram import TelegramCreate
+from app.services.langchain import (
+    generate_ig_post,
+    generate_img_description,
+)
 from app.utils.logger import configure_logger
-from app.utils.telegram_utils import check_chat
 from app.utils.openai.prompt import create_prompt
+from app.utils.telegram_utils import check_chat
 
 logger = configure_logger()
 settings = get_settings()
@@ -173,22 +169,14 @@ async def image_handler(message: types.Message)->str:
         return "No account"
     image = message.photo[-1]
     try:
-        await message.reply(f"Hello!\n Questa è una IMMAGINE\n\
-            {image.file_id=}\n\
-            {image.width=}\n\
-            {image.height=}\n\
-            {image.file_size=}\n\
-                ")
-
         file_id = image.file_id
         # Recupera l'oggetto immagine utilizzando il file_id
         file = await bot.get_file(file_id)
         # Scarica il contenuto dell'immagine come byte array
         image_bytes = await bot.download_file(file.file_path)
 
-        await message.reply(f"file image of type: {type(image_bytes)}")
         description_image: str = generate_img_description(image_bytes)
-        await message.reply(f"{description_image=}")
+        await message.reply(f"Descrizione dell'immagine: {description_image}")
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
         if company is None:
             await message.reply("Please go to website and add IG user")
@@ -199,17 +187,15 @@ async def image_handler(message: types.Message)->str:
         await message.reply("Extracted instagram images from db")
         prompt = create_prompt(sample_posts, description_image)
         posts = generate_ig_post(telegram.user.email, prompt)
-        await message.reply(f"{posts}")
+        for i, post in enumerate(posts):
+            await message.reply(f"Post {i}:\n\n{post}")
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"
         )
         await message.reply(f"There was an error: {error}\n-----\n{traceback}")
-    
-    # Esempio: leggere l'immagine come dati di tipo bytes
-    #image_bytes = io.BytesIO()
-    #await photo.download(destination=image_bytes)
     return "ok"
+
 
 async def profile_settings(message: types.Message)->None:
     """
@@ -225,7 +211,8 @@ async def profile_settings(message: types.Message)->None:
                                         reply_markup=None)
         return
 
-    profile_settings_text = f"Email: {telegram.user.email}\n \
+    try:
+        profile_settings_text = f"Email: {telegram.user.email}\n \
                             name: {telegram.user.name}\n \
                             password: Non la sappiamo neache noi :)\n \
                             URL Instagram: {telegram.user.url_instagram}\n \
@@ -235,8 +222,15 @@ async def profile_settings(message: types.Message)->None:
                             Tokens da pagare: {telegram.user.tokens_to_be_paid}\n \
                             Totale Tokens: {telegram.user.total_tokens}"
 
-    await message.reply(f"DOVRESTI ESSERE in Settings!! =\n{profile_settings_text}",
+        await message.reply(f"DOVRESTI ESSERE in Settings!! =\n{profile_settings_text}",
         reply_markup=None)
+
+    except Exception as error:
+        logger.error(
+            f"ERROR during profile settings {error}\n{traceback}"
+        )
+        await message.reply(f"There was an error: {error}\n-----\n{traceback}")
+
 
 async def action_post(message: types.Message) -> None:
     """

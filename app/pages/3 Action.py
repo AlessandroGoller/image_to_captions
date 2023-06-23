@@ -5,8 +5,6 @@ from typing import Optional
 
 import streamlit as st
 from deep_translator import GoogleTranslator
-from numpy import array
-from PIL import Image
 from stqdm import stqdm
 from streamlit_extras.switch_page_button import switch_page
 
@@ -16,7 +14,6 @@ from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
 from app.schema.instagram import InstagramCreate
-from app.schema.post_creation import PostCreationCreate
 from app.services.ig_scraping import GetInstagramProfile
 from app.services.langchain import (
     generate_ig_post,
