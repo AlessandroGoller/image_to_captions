@@ -55,6 +55,36 @@ def update_last_access(id_telegram: int) -> None:
     db.merge(telegram)
     db.commit()
 
+def update_message_id_image(id_chat: int, id_message: int) -> None:
+    """ Update message id for the image  """
+    db: Session = next(get_db())
+    telegram = get_telegram_by_chat_id(id_chat)
+    if telegram is None:
+        raise ValueError("Impossible Position")
+    telegram.message_id_image = id_message
+    db.merge(telegram)
+    db.commit()
+
+def update_message_id_description(id_chat: int, id_message: int) -> None:
+    """ Update message id for the description of the image  """
+    db: Session = next(get_db())
+    telegram = get_telegram_by_chat_id(id_chat)
+    if telegram is None:
+        raise ValueError("Impossible Position")
+    telegram.message_id_description = id_message
+    db.merge(telegram)
+    db.commit()
+
+def update_message_id_prompt(id_chat: int, id_message: int) -> None:
+    """ Update message id for the prompt  """
+    db: Session = next(get_db())
+    telegram = get_telegram_by_chat_id(id_chat)
+    if telegram is None:
+        raise ValueError("Impossible Position")
+    telegram.message_id_prompt = id_message
+    db.merge(telegram)
+    db.commit()
+
 def delete_telegram_from_id_chat(id_chat: int) -> dict[str, bool]:
     """Permit to delete a telegram from an id_chat"""
     db: Session = next(get_db())

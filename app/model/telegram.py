@@ -28,6 +28,10 @@ class Telegram(database):
         server_default=func.now(),
         nullable=True,
     )
+    # save the message id where we can find the value
+    message_id_image = Column(Integer, nullable=True, default=None)
+    message_id_description = Column(Integer, nullable=True, default=None)
+    message_id_prompt = Column(Integer, nullable=True, default=None)
 
     user = relationship("User", uselist=False, lazy="joined")
 

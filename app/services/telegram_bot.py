@@ -8,7 +8,16 @@ from aiogram import Bot, Dispatcher, types
 
 from app.crud.company import get_company_by_user_id
 from app.crud.instagram import get_last_n_instagram
-from app.crud.telegram import create_telegram, delete_telegram, get_telegram_by_chat_id, update_last_access
+from app.crud.telegram import (
+    create_telegram,
+    delete_telegram,
+    get_telegram_by_chat_id,
+    update_last_access,
+    update_message_id_description,
+    update_message_id_image,
+    update_message_id_prompt,
+    get_id_prompt_by_user_id
+)
 from app.crud.user import get_user_by_hash
 from app.dependency import get_settings
 from app.model.company import Company
@@ -42,14 +51,20 @@ list_commands_inline_basic_message = [
 ]
 
 list_commands_inline_action = [
-        {"command": "/ok_action_post", "label": "OK"},
-        {"command": "/home_action_post", "label": "HOME"},
-    ]
+    {"command": "/ok_action_post", "label": "OK"},
+    {"command": "/home_action_post", "label": "HOME"},
+]
 
-def create_inline_keyboard()-> types.InlineKeyboardMarkup:
+list_commands_after_prompt = [
+    {"command": "/prompt_1", "label": "1"},
+    {"command": "/prompt_2", "label": "2"},
+    {"command": "/prompt_3", "label": "3"},
+]
+
+def create_inline_keyboard(list_command: list[dict])-> types.InlineKeyboardMarkup:
     """ Permit to create the inline comands for telegram"""
     keyboard = []
-    for cmd in list_commands_inline_basic_message:
+    for cmd in list_command:
         button = types.InlineKeyboardButton(text=cmd["label"], callback_data=cmd["command"])
         keyboard.append([button])
     return types.InlineKeyboardMarkup(inline_keyboard=keyboard)
@@ -85,6 +100,22 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                     chat_id=query.message.chat.id,
                                     message_id=query.message.message_id,
                                     reply_markup=None)
+    elif button_data in ["/prompt_1","/prompt_2","/prompt_3"]:
+        id_message_prompt:int = get_id_prompt_by_user_id(query.from_user.id)
+        full_prompt = await bot.get_message(query.message.chat.id, id_message_prompt)
+        selected_prompt = full_prompt.split("Post")
+        if button_data=="/prompt_1":
+            selected_prompt = selected_prompt[0]
+        elif button_data=="/prompt_2":
+            selected_prompt = selected_prompt[1]
+        elif button_data=="/prompt_3":
+            selected_prompt = selected_prompt[2]
+        else:
+            selected_prompt = selected_prompt[0]
+        await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
+            chat_id=query.message.chat.id,
+            message_id=query.message.message_id,
+            reply_markup=None)
     return "ok"
 
 
@@ -151,7 +182,7 @@ async def main_handler(message: types.Message)-> str:
             return "ok"
         update_last_access(telegram.id_telegram)
         await message.answer(f"Hello!{user_full_name=}\nIl tuo messaggio è:{message.text}",
-                reply_markup=create_inline_keyboard())
+                reply_markup=create_inline_keyboard(list_commands_inline_basic_message))
         return "ok"
     except Exception as error:
         logger.info(f"Main: {user_id} {user_full_name} {time.asctime()}.\
@@ -169,26 +200,33 @@ async def image_handler(message: types.Message)->str:
         return "No account"
     image = message.photo[-1]
     try:
+        update_message_id_image(id_chat=message.chat.id, id_message=message.message_id)
         file_id = image.file_id
         # Recupera l'oggetto immagine utilizzando il file_id
         file = await bot.get_file(file_id)
         # Scarica il contenuto dell'immagine come byte array
         image_bytes = await bot.download_file(file.file_path)
 
-        description_image: str = generate_img_description(image_bytes)
-        await message.reply(f"Descrizione dell'immagine: {description_image}")
+        description_image: str = await generate_img_description(image_bytes)
+        id_message_description: int = await message.reply(f"Descrizione dell'immagine: {description_image}")
+        update_message_id_description(id_chat=message.chat.id, id_message=id_message_description)
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
         if company is None:
-            await message.reply("Please go to website and add IG user")
+            message.reply("Please go to website and add IG user")
             return "No company"
         sample_posts = get_last_n_instagram(
                 company_id=company.id_company, number_ig=20
             )
-        await message.reply("Extracted instagram images from db")
+        message.reply("Extracted instagram images from db")
         prompt = create_prompt(sample_posts, description_image)
-        posts = generate_ig_post(telegram.user.email, prompt)
+        posts = await generate_ig_post(telegram.user.email, prompt)
+        all_posts = ""
         for i, post in enumerate(posts):
-            await message.reply(f"Post {i+1}):\n\n{post}")
+            all_posts += f"Post {i+1}):\n{post}\n\n"
+        all_posts += "\nPost FINITI :Quale Post vuoi tenere? \n"
+        id_message_prompt:int = await message.reply(f"{all_posts}",
+            reply_markup=create_inline_keyboard(list_commands_after_prompt))
+        update_message_id_prompt(id_chat=message.chat.id, id_message=id_message_prompt)
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"
