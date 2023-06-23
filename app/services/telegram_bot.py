@@ -102,22 +102,31 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                     message_id=query.message.message_id,
                                     reply_markup=None)
     elif button_data in ["/prompt_1","/prompt_2","/prompt_3"]:
-        id_message_prompt:int = get_id_prompt_by_user_id(query.from_user.id)
-        full_prompt = await bot.get_message(query.message.chat.id, id_message_prompt)
-        selected_prompt = full_prompt.split("Post")
-        if button_data=="/prompt_1":
-            selected_prompt = selected_prompt[0]
-        elif button_data=="/prompt_2":
-            selected_prompt = selected_prompt[1]
-        elif button_data=="/prompt_3":
-            selected_prompt = selected_prompt[2]
-        else:
-            selected_prompt = selected_prompt[0]
-        id_message_prompt = (await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
-            chat_id=query.message.chat.id,
-            message_id=query.message.message_id,
-            reply_markup=None)).message_id
-        update_message_id_prompt(id_chat=query.message.chat.id, id_message=id_message_prompt)
+        try:
+            id_message_prompt:int = get_id_prompt_by_user_id(query.from_user.id)
+            full_prompt = await bot.get_message(query.message.chat.id, id_message_prompt)
+            selected_prompt = full_prompt.split("Post")
+            if button_data=="/prompt_1":
+                selected_prompt = selected_prompt[0]
+            elif button_data=="/prompt_2":
+                selected_prompt = selected_prompt[1]
+            elif button_data=="/prompt_3":
+                selected_prompt = selected_prompt[2]
+            else:
+                selected_prompt = selected_prompt[0]
+            id_message_prompt = (await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
+                chat_id=query.message.chat.id,
+                message_id=query.message.message_id,
+                reply_markup=None)).message_id
+            update_message_id_prompt(id_chat=query.message.chat.id, id_message=id_message_prompt)
+        except Exception as error:
+            logger.error(
+                f"ERROR during choose of the prompt: {error}\n{traceback}"
+            )
+            await bot.edit_message_text(f"There was an error: {error}\n-----\n{traceback}",
+                chat_id=query.message.chat.id,
+                message_id=query.message.message_id,
+                reply_markup=None)
     return "ok"
 
 
@@ -202,6 +211,7 @@ async def image_handler(message: types.Message)->str:
         return "No account"
     image = message.photo[-1]
     try:
+        await message.reply("Stiamo preparando il tutto")
         update_message_id_image(id_chat=message.chat.id, id_message=message.message_id)
         file_id = image.file_id
         # Recupera l'oggetto immagine utilizzando il file_id
