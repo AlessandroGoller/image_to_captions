@@ -197,7 +197,7 @@ async def image_handler(message: types.Message)->str:
     """ Anwser message only for images """
     telegram = check_chat(message.chat.id)
     if telegram is False:
-        message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
+        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                 reply_markup=None)
         return "No account"
     image = message.photo[-1]
@@ -210,7 +210,7 @@ async def image_handler(message: types.Message)->str:
         image_bytes = await bot.download_file(file.file_path)
 
         description_image: str = generate_img_description(image_bytes)
-        id_message_description: int = message.reply(f"Descrizione dell'immagine: {description_image}")
+        id_message_description: int = await message.reply(f"Descrizione dell'immagine: {description_image}")
         update_message_id_description(id_chat=message.chat.id, id_message=id_message_description)
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
         if company is None:
@@ -233,7 +233,7 @@ async def image_handler(message: types.Message)->str:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"
         )
-        message.reply(f"There was an error: {error}\n-----\n{traceback}")
+        await message.reply(f"There was an error: {error}\n-----\n{traceback}")
     return "ok"
 
 
@@ -281,7 +281,7 @@ async def action_post(message: types.Message) -> None:
     """
     telegram = check_chat(message.chat.id)
     if telegram is False:
-        message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
+        await message.reply(f"Hello!{message.from_user.full_name}\nPer favore fai il primo accesso via browser",
                                 reply_markup=None)
         return
     keyboard = []
