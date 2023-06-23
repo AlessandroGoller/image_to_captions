@@ -113,10 +113,10 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
             selected_prompt = selected_prompt[2]
         else:
             selected_prompt = selected_prompt[0]
-        id_message_prompt = await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
+        id_message_prompt = (await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
             chat_id=query.message.chat.id,
             message_id=query.message.message_id,
-            reply_markup=None)
+            reply_markup=None)).message_id
         update_message_id_prompt(id_chat=query.message.chat.id, id_message=id_message_prompt)
     return "ok"
 
@@ -210,7 +210,7 @@ async def image_handler(message: types.Message)->str:
         image_bytes = await bot.download_file(file.file_path)
 
         description_image: str = generate_img_description(image_bytes)
-        id_message_description: int = await message.reply(f"Descrizione dell'immagine: {description_image}")
+        id_message_description: int = (await message.reply(f"Descrizione dell'immagine: {description_image}")).message_id
         update_message_id_description(id_chat=message.chat.id, id_message=id_message_description)
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
         if company is None:
@@ -226,8 +226,8 @@ async def image_handler(message: types.Message)->str:
         for i, post in enumerate(posts):
             all_posts += f"Post {i+1}):\n{post}\n\n"
         all_posts += "\nPost FINITI :Quale Post vuoi tenere? \n"
-        id_message_prompt:int = await message.reply(f"{all_posts}",
-            reply_markup=create_inline_keyboard(list_commands_after_prompt))
+        id_message_prompt:int = (await message.reply(f"{all_posts}",
+            reply_markup=create_inline_keyboard(list_commands_after_prompt))).message_id
         update_message_id_prompt(id_chat=message.chat.id, id_message=id_message_prompt)
     except Exception as error:
         logger.error(
