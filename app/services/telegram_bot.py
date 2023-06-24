@@ -108,6 +108,7 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
     elif button_data in ["/prompt_1","/prompt_2","/prompt_3"]:
         try:
             full_prompt:str = get_prompt_by_id_chat(query.message.chat.id)
+            await query.message.reply(f"Full prompt: {full_prompt}")
             selected_prompt_list = full_prompt.split("Post")
             if button_data=="/prompt_1":
                 selected_prompt = selected_prompt_list[0]
@@ -263,10 +264,6 @@ async def image_handler(message: types.Message)->str:
         await message.reply(f"{all_posts_reply}",
             reply_markup=create_inline_keyboard(list_commands_after_prompt))
         update_message_prompt(id_chat=message.chat.id, prompt=all_posts)
-        await message.reply(f"messaggio type: {type(post)}")
-        await message.reply(f"messaggio salvato: {get_prompt_by_id_chat(id_chat=message.chat.id)}\n e il suo tipo è {type(get_prompt_by_id_chat(id_chat=message.chat.id))}")
-        await message.reply(f"messaggio salvato2: {post[0]}")
-
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback.format_exc()}"
