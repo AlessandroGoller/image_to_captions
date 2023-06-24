@@ -124,9 +124,9 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
             update_message_prompt(id_chat=query.message.chat.id, prompt=selected_prompt)
         except Exception as error:
             logger.error(
-                f"ERROR during choose of the prompt: {error}\n{traceback}"
+                f"ERROR during choose of the prompt: {error}\n{traceback.format_exc()}"
             )
-            await bot.edit_message_text(f"There was an error: {error}\n-----\n{traceback}",
+            await bot.edit_message_text(f"There was an error: {error}\n-----\n{traceback.format_exc()}",
                 chat_id=query.message.chat.id,
                 message_id=query.message.message_id,
                 reply_markup=None)
@@ -145,9 +145,9 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                     reply_markup=None)
         except Exception as error:
             logger.error(
-                f"ERROR during choose if edit or not: {error}\n{traceback}"
+                f"ERROR during choose if edit or not: {error}\n{traceback.format_exc()}"
             )
-            await bot.edit_message_text(f"There was an error: {error}\n-----\n{traceback}",
+            await bot.edit_message_text(f"There was an error: {error}\n-----\n{traceback.format_exc()}",
                 chat_id=query.message.chat.id,
                 message_id=query.message.message_id,
                 reply_markup=None)
@@ -264,11 +264,13 @@ async def image_handler(message: types.Message)->str:
             reply_markup=create_inline_keyboard(list_commands_after_prompt))
         update_message_prompt(id_chat=message.chat.id, prompt=all_posts)
         await message.reply(f"messaggio salvato: {get_prompt_by_id_chat(id_chat=message.chat.id)}")
+        await message.reply(f"messaggio salvato2: {post[0]}")
+
     except Exception as error:
         logger.error(
-            f"ERROR during action from telegram{error}\n{traceback}"
+            f"ERROR during action from telegram{error}\n{traceback.format_exc()}"
         )
-        await message.reply(f"There was an error: {error}\n-----\n{traceback}")
+        await message.reply(f"There was an error: {error}\n-----\n{traceback.format_exc()}")
     return "ok"
 
 
@@ -301,9 +303,9 @@ async def profile_settings(message: types.Message)->None:
 
     except Exception as error:
         logger.error(
-            f"ERROR during profile settings {error}\n{traceback}"
+            f"ERROR during profile settings {error}\n{traceback.format_exc()}"
         )
-        await message.reply(f"There was an error: {error}\n-----\n{traceback}")
+        await message.reply(f"There was an error: {error}\n-----\n{traceback.format_exc()}")
 
 
 async def action_post(message: types.Message) -> None:
