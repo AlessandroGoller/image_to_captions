@@ -1,6 +1,6 @@
 """ Model for telegram """
 
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -28,10 +28,8 @@ class Telegram(database):
         server_default=func.now(),
         nullable=True,
     )
-    # save the message id where we can find the value
-    message_id_image = Column(Integer, nullable=True, default=None)
-    message_id_description = Column(Integer, nullable=True, default=None)
-    message_id_prompt = Column(Integer, nullable=True, default=None)
+    message_description = Column(String, nullable=True, default=None)
+    message_prompt = Column(Text, nullable=True, default=None)
 
     user = relationship("User", uselist=False, lazy="joined")
 

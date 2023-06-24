@@ -55,48 +55,33 @@ def update_last_access(id_telegram: int) -> None:
     db.merge(telegram)
     db.commit()
 
-def get_id_prompt_by_user_id(id_user: int) -> int:
+def get_prompt_by_user_id(id_user: int) -> str:
     """Return the id message prompt from id_user"""
     db: Session = next(get_db())
-    return db.query(Telegram.message_id_prompt).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
+    return db.query(Telegram.message_prompt).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
 
-def get_id_image_by_user_id(id_user: int) -> int:
-    """Return the id message image from id_user"""
+def get_description_by_user_id(id_user: int) -> str:
+    """Return the message description from id_user"""
     db: Session = next(get_db())
-    return db.query(Telegram.message_id_image).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
+    return db.query(Telegram.message_description).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
 
-def get_id_description_by_user_id(id_user: int) -> int:
-    """Return the id message description from id_user"""
-    db: Session = next(get_db())
-    return db.query(Telegram.message_id_description).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
-
-def update_message_id_image(id_chat: int, id_message: int) -> None:
-    """ Update message id for the image  """
+def update_message_description(id_chat: int, description: str) -> None:
+    """ Update message description of the image  """
     db: Session = next(get_db())
     telegram = get_telegram_by_chat_id(id_chat)
     if telegram is None:
         raise ValueError("Impossible Position")
-    telegram.message_id_image = id_message
+    telegram.message_description = description
     db.merge(telegram)
     db.commit()
 
-def update_message_id_description(id_chat: int, id_message: int) -> None:
-    """ Update message id for the description of the image  """
+def update_message_prompt(id_chat: int, prompt: str) -> None:
+    """ Update message prompt  """
     db: Session = next(get_db())
     telegram = get_telegram_by_chat_id(id_chat)
     if telegram is None:
         raise ValueError("Impossible Position")
-    telegram.message_id_description = id_message
-    db.merge(telegram)
-    db.commit()
-
-def update_message_id_prompt(id_chat: int, id_message: int) -> None:
-    """ Update message id for the prompt  """
-    db: Session = next(get_db())
-    telegram = get_telegram_by_chat_id(id_chat)
-    if telegram is None:
-        raise ValueError("Impossible Position")
-    telegram.message_id_prompt = id_message
+    telegram.message_prompt = prompt
     db.merge(telegram)
     db.commit()
 

@@ -11,12 +11,11 @@ from app.crud.instagram import get_last_n_instagram
 from app.crud.telegram import (
     create_telegram,
     delete_telegram,
+    get_prompt_by_user_id,
     get_telegram_by_chat_id,
     update_last_access,
-    update_message_id_description,
-    update_message_id_image,
-    update_message_id_prompt,
-    get_id_prompt_by_user_id
+    update_message_description,
+    update_message_prompt,
 )
 from app.crud.user import get_user_by_hash
 from app.dependency import get_settings
@@ -103,22 +102,21 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                     reply_markup=None)
     elif button_data in ["/prompt_1","/prompt_2","/prompt_3"]:
         try:
-            id_message_prompt:int = get_id_prompt_by_user_id(query.from_user.id)
-            full_prompt = await bot.get_message(query.message.chat.id, id_message_prompt)
-            selected_prompt = full_prompt.split("Post")
+            full_prompt:str = get_prompt_by_user_id(query.from_user.id)
+            selected_prompt_list = full_prompt.split("Post")
             if button_data=="/prompt_1":
-                selected_prompt = selected_prompt[0]
+                selected_prompt = selected_prompt_list[0]
             elif button_data=="/prompt_2":
-                selected_prompt = selected_prompt[1]
+                selected_prompt = selected_prompt_list[1]
             elif button_data=="/prompt_3":
-                selected_prompt = selected_prompt[2]
+                selected_prompt = selected_prompt_list[2]
             else:
-                selected_prompt = selected_prompt[0]
-            id_message_prompt = (await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
+                selected_prompt = selected_prompt_list[0]
+            await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
                 chat_id=query.message.chat.id,
                 message_id=query.message.message_id,
-                reply_markup=None)).message_id
-            update_message_id_prompt(id_chat=query.message.chat.id, id_message=id_message_prompt)
+                reply_markup=None)
+            update_message_prompt(id_chat=query.message.chat.id, prompt=selected_prompt)
         except Exception as error:
             logger.error(
                 f"ERROR during choose of the prompt: {error}\n{traceback}"
@@ -212,7 +210,6 @@ async def image_handler(message: types.Message)->str:
     image = message.photo[-1]
     try:
         await message.reply("Stiamo preparando il tutto")
-        update_message_id_image(id_chat=message.chat.id, id_message=message.message_id)
         file_id = image.file_id
         # Recupera l'oggetto immagine utilizzando il file_id
         file = await bot.get_file(file_id)
@@ -220,8 +217,8 @@ async def image_handler(message: types.Message)->str:
         image_bytes = await bot.download_file(file.file_path)
 
         description_image: str = generate_img_description(image_bytes)
-        id_message_description: int = (await message.reply(f"Descrizione dell'immagine: {description_image}")).message_id
-        update_message_id_description(id_chat=message.chat.id, id_message=id_message_description)
+        await message.reply(f"Descrizione dell'immagine: {description_image}")
+        update_message_description(id_chat=message.chat.id, description=description_image)
         company: Optional[Company] = get_company_by_user_id(user_id=telegram.id_user)
         if company is None:
             await message.reply("Please go to website and add IG user")
@@ -235,10 +232,10 @@ async def image_handler(message: types.Message)->str:
         all_posts = ""
         for i, post in enumerate(posts):
             all_posts += f"Post {i+1}):\n{post}\n\n"
-        all_posts += "\nPost FINITI :Quale Post vuoi tenere? \n"
-        id_message_prompt:int = (await message.reply(f"{all_posts}",
-            reply_markup=create_inline_keyboard(list_commands_after_prompt))).message_id
-        update_message_id_prompt(id_chat=message.chat.id, id_message=id_message_prompt)
+        all_posts_reply = all_posts + "\n-------\nQuale Post vuoi tenere?"
+        await message.reply(f"{all_posts_reply}",
+            reply_markup=create_inline_keyboard(list_commands_after_prompt))
+        update_message_prompt(id_chat=message.chat.id, prompt=all_posts)
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"
