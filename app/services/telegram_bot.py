@@ -108,20 +108,19 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
     elif button_data in ["/prompt_1","/prompt_2","/prompt_3"]:
         try:
             full_prompt:str = get_prompt_by_id_chat(query.message.chat.id)
-            await query.message.reply(f"Full prompt: {full_prompt}")
             selected_prompt_list = full_prompt.split("Post")
             if button_data=="/prompt_1":
-                selected_prompt = selected_prompt_list[0]
-            elif button_data=="/prompt_2":
                 selected_prompt = selected_prompt_list[1]
-            elif button_data=="/prompt_3":
+            elif button_data=="/prompt_2":
                 selected_prompt = selected_prompt_list[2]
+            elif button_data=="/prompt_3":
+                selected_prompt = selected_prompt_list[3]
             else:
-                selected_prompt = selected_prompt_list[0]
+                selected_prompt = selected_prompt_list[1]
             await bot.edit_message_text(f"Post selezionato: \n\n{selected_prompt}",
                 chat_id=query.message.chat.id,
                 message_id=query.message.message_id,
-                reply_markup=None)
+                reply_markup=create_inline_keyboard(list_commands_after_selected_prompt))
             update_message_prompt(id_chat=query.message.chat.id, prompt=selected_prompt)
         except Exception as error:
             logger.error(
