@@ -58,12 +58,12 @@ def update_last_access(id_telegram: int) -> None:
 def get_prompt_by_id_chat(id_chat: int) -> str:
     """Return the id message prompt from id_chat"""
     db: Session = next(get_db())
-    return db.query(Telegram.message_prompt).filter(Telegram.id_chat == int(id_chat)).first()  # type: ignore
+    return db.query(Telegram.message_prompt).filter(Telegram.id_chat == int(id_chat)).first()[0]  # type: ignore
 
 def get_description_by_id_chat(id_chat: int) -> str:
     """Return the message description from id_chat"""
     db: Session = next(get_db())
-    return db.query(Telegram.message_description).filter(Telegram.id_chat == int(id_chat)).first()  # type: ignore
+    return db.query(Telegram.message_description).filter(Telegram.id_chat == int(id_chat)).first()[0]  # type: ignore
 
 def update_message_description(id_chat: int, description: str) -> None:
     """ Update message description of the image  """
