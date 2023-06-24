@@ -11,7 +11,7 @@ from app.crud.instagram import get_last_n_instagram
 from app.crud.telegram import (
     create_telegram,
     delete_telegram,
-    get_prompt_by_user_id,
+    get_prompt_by_id_chat,
     get_telegram_by_chat_id,
     update_last_access,
     update_message_description,
@@ -60,6 +60,11 @@ list_commands_after_prompt = [
     {"command": "/prompt_3", "label": "3"},
 ]
 
+list_commands_after_selected_prompt = [
+    {"command": "/edit_result", "label": "Modifica il risultato"},
+    {"command": "/home", "label": "Home"},
+]
+
 def create_inline_keyboard(list_command: list[dict])-> types.InlineKeyboardMarkup:
     """ Permit to create the inline comands for telegram"""
     keyboard = []
@@ -102,7 +107,7 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                                     reply_markup=None)
     elif button_data in ["/prompt_1","/prompt_2","/prompt_3"]:
         try:
-            full_prompt:str = get_prompt_by_user_id(query.from_user.id)
+            full_prompt:str = get_prompt_by_id_chat(query.message.chat.id)
             selected_prompt_list = full_prompt.split("Post")
             if button_data=="/prompt_1":
                 selected_prompt = selected_prompt_list[0]
@@ -125,6 +130,28 @@ async def handle_callback_query(query: types.CallbackQuery)->str:
                 chat_id=query.message.chat.id,
                 message_id=query.message.message_id,
                 reply_markup=None)
+    elif button_data in [item["command"] for item in list_commands_after_selected_prompt]:
+        try:
+            if button_data == "/edit_result":
+                await bot.edit_message_text("Al momento questa funzione non è disponibile",
+                    chat_id=query.message.chat.id,
+                    message_id=query.message.message_id,
+                    reply_markup=None)
+            else:
+                prompt:str = get_prompt_by_id_chat(query.message.chat.id)
+                await bot.edit_message_text(prompt,
+                    chat_id=query.message.chat.id,
+                    message_id=query.message.message_id,
+                    reply_markup=None)
+        except Exception as error:
+            logger.error(
+                f"ERROR during choose if edit or not: {error}\n{traceback}"
+            )
+            await bot.edit_message_text(f"There was an error: {error}\n-----\n{traceback}",
+                chat_id=query.message.chat.id,
+                message_id=query.message.message_id,
+                reply_markup=None)
+
     return "ok"
 
 
@@ -236,6 +263,7 @@ async def image_handler(message: types.Message)->str:
         await message.reply(f"{all_posts_reply}",
             reply_markup=create_inline_keyboard(list_commands_after_prompt))
         update_message_prompt(id_chat=message.chat.id, prompt=all_posts)
+        await message.reply(f"messaggio salvato: {get_prompt_by_id_chat(id_chat=message.chat.id)}")
     except Exception as error:
         logger.error(
             f"ERROR during action from telegram{error}\n{traceback}"

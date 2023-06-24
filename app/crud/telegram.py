@@ -55,15 +55,15 @@ def update_last_access(id_telegram: int) -> None:
     db.merge(telegram)
     db.commit()
 
-def get_prompt_by_user_id(id_user: int) -> str:
-    """Return the id message prompt from id_user"""
+def get_prompt_by_id_chat(id_chat: int) -> str:
+    """Return the id message prompt from id_chat"""
     db: Session = next(get_db())
-    return db.query(Telegram.message_prompt).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
+    return db.query(Telegram.message_prompt).filter(Telegram.id_chat == int(id_chat)).first()  # type: ignore
 
-def get_description_by_user_id(id_user: int) -> str:
-    """Return the message description from id_user"""
+def get_description_by_id_chat(id_chat: int) -> str:
+    """Return the message description from id_chat"""
     db: Session = next(get_db())
-    return db.query(Telegram.message_description).filter(Telegram.id_user == int(id_user)).first()  # type: ignore
+    return db.query(Telegram.message_description).filter(Telegram.id_chat == int(id_chat)).first()  # type: ignore
 
 def update_message_description(id_chat: int, description: str) -> None:
     """ Update message description of the image  """
