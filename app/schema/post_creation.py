@@ -13,6 +13,7 @@ class PostCreationInfoBase(BaseModel):
     posts_created: Optional[Union[str, list[str]]] = None
     image_uploaded: Optional[bytes] = None
 
+
 class PostCreationCreate(PostCreationInfoBase):
     """
     Class PostCreationCreate

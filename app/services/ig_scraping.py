@@ -33,18 +33,19 @@ class GetInstagramProfile:
     def __init__(self) -> None:
         self.L = instaloader.Instaloader(user_agent="Edg/113.0.1774.50")
         try:
-            self.L.login(settings.USERNAME_IG,settings.PSW_IG)
+            self.L.login(settings.USERNAME_IG, settings.PSW_IG)
             logger.info(f"Correct instagram logging with {settings.USERNAME_IG}")
         except Exception as error:
-            logger.info(f"Error during instagram logging with {settings.USERNAME_IG} - {settings.PSW_IG}\n{error}")
+            logger.info(
+                f"Error during instagram logging with {settings.USERNAME_IG} - {settings.PSW_IG}\n{error}"
+            )
 
     @staticmethod
-    def remove_tagged_users(caption:str) -> str:
-        """ IF activate remove all tagged users and
+    def remove_tagged_users(caption: str) -> str:
+        """IF activate remove all tagged users and
         substitute the tag with @taggeduser, only from the post caption
         """
         return re.sub(r"@[\w.-]+(?<!\.)", "@taggeduser", caption)
-
 
     def download_users_profile_picture(self, username: str) -> None:
         """
@@ -166,7 +167,9 @@ class GetInstagramProfile:
                     print("comment date : " + str(comment.created_at_utc))
                 print("\n\n")
 
-    def get_post_info_json(self, username: str, last_n_posts: int = 100) -> Iterator[dict]:
+    def get_post_info_json(
+        self, username: str, last_n_posts: int = 100
+    ) -> Iterator[dict]:
         """
         Function to get info from every post of a user and store them in a json file (dictionary style).
         """
@@ -178,12 +181,14 @@ class GetInstagramProfile:
         for i in tqdm(range(last_n_posts)):
             # Inser the check here image.png
             try:
-                post = next(posts) # pylint: disable=R1708
+                post = next(posts)  # pylint: disable=R1708
                 shortcode = post.mediaid_to_shortcode(post.mediaid)
                 data[shortcode] = {}
                 # Store the post info
                 try:
-                    data[shortcode]["post"] = self.remove_tagged_users(str(post.caption))
+                    data[shortcode]["post"] = self.remove_tagged_users(
+                        str(post.caption)
+                    )
                     data[shortcode]["hashtags"] = str(post.caption_hashtags)
                     data[shortcode]["mentions"] = str(post.caption_mentions)
                     data[shortcode]["tagged_users"] = str(post.tagged_users)
@@ -194,11 +199,15 @@ class GetInstagramProfile:
                     data[shortcode]["typename"] = str(post.typename)
                     data[shortcode]["mediacount"] = str(post.mediacount)
                     data[shortcode]["title"] = str(post.title)
-                    data[shortcode]["posturl"] = "https://www.instagram.com/p/" + shortcode
+                    data[shortcode]["posturl"] = (
+                        "https://www.instagram.com/p/" + shortcode
+                    )
                     yield data[shortcode]
                 except Exception as error:
-                    logger.error(f"Error during extraction of data of the post:\
-                                https://www.instagram.com/p/{shortcode}\n{error}")
+                    logger.error(
+                        f"Error during extraction of data of the post:\
+                                https://www.instagram.com/p/{shortcode}\n{error}"
+                    )
 
                 # wait 1 second every post
                 time.sleep(1)
@@ -207,17 +216,17 @@ class GetInstagramProfile:
                 logger.info(f"{i} post downloaded from {username}!")
                 break
 
-    def get_profile_url(self, username:str)-> str:
-        """ return the url of the profile pic """
+    def get_profile_url(self, username: str) -> str:
+        """return the url of the profile pic"""
         profile = instaloader.Profile.from_username(self.L.context, username)
         return str(profile.profile_pic_url)
 
-    def retrieve_profile_pic(self, username:str)-> BytesIO:
-        """ Return the profile pic of the user """
+    def retrieve_profile_pic(self, username: str) -> BytesIO:
+        """Return the profile pic of the user"""
         path_pic = self.get_profile_url(username)
         response = requests.get(path_pic, timeout=10)
         image = Image.open(BytesIO(response.content))
-        return image # type: ignore
+        return image  # type: ignore
 
 
 def load_post_captions_from_json(

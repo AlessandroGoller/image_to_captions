@@ -10,7 +10,8 @@ settings = get_settings()
 router = APIRouter()
 router.include_router(telegram.router)
 
+
 def create_app() -> FastAPI:
-    """ Create FastApi """
+    """Create FastApi"""
     app = FastAPI()
     return app

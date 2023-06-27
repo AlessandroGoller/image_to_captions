@@ -14,7 +14,7 @@ settings = get_settings()
 
 
 @cached(max_size=32, ttl=30)
-def check_chat(id_chat: int)->Union[Literal[False],Telegram]:
+def check_chat(id_chat: int) -> Union[Literal[False], Telegram]:
     """
     check if the message arrive from an authorize user or not.
     If is invalid return False.
@@ -28,7 +28,7 @@ def check_chat(id_chat: int)->Union[Literal[False],Telegram]:
     -------
     Union[bool,Telegram]
     """
-    telegram:Optional[Telegram] = get_telegram_by_chat_id(id_chat)
+    telegram: Optional[Telegram] = get_telegram_by_chat_id(id_chat)
     if telegram is None:
         return False
     update_last_access(telegram.id_telegram)

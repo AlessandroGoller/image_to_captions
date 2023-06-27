@@ -12,14 +12,16 @@ settings = get_settings()
 
 router = APIRouter(prefix="/telegram", tags=["telegram"])
 
+
 @router.get("")
-def hello()-> dict[str,str]:
-    """ Only for test """
+def hello() -> dict[str, str]:
+    """Only for test"""
     return {"message": "Hello, world!"}
 
+
 @router.post("/webhook")
-async def telegram_webhook(update: dict)->str:
-    """ Telegram webhook """
+async def telegram_webhook(update: dict) -> str:
+    """Telegram webhook"""
     telegram_update = types.Update(**update)
     Dispatcher.set_current(dp)
     Bot.set_current(bot)

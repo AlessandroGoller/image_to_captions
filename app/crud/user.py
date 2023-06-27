@@ -20,19 +20,26 @@ def get_user_by_email(email: str) -> Optional[User]:
     user: Optional[User] = db.query(User).filter(User.email == email).first()
     return user
 
-def get_hash_from_email(email:str) -> str:
-    """ Return hashcode from user email """
+
+def get_hash_from_email(email: str) -> str:
+    """Return hashcode from user email"""
     db: Session = next(get_db())
-    hash_code: str = db.query(User.unique_hash_code).filter(User.email == email).first()[0]
-    if hash_code is None or hash_code=="":
+    hash_code: str = (
+        db.query(User.unique_hash_code).filter(User.email == email).first()[0]
+    )
+    if hash_code is None or hash_code == "":
         hash_code = update_hash(email)
     return hash_code
+
 
 def get_user_by_hash(hash_code: str) -> Optional[User]:
     """return user from hash"""
     db: Session = next(get_db())
-    user: Optional[User] = db.query(User).filter(User.unique_hash_code == hash_code).first()
+    user: Optional[User] = (
+        db.query(User).filter(User.unique_hash_code == hash_code).first()
+    )
     return user
+
 
 def get_id_user_by_email(email: str) -> str:
     """return id user from email"""
@@ -42,16 +49,19 @@ def get_id_user_by_email(email: str) -> str:
         raise KeyError("No user found, impossible to return an id")
     return id_user[0]
 
+
 def get_user_by_id(user_id: str) -> Optional[User]:
     """Return the user from user_id"""
     db: Session = next(get_db())
     return db.query(User).filter(User.user_id == user_id).first()  # type: ignore
+
 
 def get_users() -> Optional[list[User]]:
     """Return the list of users"""
     db: Session = next(get_db())
     db_users = db.query(User).all()
     return db_users  # type: ignore
+
 
 def create_user(user: UserCreate) -> Optional[User]:
     """Creation a user, in input the schema of user create and return the user"""
@@ -65,6 +75,7 @@ def create_user(user: UserCreate) -> Optional[User]:
     db.refresh(db_user)
     return db_user
 
+
 def become_admin(email: str) -> Optional[User]:
     """Convert a user to admin"""
     db: Session = next(get_db())
@@ -77,8 +88,9 @@ def become_admin(email: str) -> Optional[User]:
     db.refresh(user)
     return user
 
+
 def update_last_access(email: str) -> None:
-    """ Update last access """
+    """Update last access"""
     user = get_user_by_email(email)
     if user is None:
         logger.error("Profile Page without having an account")
@@ -88,8 +100,9 @@ def update_last_access(email: str) -> None:
     db.merge(user)
     db.commit()
 
+
 def update_hash(email: str) -> str:
-    """ Update hash """
+    """Update hash"""
     while True:
         hash_code = _createhash()
         user = get_user_by_hash(hash_code=hash_code)
@@ -105,8 +118,9 @@ def update_hash(email: str) -> str:
     db.commit()
     return hash_code
 
+
 def delete_user(user: User) -> dict[str, bool]:
-    """ Permit to delete a user"""
+    """Permit to delete a user"""
     db: Session = next(get_db())
     db.delete(user)
     db.commit()

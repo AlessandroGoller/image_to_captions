@@ -6,7 +6,12 @@ from typing import Optional
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-from app.crud.company import create_company, get_company_by_user_id, remove_account_ig, update_company
+from app.crud.company import (
+    create_company,
+    get_company_by_user_id,
+    remove_account_ig,
+    update_company,
+)
 from app.crud.user import get_user_by_email
 from app.model.company import Company
 from app.model.user import User
@@ -24,8 +29,11 @@ def company_exist(company: Company) -> None:
     # Update session state for button behavior
     if "description" not in st.session_state:
         st.session_state["description"] = company.description
-    language = st.text_input("In what language the prompt has to be?\n\
-                             If Auto, the AI will decide", str(company.language))
+    language = st.text_input(
+        "In what language the prompt has to be?\n\
+                             If Auto, the AI will decide",
+        str(company.language),
+    )
     company_name = st.text_input("Company Name:", str(company.name))
     description = st.text_input(
         "Company description:",
@@ -45,7 +53,9 @@ def company_exist(company: Company) -> None:
     if company.url_instagram is not None and company.url_instagram != "":
         instagram_url = str(company.url_instagram)
         st.write("Instagram Account: " + str(company.url_instagram))
-        if st.button("Delete Instagram Account. N.B. Cambiare account necessiterà un po di tempo alla prima creazione della caption"):  # noqa
+        if st.button(
+            "Delete Instagram Account. N.B. Cambiare account necessiterà un po di tempo alla prima creazione della caption"  # noqa
+        ):
             remove_account_ig(id_company=company.id_company)
             st.experimental_rerun()  # reload the page
     else:
@@ -55,7 +65,7 @@ def company_exist(company: Company) -> None:
         )
 
     # Print the profile pic
-    if company.url_instagram is not None and company.url_instagram!="":
+    if company.url_instagram is not None and company.url_instagram != "":
         profile_pic_url = get_profile_pic(company)
         if profile_pic_url is not None:
             st.image(profile_pic_url, caption="Immagine Instagram")
@@ -76,8 +86,10 @@ def company_exist(company: Company) -> None:
 
 def company_not_exist(user: User) -> None:
     """Case in which the company NOT exist"""
-    language = st.text_input("In what language the prompt has to be?\nIf Auto, the AI will decide", "Auto")
-    company_name = st.text_input("Insert Company Name:","")
+    language = st.text_input(
+        "In what language the prompt has to be?\nIf Auto, the AI will decide", "Auto"
+    )
+    company_name = st.text_input("Insert Company Name:", "")
     website = st.text_input("Insert Company website:", "")
     instagram_url = st.text_input("Insert Instagram Name:", "")
     description = ""

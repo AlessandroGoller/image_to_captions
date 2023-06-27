@@ -15,14 +15,14 @@ class Telegram(database):
     id_user = Column(Integer, ForeignKey("t_user.id_t_user"), nullable=False)
     id_user_telegram = Column(Integer, nullable=True, default=None)
     id_chat = Column(Integer, nullable=True, default=None, unique=True)
-    language = Column(String, nullable=True, default= "Italian") # pylint: disable=R0801
-    last_access = Column( # pylint: disable=R0801
+    language = Column(String, nullable=True, default="Italian")  # pylint: disable=R0801
+    last_access = Column(  # pylint: disable=R0801
         "last_access",
         DateTime(timezone=True),
         onupdate=func.now(),
         nullable=True,
     )
-    time_created = Column( # pylint: disable=R0801
+    time_created = Column(  # pylint: disable=R0801
         "time_created",
         DateTime(timezone=True),
         server_default=func.now(),
@@ -34,5 +34,5 @@ class Telegram(database):
     user = relationship("User", uselist=False, lazy="joined")
 
     def update_last_access(self) -> None:
-        """ Permit to update the last acces """
+        """Permit to update the last acces"""
         self.last_access = func.now()

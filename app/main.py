@@ -8,6 +8,7 @@ from app.utils.logger import configure_logger
 
 logger = configure_logger()
 
+
 def main() -> None:
     """Prepare DB"""
 

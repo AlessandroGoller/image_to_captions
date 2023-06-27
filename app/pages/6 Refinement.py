@@ -25,38 +25,52 @@ logger = configure_logger()
 
 # UTILS FUNCTIONS ############################################################################
 
-def infinite_edit_post(modify_request:str)->None:
-    """ Function to continue to edit the post """
-    if(modify_request == ""):
+
+def infinite_edit_post(modify_request: str) -> None:
+    """Function to continue to edit the post"""
+    if modify_request == "":
         st.write("Per favore, inserisci come vuoi modificare il post")
     else:
         # Create the messages for the modify_ig_post function
         messages = [
-                {
-                    "role": "system",
-                    "content": "Sei un sistema intelligente che ha generato un post per instagram ed ora deve modificarlo seguendo le richieste dell'utente", # noqa
-                }
+            {
+                "role": "system",
+                "content": "Sei un sistema intelligente che ha generato un post per instagram ed ora deve modificarlo seguendo le richieste dell'utente",  # noqa
+            }
         ]
-        messages.append(st.session_state["messages"][-1]) # The last message is the reply by the LM
-        prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato.""" # noqa
-        post_edited, temp_messages = modify_ig_post(st.session_state["email"], prompt, messages=messages)
+        messages.append(
+            st.session_state["messages"][-1]
+        )  # The last message is the reply by the LM
+        prompt = f""" Modifica il post che hai creato precedentemente in base alla mia richiesta: \"{modify_request}\". Non aggiungere ulteriori premesse, genera solo il post modificato."""  # noqa
+        post_edited, temp_messages = modify_ig_post(
+            st.session_state["email"], prompt, messages=messages
+        )
         st.session_state["temp_post"] = post_edited
         st.session_state["temp_messages"] = temp_messages
 
+
 def clear_mod_request() -> None:
-    """ Function to clear the modification request """
+    """Function to clear the modification request"""
     st.session_state["mod_request"] = ""
+
+
 ###############################################################################################
 
 if st.session_state.get("image_cache", False):
     st.image(st.session_state["image_cache"], caption="La tua immagine")
 
-st.write("**Il post che hai scelto è:**") # Waiting for the possibility to pick a post from a list
+st.write(
+    "**Il post che hai scelto è:**"
+)  # Waiting for the possibility to pick a post from a list
 st.write(f"{st.session_state['post']}")
 
 col1, col2 = st.columns(2)
-col1.write("**Inserisci un testo che spieghi come vuoi modificare il post!  \nAd esempio:**")
-col1.write("- Voglio che il post sia più ironico\n - Voglio che il post menzioni il nostro prodotto [nomeprodotto]") # noqa
+col1.write(
+    "**Inserisci un testo che spieghi come vuoi modificare il post!  \nAd esempio:**"
+)
+col1.write(
+    "- Voglio che il post sia più ironico\n - Voglio che il post menzioni il nostro prodotto [nomeprodotto]"
+)  # noqa
 
 modify_request = col2.text_input("Come vuoi che venga modificato?", key="mod_request")
 
@@ -72,7 +86,8 @@ if "temp_post" in st.session_state:
     option = st.selectbox(
         "Quale post desideri mantenere?",
         ("Originale", "Modificato"),
-        label_visibility="visible")
+        label_visibility="visible",
+    )
 
     if st.button("Scegli quale post mantenere", on_click=clear_mod_request):
         if option == "Modificato":
@@ -103,4 +118,3 @@ if st.button("Ricomincia da capo!"):
         del st.session_state["temp_messages"]
     # Rerun the script
     st.experimental_rerun()
-

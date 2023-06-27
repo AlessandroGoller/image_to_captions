@@ -1,4 +1,3 @@
-
 """
 Module for start FastApi
 """
@@ -13,9 +12,10 @@ settings = get_settings()
 app = create_app()
 app.include_router(router)
 
+
 @app.on_event("startup")
-async def on_startup()->None:
-    """ Setting on startup """
+async def on_startup() -> None:
+    """Setting on startup"""
     webhook_info = await bot.get_webhook_info()
     if webhook_info.url != WEBHOOK_URL:
         await bot.set_webhook(
@@ -26,6 +26,6 @@ async def on_startup()->None:
 
 
 @app.on_event("shutdown")
-async def on_shutdown()-> None:
-    """ Settings on shutdown """
+async def on_shutdown() -> None:
+    """Settings on shutdown"""
     await bot.session.close()
