@@ -15,3 +15,6 @@ tiktoken
 validate_email
 password-strength
 memoization
+fastapi
+uvicorn
+aiogram

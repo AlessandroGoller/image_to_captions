@@ -11,20 +11,24 @@ from app.utils.logger import configure_logger
 
 logger = configure_logger()
 
+
 def get_company_by_name(name: str) -> Optional[Company]:
     """return Company from email"""
     db: Session = next(get_db())
     return db.query(Company).filter(Company.name == name).first()  # type: ignore
+
 
 def get_company_by_id(id_company: int) -> Optional[Company]:
     """Return the Company from id_company"""
     db: Session = next(get_db())
     return db.query(Company).filter(Company.id_company == id_company).first()  # type: ignore
 
+
 def get_company_by_user_id(user_id: int) -> Optional[Company]:
     """Return the Company from user_id"""
     db: Session = next(get_db())
     return db.query(Company).filter(Company.id_user == user_id).first()  # type: ignore
+
 
 def create_company(company: CompanyCreate) -> Optional[Company]:
     """Creation a company, in input the schema of company create and return the company"""
@@ -41,19 +45,21 @@ def create_company(company: CompanyCreate) -> Optional[Company]:
     db.refresh(db_company)
     return db_company
 
-def remove_account_ig(id_company: int)->Optional[Company]:
-    """ Permit to remove the instagram account """
+
+def remove_account_ig(id_company: int) -> Optional[Company]:
+    """Permit to remove the instagram account"""
     logger.info("Updating Instagram account")
     delete_all_instagram(id_company=id_company)
     db: Session = next(get_db())
     company = get_company_by_id(id_company=id_company)
-    company.url_instagram = "" # type: ignore
+    company.url_instagram = ""  # type: ignore
     db.merge(company)
     db.commit()
     return company
 
-def update_account_ig(company: Company, ig_account:str)->Optional[Company]:
-    """ Permit to change the instagram account """
+
+def update_account_ig(company: Company, ig_account: str) -> Optional[Company]:
+    """Permit to change the instagram account"""
     db: Session = next(get_db())
     company.url_instagram = ig_account
     logger.info("Updating Instagram account")
@@ -62,13 +68,15 @@ def update_account_ig(company: Company, ig_account:str)->Optional[Company]:
     db.commit()
     return company
 
-def add_profile_pic(company: Company, url_pic:str)-> None:
-    """ Add or edit a profile url pic """
+
+def add_profile_pic(company: Company, url_pic: str) -> None:
+    """Add or edit a profile url pic"""
     db: Session = next(get_db())
     company.profile_pic_url = url_pic
     logger.info("Updating Profile pic url")
     db.merge(company)
     db.commit()
+
 
 def update_company(
     company: Company, company_edit: CompanyInfoBase
@@ -82,6 +90,7 @@ def update_company(
     db.commit()
     return company
 
+
 def delete_company(company: Company) -> dict[str, bool]:
     """ " Permit to delete a company"""
     logger.info("Delete Company")
@@ -90,8 +99,9 @@ def delete_company(company: Company) -> dict[str, bool]:
     db.commit()
     return {"ok": True}
 
-def add_tokens(company: Company, tokens:int)-> tuple[int,int]:
-    """ Add tokens used and return token to be paid and total tokens """
+
+def add_tokens(company: Company, tokens: int) -> tuple[int, int]:
+    """Add tokens used and return token to be paid and total tokens"""
     db: Session = next(get_db())
     if company.tokens_to_be_paid is None:
         company.tokens_to_be_paid = 0
@@ -101,10 +111,11 @@ def add_tokens(company: Company, tokens:int)-> tuple[int,int]:
     company.total_tokens += tokens
     db.merge(company)
     db.commit()
-    return company.tokens_to_be_paid,company.total_tokens
+    return company.tokens_to_be_paid, company.total_tokens
 
-def restart_paid_tokens(company: Company)->None:
-    """ Restart the token to be paid """
+
+def restart_paid_tokens(company: Company) -> None:
+    """Restart the token to be paid"""
     db: Session = next(get_db())
     company.tokens_to_be_paid = 0
     db.merge(company)

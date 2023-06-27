@@ -14,7 +14,7 @@ class Company(database):
     name = Column("name", String, nullable=False)
     id_user = Column(Integer, ForeignKey("t_user.id_t_user"), nullable=False)
     url_instagram = Column(String, nullable=True)
-    language = Column(String, nullable=True, default= "Auto")
+    language = Column(String, nullable=True, default="Auto")
     description = Column(Text, nullable=True)
     website = Column(String, nullable=True)
     tokens_to_be_paid = Column("tokens_to_be_paid", Integer, nullable=True, default=0)

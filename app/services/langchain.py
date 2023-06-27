@@ -18,16 +18,17 @@ settings = get_settings()
 
 logger = configure_logger()
 
+
 @timeit
-def prepare_llm(provider:str="openai") -> HuggingFaceHub:
+def prepare_llm(provider: str = "openai") -> HuggingFaceHub:
     """Return the llm"""
-    if provider=="openai":
+    if provider == "openai":
         if settings.OPENAI_API_TOKEN is not None:
             logger.info("Using OpenAI as llm")
             llm = OpenAI(
                 model_name="text-davinci-003", openai_api_key=settings.OPENAI_API_TOKEN
             )
-    elif provider=="huggingfacehub":
+    elif provider == "huggingfacehub":
         logger.info("Using Hugging_face as llm")
         logger.info("Remember that huggingface might not work for a lot of requests")
         if settings.HUGGINGFACEHUB_API_TOKEN is not None:
@@ -41,6 +42,7 @@ def prepare_llm(provider:str="openai") -> HuggingFaceHub:
         logger.error("Please specify a valid llm provider")
         raise ValueError("No llm found")
     return llm
+
 
 @timeit
 def search_info_of_company(name_to_search: str) -> str:
@@ -66,35 +68,48 @@ def search_info_of_company(name_to_search: str) -> str:
     )
     return str(response)
 
-@timeit
-def generate_ig_post(prompt: str = "", messages: Optional[list] = None) -> list:
 
+@timeit
+def generate_ig_post(
+    email: str, prompt: str = "", messages: Optional[list] = None
+) -> list:
     """
     Function to generate a post for Instagram using a predefined prompt and chatgpt
     """
+    if messages is None:
+        # Here I generate the first message specifying the role in this case
+        messages = [
+            {
+                "role": "system",
+                "content": "Sei un sistema intelligente che genera dei post per instagram",
+            }
+        ]
     openai.api_key = settings.OPENAI_API_TOKEN
 
     replies = ["Please specify a prompt"]
-
-    if messages is None:
-        raise ValueError("Specify the list of messages in generate_ig_post function!")
-
-    if prompt!="":
-        add_tokens_to_db(prompt)
+    if prompt != "":
+        add_tokens_to_db(prompt, email)
         messages.append(
             {"role": "user", "content": prompt},
         )
-        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=3)
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", messages=messages, n=3
+        )
         replies = []
         for choice in chat.choices:
             replies.append(choice.message.content)
-            add_tokens_to_db(choice.message.content)
+            add_tokens_to_db(choice.message.content, email)
+
+    # Da aggiungere dopo un check post_created: PostCreationCreate = PostCreationCreate(
+    # Da aggiungere, controllare anche:  create_post_creation(post_created) -> There is a problem with ssl connection
 
     return replies
 
-@timeit
-def modify_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[str, list[Any]]:
 
+@timeit
+def modify_ig_post(
+    email: str, prompt: str = "", messages: Optional[list] = None
+) -> Tuple[str, list[Any]]:
     """
     Function to modify a post for Instagram following the user requests
     """
@@ -105,19 +120,22 @@ def modify_ig_post(prompt: str = "", messages: Optional[list] = None) -> Tuple[s
     if messages is None:
         raise ValueError("Specify the list of messages in generate_ig_post function!")
 
-    if prompt!="":
-        add_tokens_to_db(prompt)
+    if prompt != "":
+        add_tokens_to_db(prompt, email)
         messages.append(
             {"role": "user", "content": prompt},
         )
-        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, n=1)
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", messages=messages, n=1
+        )
 
         reply = chat.choices[0].message.content
-        add_tokens_to_db(reply)
+        add_tokens_to_db(reply, email)
 
         messages.append({"role": "assistant", "content": reply})
 
     return reply, messages
+
 
 @timeit
 def generate_img_description(image: BytesIO, model: str = settings.MODEL_BLIP) -> str:

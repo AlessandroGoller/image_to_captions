@@ -40,7 +40,9 @@ def show_register_page() -> None:
                 st.error("Passwords do not match.")
             elif policy.test(password) != []:
                 problems = policy.test(password)
-                st.write(f"The password has {len(problems)} problems. It needs at least:")
+                st.write(
+                    f"The password has {len(problems)} problems. It needs at least:"
+                )
                 for problem in problems:
                     st.write(f"- {problem}")
             elif register_user(email=email, password=password):

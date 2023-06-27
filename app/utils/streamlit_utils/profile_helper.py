@@ -17,7 +17,8 @@ settings = get_settings()
 
 logger = configure_logger()
 
-def request_image_from_url(url_pic:str)->Optional[BytesIO]:
+
+def request_image_from_url(url_pic: str) -> Optional[BytesIO]:
     """
     request_image_from_url
 
@@ -30,19 +31,20 @@ def request_image_from_url(url_pic:str)->Optional[BytesIO]:
     Optional[BytesIO]
     """
     if url_pic is None:
-        logger.warning("Error, None as url_pic") # type: ignore
+        logger.warning("Error, None as url_pic")  # type: ignore
         return None
     try:
         logger.info(f"Request on {url_pic=}")
         response = requests.get(url_pic, timeout=20)
         image = Image.open(BytesIO(response.content))
-        return image # type: ignore
+        return image  # type: ignore
     except Exception as error:
         traceback_msg = traceback.format_exc()
         logger.error(f"Impossible to request the profile pic\n{error}\n{traceback_msg}")
     return None
 
-def get_profile_pic(company:Company)->Optional[BytesIO]:
+
+def get_profile_pic(company: Company) -> Optional[BytesIO]:
     """
     get_profile_pic of the instagram account
 
@@ -56,7 +58,7 @@ def get_profile_pic(company:Company)->Optional[BytesIO]:
     """
     url_pic: str = company.profile_pic_url
     if url_pic is not None:
-        image:Optional[BytesIO] = request_image_from_url(url_pic)
+        image: Optional[BytesIO] = request_image_from_url(url_pic)
         if image is not None:
             return image
     try:

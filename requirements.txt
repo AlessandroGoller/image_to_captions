@@ -4,14 +4,19 @@
 #
 #    pip-compile
 #
+aiogram==2.25.1
+    # via -r requirements.in
 aiohttp==3.8.4
     # via
+    #   aiogram
     #   langchain
     #   openai
 aiosignal==1.3.1
     # via aiohttp
 altair==4.2.2
     # via streamlit
+anyio==3.7.0
+    # via starlette
 async-timeout==4.0.2
     # via
     #   aiohttp
@@ -20,6 +25,8 @@ attrs==22.2.0
     # via
     #   aiohttp
     #   jsonschema
+babel==2.9.1
+    # via aiogram
 bcrypt==4.0.1
     # via -r requirements.in
 beautifulsoup4==4.11.2
@@ -31,13 +38,17 @@ blinker==1.6.2
 cachetools==5.3.0
     # via streamlit
 certifi==2022.12.7
-    # via requests
+    # via
+    #   aiogram
+    #   requests
 charset-normalizer==3.1.0
     # via
     #   aiohttp
     #   requests
 click==8.1.3
-    # via streamlit
+    # via
+    #   streamlit
+    #   uvicorn
 colorama==0.4.6
     # via
     #   click
@@ -55,8 +66,12 @@ deep-translator==1.11.1
     # via -r requirements.in
 entrypoints==0.4
     # via altair
+exceptiongroup==1.1.1
+    # via anyio
 faker==18.9.0
     # via streamlit-faker
+fastapi==0.97.0
+    # via -r requirements.in
 favicon==0.7.0
     # via markdownlit
 fonttools==4.39.4
@@ -71,6 +86,8 @@ gitpython==3.1.31
     # via streamlit
 greenlet==2.0.2
     # via sqlalchemy
+h11==0.14.0
+    # via uvicorn
 htbuilder==0.6.1
     # via
     #   markdownlit
@@ -78,6 +95,7 @@ htbuilder==0.6.1
     #   streamlit-extras
 idna==3.4
     # via
+    #   anyio
     #   requests
     #   yarl
 importlib-metadata==6.5.0
@@ -105,6 +123,8 @@ loguru==0.7.0
     # via -r requirements.in
 lxml==4.9.2
     # via markdownlit
+magic-filter==1.0.9
+    # via aiogram
 markdown==3.4.3
     # via
     #   markdownlit
@@ -178,6 +198,7 @@ pyarrow==11.0.0
     # via streamlit
 pydantic==1.10.7
     # via
+    #   fastapi
     #   langchain
     #   openapi-schema-pydantic
     #   replicate
@@ -202,7 +223,9 @@ python-dateutil==2.8.2
 python-dotenv==1.0.0
     # via -r requirements.in
 pytz==2023.3
-    # via pandas
+    # via
+    #   babel
+    #   pandas
 pytz-deprecation-shim==0.1.0.post0
     # via tzlocal
 pyyaml==6.0
@@ -231,6 +254,8 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
+sniffio==1.3.0
+    # via anyio
 soupsieve==2.4
     # via beautifulsoup4
 sqlalchemy==1.4.47
@@ -239,6 +264,8 @@ sqlalchemy==1.4.47
     #   langchain
 st-annotated-text==4.0.0
     # via streamlit-extras
+starlette==0.27.0
+    # via fastapi
 stqdm==0.0.5
     # via -r requirements.in
 streamlit==1.21.0
@@ -294,6 +321,7 @@ tqdm==4.65.0
 typing-extensions==4.5.0
     # via
     #   pydantic
+    #   starlette
     #   streamlit
     #   typing-inspect
 typing-inspect==0.8.0
@@ -306,6 +334,8 @@ tzlocal==4.3
     # via streamlit
 urllib3==1.26.15
     # via requests
+uvicorn==0.22.0
+    # via -r requirements.in
 validate-email==1.3
     # via -r requirements.in
 validators==0.20.0

@@ -6,10 +6,7 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
 # Imposta il titolo della pagina e l'icona
-st.set_page_config(
-    page_title="Automazione Didascalie",
-    page_icon="📷"
-)
+st.set_page_config(page_title="Automazione Didascalie", page_icon="📷")
 
 # Titolo principale
 st.title("Benvenuti in Automazione Didascalie!")

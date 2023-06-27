@@ -7,7 +7,7 @@ echo "Running ruff"
 ruff app --fix|| goto :error
 
 echo "Run type checking"
-mypy app --exclude custom_logging.py --exclude main.py|| goto :error
+mypy app --install-types --exclude custom_logging.py --exclude main.py|| goto :error
 
 echo "Run pylint"
 pylint app || goto :error

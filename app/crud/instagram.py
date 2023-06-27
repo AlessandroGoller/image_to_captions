@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 from typing import Optional
 
+from memoization import cached
 from sqlalchemy.orm import Session
 
 from app.dependency import get_db
@@ -37,10 +38,13 @@ def get_instagram_by_company_id(company_id: int) -> Optional[list[Instagram]]:
     return db.query(Instagram).filter(Instagram.id_company == company_id).all()  # type: ignore
 
 
-def get_last_n_instagram(company_id: int, number_ig: int = 20) -> Optional[list[Instagram]]:
+@cached(max_size=16, ttl=300)
+def get_last_n_instagram(
+    company_id: int, number_ig: int = 20
+) -> Optional[list[Instagram]]:
     """Return the list of n Instagram from company_id order by date"""
     db: Session = next(get_db())
-    return ( # type: ignore
+    return (  # type: ignore
         db.query(Instagram)
         .filter(Instagram.id_company == company_id)
         .order_by(Instagram.date.desc())
@@ -48,16 +52,15 @@ def get_last_n_instagram(company_id: int, number_ig: int = 20) -> Optional[list[
         .all()
     )
 
+
 def get_instagram_after_date(
     company_id: int, date: datetime
 ) -> Optional[list[Instagram]]:
     """Return the list of Instagram posts from company_id with date after the input date"""
     db: Session = next(get_db())
-    return ( # type: ignore
+    return (  # type: ignore
         db.query(Instagram)
-        .filter(
-            Instagram.id_company == company_id, Instagram.date > date
-        )
+        .filter(Instagram.id_company == company_id, Instagram.date > date)
         .all()
     )
 
@@ -194,20 +197,26 @@ def update_instagram(
     db.commit()
     return instagram
 
-def delete_all_instagram(id_company:int) -> None:
-    """ Delete all instagram account connected to a company """
+
+def delete_all_instagram(id_company: int) -> None:
+    """Delete all instagram account connected to a company"""
     db: Session = next(get_db())
     # Get all Instagram accounts connected to the company
-    instagrams: list[Instagram] = db.query(Instagram).filter_by(id_company=id_company).all()
+    instagrams: list[Instagram] = (
+        db.query(Instagram).filter_by(id_company=id_company).all()
+    )
     # Delete each Instagram account
     for instagram in instagrams:
         try:
             delete_instagram_with_sessione(db, instagram)
         except Exception as error:
-            logger.error(f"Error during deletion of the instagram post {instagram.posturl}\n{error}")
+            logger.error(
+                f"Error during deletion of the instagram post {instagram.posturl}\n{error}"
+            )
 
-def delete_instagram_with_sessione(db:Session, instagram:Instagram)->None:
-    """ Permit to delete a instagram with an already started session """
+
+def delete_instagram_with_sessione(db: Session, instagram: Instagram) -> None:
+    """Permit to delete a instagram with an already started session"""
     db.delete(instagram)
     db.commit()
 

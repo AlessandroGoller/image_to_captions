@@ -17,7 +17,9 @@ def timeit(f: Callable) -> Callable:
         start = time()
         result = f(*args, **kwargs)
         end = time()
-        logger.info(f"{f.__name__} execution duration: {round((end - start) * 10**3,2)} ms")
+        logger.info(
+            f"{f.__name__} execution duration: {round((end - start) * 10**3,2)} ms"
+        )
         return result
 
     return wrapper
