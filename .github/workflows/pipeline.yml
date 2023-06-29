@@ -16,7 +16,7 @@ jobs:
     - name: Run ruff
       run: ruff app --fix
     - name: Run type checking
-      run: mypy app --install-types --exclude app/dependency.py --exclude main.py
+      run: mypy app --install-types --exclude main.py
     - name: Run pylint
       run: pylint app
     - name: Check for errors
