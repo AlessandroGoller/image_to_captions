@@ -2,6 +2,11 @@
 ----
 Credo si possa eliminare version.py
 ----
+vermin --no-tips -t="3.9-" --violations app
+----
+To check if there are problem
+pip-audit --desc on --progress-spinner off
+---
 
 DESCRIPTION A package for doing great things!...
 pip install pip==23.0.1
@@ -19,6 +24,7 @@ TO delete
 
 - delete manually pywin32 from requirements-dev.txt -> it came from python-semantic-release
 - pip version that works with pip-compile: python.exe -m pip install pip==23.0.1
+or 22.0.1
 
 ## GIT
 These 2 commands remove a tag
