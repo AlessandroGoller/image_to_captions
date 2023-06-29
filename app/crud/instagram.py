@@ -17,25 +17,25 @@ logger = configure_logger()
 def get_instagram_by_id(id_instagram: int) -> Optional[Instagram]:
     """Return the Instagram from id_instagram"""
     db: Session = next(get_db())
-    return db.query(Instagram).filter(Instagram.id_instagram == id_instagram).first()  # type: ignore
+    return db.query(Instagram).filter(Instagram.id_instagram == id_instagram).first()
 
 
 def get_instagram_by_url(url: int) -> Optional[Instagram]:
     """Return the Instagram from url"""
     db: Session = next(get_db())
-    return db.query(Instagram).filter(Instagram.posturl == url).first()  # type: ignore
+    return db.query(Instagram).filter(Instagram.posturl == url).first()
 
 
 def get_instagram_by_user_id(user_id: int) -> Optional[list[Instagram]]:
     """Return the list of Instagram from user_id"""
     db: Session = next(get_db())
-    return db.query(Instagram).filter(Instagram.id_user == user_id).all()  # type: ignore
+    return db.query(Instagram).filter(Instagram.id_user == user_id).all()
 
 
 def get_instagram_by_company_id(company_id: int) -> Optional[list[Instagram]]:
     """Return the list of Instagram from company_id"""
     db: Session = next(get_db())
-    return db.query(Instagram).filter(Instagram.id_company == company_id).all()  # type: ignore
+    return db.query(Instagram).filter(Instagram.id_company == company_id).all()
 
 
 @cached(max_size=16, ttl=300)
@@ -44,7 +44,7 @@ def get_last_n_instagram(
 ) -> Optional[list[Instagram]]:
     """Return the list of n Instagram from company_id order by date"""
     db: Session = next(get_db())
-    return (  # type: ignore
+    return (
         db.query(Instagram)
         .filter(Instagram.id_company == company_id)
         .order_by(Instagram.date.desc())
@@ -58,7 +58,7 @@ def get_instagram_after_date(
 ) -> Optional[list[Instagram]]:
     """Return the list of Instagram posts from company_id with date after the input date"""
     db: Session = next(get_db())
-    return (  # type: ignore
+    return (
         db.query(Instagram)
         .filter(Instagram.id_company == company_id, Instagram.date > date)
         .all()
@@ -217,13 +217,13 @@ def delete_all_instagram(id_company: int) -> None:
 
 def delete_instagram_with_sessione(db: Session, instagram: Instagram) -> None:
     """Permit to delete a instagram with an already started session"""
-    db.delete(instagram)
+    db.delete(instagram)  # type: ignore
     db.commit()
 
 
 def delete_instagram(instagram: Instagram) -> dict[str, bool]:
     """Permit to delete a instagram"""
     db: Session = next(get_db())
-    db.delete(instagram)
+    db.delete(instagram)  # type: ignore
     db.commit()
     return {"ok": True}

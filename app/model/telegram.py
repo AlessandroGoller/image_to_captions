@@ -31,7 +31,7 @@ class Telegram(database):
     message_description = Column(String, nullable=True, default=None)
     message_prompt = Column(Text, nullable=True, default=None)
 
-    user = relationship("User", uselist=False, lazy="joined")
+    user = relationship("User", uselist=False, lazy="joined")  # type: ignore
 
     def update_last_access(self) -> None:
         """Permit to update the last acces"""

@@ -38,4 +38,4 @@ class PostCreation(database):
         nullable=True,
     )
 
-    user = relationship("User", uselist=False)
+    user = relationship("User", uselist=False)  # type: ignore

@@ -14,7 +14,7 @@ logger = configure_logger()
 def get_post_creation_by_id(id_post_creation: int) -> Optional[PostCreation]:
     """Return the PostCreation from id_company"""
     db: Session = next(get_db())
-    return db.query(PostCreation).filter(PostCreation.id_post_creation == id_post_creation).first()  # type: ignore
+    return db.query(PostCreation).filter(PostCreation.id_post_creation == id_post_creation).first()
 
 
 def update_refinement() -> None:
@@ -59,7 +59,7 @@ def delete_all_posts_creation(id_user: int) -> None:
 
 def delete_post_with_sessione(db: Session, post: PostCreation) -> None:
     """Permit to delete a post with an already started session"""
-    db.delete(post)
+    db.delete(post)  # type: ignore
     db.commit()
 
 
@@ -68,5 +68,5 @@ def delete_posts_creation(id_post_creation: int) -> None:
     logger.info("Delete Post Created")
     db: Session = next(get_db())
     post_creation = get_post_creation_by_id(id_post_creation=id_post_creation)
-    db.delete(post_creation)
+    db.delete(post_creation)  # type: ignore
     db.commit()

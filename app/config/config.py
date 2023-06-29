@@ -35,6 +35,7 @@ class Config(BaseSettings):
     DOMAIN: str = "https://image-test-fjhr.onrender.com/"
     DOMAIN_old:str = "https://image-to-caption.onrender.com/"
 
+
 policy = PasswordPolicy.from_names(
     length=8,  # min length: 8
     uppercase=2,  # need min. 2 uppercase letters

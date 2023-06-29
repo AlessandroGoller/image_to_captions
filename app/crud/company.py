@@ -15,19 +15,19 @@ logger = configure_logger()
 def get_company_by_name(name: str) -> Optional[Company]:
     """return Company from email"""
     db: Session = next(get_db())
-    return db.query(Company).filter(Company.name == name).first()  # type: ignore
+    return db.query(Company).filter(Company.name == name).first()
 
 
 def get_company_by_id(id_company: int) -> Optional[Company]:
     """Return the Company from id_company"""
     db: Session = next(get_db())
-    return db.query(Company).filter(Company.id_company == id_company).first()  # type: ignore
+    return db.query(Company).filter(Company.id_company == id_company).first()
 
 
 def get_company_by_user_id(user_id: int) -> Optional[Company]:
     """Return the Company from user_id"""
     db: Session = next(get_db())
-    return db.query(Company).filter(Company.id_user == user_id).first()  # type: ignore
+    return db.query(Company).filter(Company.id_user == user_id).first()
 
 
 def create_company(company: CompanyCreate) -> Optional[Company]:
@@ -95,7 +95,7 @@ def delete_company(company: Company) -> dict[str, bool]:
     """ " Permit to delete a company"""
     logger.info("Delete Company")
     db: Session = next(get_db())
-    db.delete(company)
+    db.delete(company)  # type: ignore
     db.commit()
     return {"ok": True}
 
@@ -104,9 +104,9 @@ def add_tokens(company: Company, tokens: int) -> tuple[int, int]:
     """Add tokens used and return token to be paid and total tokens"""
     db: Session = next(get_db())
     if company.tokens_to_be_paid is None:
-        company.tokens_to_be_paid = 0
+        company.tokens_to_be_paid = 0  # type: ignore
     if company.total_tokens is None:
-        company.total_tokens = 0
+        company.total_tokens = 0  # type: ignore
     company.tokens_to_be_paid += tokens
     company.total_tokens += tokens
     db.merge(company)

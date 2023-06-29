@@ -80,6 +80,8 @@ requests==2.31.0
     #   pip-audit
 rich==13.3.4
     # via pip-audit
+ruff==0.0.275
+    # via -r .\requirements-dev.in
 six==1.16.0
     # via html5lib
 sortedcontainers==2.4.0
@@ -100,8 +102,6 @@ urllib3==1.26.15
     # via
     #   pip-audit
     #   requests
-vermin==1.5.2
-    # via -r .\requirements-dev.in
 webencodings==0.5.1
     # via html5lib
 wheel==0.40.0

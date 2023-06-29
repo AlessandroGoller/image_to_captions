@@ -2,12 +2,13 @@
 Module for start FastApi
 """
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.controller import telegram
 from app.dependency import get_settings
 from app.services.telegram_bot import WEBHOOK_URL, bot, commands
 from app.utils.logger import configure_logger
-from app.controller import telegram
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 logger = configure_logger()
 settings = get_settings()

@@ -6,3 +6,5 @@ mypy
 sqlalchemy-stubs
 
 pylint
+
+ruff

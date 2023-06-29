@@ -25,7 +25,7 @@ def get_hash_from_email(email: str) -> str:
     """Return hashcode from user email"""
     db: Session = next(get_db())
     hash_code: str = (
-        db.query(User.unique_hash_code).filter(User.email == email).first()[0]
+        db.query(User.unique_hash_code).filter(User.email == email).first()[0]  # type: ignore
     )
     if hash_code is None or hash_code == "":
         hash_code = update_hash(email)
@@ -44,7 +44,7 @@ def get_user_by_hash(hash_code: str) -> Optional[User]:
 def get_id_user_by_email(email: str) -> str:
     """return id user from email"""
     db: Session = next(get_db())
-    id_user: Optional[str] = db.query(User.user_id).filter(User.email == email).first()
+    id_user: Optional[str] = db.query(User.user_id).filter(User.email == email).first()  # type: ignore
     if id_user is None:
         raise KeyError("No user found, impossible to return an id")
     return id_user[0]
@@ -53,14 +53,14 @@ def get_id_user_by_email(email: str) -> str:
 def get_user_by_id(user_id: str) -> Optional[User]:
     """Return the user from user_id"""
     db: Session = next(get_db())
-    return db.query(User).filter(User.user_id == user_id).first()  # type: ignore
+    return db.query(User).filter(User.user_id == user_id).first()
 
 
 def get_users() -> Optional[list[User]]:
     """Return the list of users"""
     db: Session = next(get_db())
     db_users = db.query(User).all()
-    return db_users  # type: ignore
+    return db_users
 
 
 def create_user(user: UserCreate) -> Optional[User]:
@@ -122,6 +122,6 @@ def update_hash(email: str) -> str:
 def delete_user(user: User) -> dict[str, bool]:
     """Permit to delete a user"""
     db: Session = next(get_db())
-    db.delete(user)
+    db.delete(user)  # type: ignore
     db.commit()
     return {"ok": True}
