@@ -18,3 +18,4 @@ memoization
 fastapi
 uvicorn
 aiogram
+python-multipart
