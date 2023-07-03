@@ -7,7 +7,8 @@ from validate_email import validate_email
 
 from app.config.config import policy
 from app.crud.user import update_last_access
-from app.utils.streamlit_utils.auth import is_logged_in, register_user, verify_login
+from app.utils.oauth import register_user, verify_login
+from app.utils.streamlit_utils.auth import is_logged_in
 
 
 def show_login_page() -> None:

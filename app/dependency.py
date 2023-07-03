@@ -33,8 +33,8 @@ database = declarative_base()
 
 database_engine = create_engine(
     get_settings().SQLALCHEMY_DATABASE_URI,
-    pool_size=10,
-    max_overflow=2,
+    pool_size=20,
+    max_overflow=0,
     echo=True,
 )
 DBSessionLocal = sessionmaker(

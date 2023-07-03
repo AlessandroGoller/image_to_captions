@@ -3,6 +3,13 @@
 from pydantic import BaseModel
 
 
+class Token(BaseModel):
+    """ Token Class """
+
+    access_token: str
+    token_type: str
+
+
 class UserInfoBase(BaseModel):
     """Class UserInfoBase"""
 

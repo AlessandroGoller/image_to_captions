@@ -12,10 +12,14 @@ psycopg2
 langchain
 instaloader
 tiktoken
+
 validate_email
 password-strength
+
 memoization
+aiogram
+
 fastapi
 uvicorn
-aiogram
 python-multipart
+python-jose

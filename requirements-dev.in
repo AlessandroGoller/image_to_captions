@@ -4,6 +4,7 @@ pip-audit
 
 mypy
 sqlalchemy-stubs
+types-python-jose
 
 pylint
 
