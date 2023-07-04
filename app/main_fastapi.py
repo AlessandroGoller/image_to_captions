@@ -2,9 +2,8 @@
 Module for start FastApi
 """
 
-import time
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.controller import telegram, user
@@ -15,7 +14,10 @@ from app.utils.logger import configure_logger
 logger = configure_logger()
 settings = get_settings()
 
-app = FastAPI(title=settings.APP_NAME)
+app = FastAPI(
+    title=settings.APP_NAME,
+    openapi_url=settings.OPENAPI_URL
+    )
 app.include_router(telegram.router)
 app.include_router(user.router)
 

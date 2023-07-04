@@ -42,6 +42,9 @@ class Config(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: str = "30"
     TOKEN_URL: str = "/user/token"
 
+    # If None, it will no exist -> for production
+    OPENAPI_URL: Optional[str] = os.getenv("OPENAPI_URL") or "/openapi.json"
+
 
 policy = PasswordPolicy.from_names(
     length=8,  # min length: 8

@@ -24,7 +24,7 @@ ALGORITHM = settings.ALGORITHM_JWT
 ACCESS_TOKEN_EXPIRE_MINUTES = int(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 TIME_FOR_WRONG_LOGIN = 0.5
 
-def protect_timing_attack(start_time: time)->None:
+def protect_timing_attack(start_time: float)->None:
     """
     If wrong username or password wait some time.
     This method should protect against timing attack
