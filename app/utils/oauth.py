@@ -1,5 +1,5 @@
 """ Module for auth """
-
+import time
 from datetime import datetime, timedelta
 from typing import Annotated, Optional, Union
 
@@ -22,20 +22,43 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.TOKEN_URL)
 SECRET_KEY = settings.SECRET_KEY_JWT
 ALGORITHM = settings.ALGORITHM_JWT
 ACCESS_TOKEN_EXPIRE_MINUTES = int(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+TIME_FOR_WRONG_LOGIN = 0.5
+
+def protect_timing_attack(start_time: time)->None:
+    """
+    If wrong username or password wait some time.
+    This method should protect against timing attack
+
+    Parameters
+    ----------
+    start_time : time
+    """
+    end_time = time.time()
+    time_to_wait = TIME_FOR_WRONG_LOGIN-end_time-start_time
+    if time_to_wait > 0:
+        time.sleep(time_to_wait)
 
 def verify_login(email: str, password: str) -> bool:
     """
     Verifica se l'utente con username e password esiste nella lista degli utenti registrati
     e se le credenziali sono corrette.
     """
+    start_time = time.time()
     email = email.strip()
     user = get_user_by_email(email=email)
     if user is None:
+        protect_timing_attack(start_time)
         return False
     stored_password = user.password
-    return bool(
+
+    check_psw = bool(
         bcrypt.checkpw(password.encode("utf-8"), stored_password.encode("utf-8"))
     )
+    if check_psw:
+        return True
+
+    protect_timing_attack(start_time)
+    return False
 
 def register_user(email: str, password: str) -> bool:
     """
